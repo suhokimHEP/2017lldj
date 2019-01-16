@@ -4,9 +4,13 @@
   For 2017 data.
 
 ##-----Removed everything in code for:
+  
   -PFJets
+  
   -PFchsJets
+  
   -slimmedJets
+  
   -all photonID variables
 
 ##-----Starting recipe:

@@ -1,5 +1,5 @@
-#include "LLDJstandalones/ntuples/interface/lldjNtuple.h"
-#include "LLDJstandalones/ntuples/interface/GenParticleParentage.h"
+#include "2017lldj/ntuples/interface/lldjNtuple.h"
+#include "2017lldj/ntuples/interface/GenParticleParentage.h"
 
 using namespace std;
 

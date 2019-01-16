@@ -25,7 +25,7 @@ process.source = cms.Source('PoolSource',
                             fileNames = cms.untracked.vstring(
           #'file:MuEG.root'
         #'root://cms-xrd-global.cern.ch//store/data/Run2016G/SingleElectron/AOD/23Sep2016-v1/100000/62B0D6B4-D58A-E611-9F51-002590AC4B5C.root'
-        'file:/uscms/home/ddiaz/nobackup/2017-AODONLY_LLDJ_slc6_630_CMSSW_9_4_9_cand2/src/LLDJstandalones/ntuples/config/DataSP.root'
+        'file:/uscms/home/ddiaz/nobackup/DataSP.root'
  ),
 )
 
@@ -49,8 +49,6 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.GlobalTag.globaltag = '94X_mc2017_realistic_v12'
 #newer recommendation is v14
 
-# Legacy Data Global Tag 
-#process.GlobalTag.globaltag = '80X_dataRun2_2016LegacyRepro_v4'
 
 # for AOD Photons
 from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
@@ -60,12 +58,25 @@ dataFormat = DataFormat.AOD
 #for idmod in my_id_modules:
 #    setupAllVIDIdsInModule(process,idmod,setupVIDPhotonSelection) 
 
-# for AOD Electrons
-switchOnVIDElectronIdProducer(process, dataFormat)
-#my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronHLTPreselecition_Summer16_V1_cff']
-my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID-Fall17-94X-V1_cff']
-for idmod in my_id_modules:
-    setupAllVIDIdsInModule(process,idmod,setupVIDElectronSelection)
+
+# 2017 AOD Electron ID: https://twiki.cern.ch/twiki/bin/view/CMS/EgammaPostRecoRecipes#Running_on_2016_2017_AOD
+# 2017 ID recommendations: https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations#Fall17v1 
+from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
+setupEgammaPostRecoSeq(process,
+                       runVID=True,
+                       era='2017-Nov17ReReco', 
+		       isMiniAOD=False)
+
+### for AOD Electrons
+##switchOnVIDElectronIdProducer(process, dataFormat)
+###my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronHLTPreselecition_Summer16_V1_cff']
+##my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID-Fall17-94X-V1_cff']
+##my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff']
+##for idmod in my_id_modules:
+##    setupAllVIDIdsInModule(process,idmod,setupVIDElectronSelection)
+
+
+
 
 
 # pat for trigger
@@ -182,10 +193,9 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
 
 #builds Ntuple
 process.p = cms.Path(
-    process.egmPhotonIDSequence *
     process.lldjNtuple
     )
-
+# process.egmPhotonIDSequence *
 #process.ep = cms.EndPath(process.out)
 #print process.dumpPython()
 #print process.egmGsfElectronIDSequence.dumpPython()

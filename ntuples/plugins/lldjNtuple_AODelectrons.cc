@@ -10,7 +10,7 @@
 #include "DataFormats/EgammaCandidates/interface/Conversion.h"
 #include "RecoEgamma/EgammaTools/interface/ConversionTools.h"
 
-#include "LLDJstandalones/ntuples/interface/lldjNtuple.h"
+#include "2017lldj/ntuples/interface/lldjNtuple.h"
 
 
 using namespace std;

@@ -11,7 +11,7 @@
 #include "DataFormats/PatCandidates/interface/TriggerObjectStandAlone.h"
 #include "DataFormats/PatCandidates/interface/PackedTriggerPrescales.h"
 
-#include "LLDJstandalones/ntuples/interface/lldjNtuple.h"
+#include "2017lldj/ntuples/interface/lldjNtuple.h"
 
 // (local) variables associated with tree branches
 

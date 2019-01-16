@@ -146,8 +146,21 @@ void lldjNtuple::fillAODElectrons(const edm::Event &e, const edm::EventSetup &es
 
    AOD_eleCharge_          .push_back(el->charge());
    AOD_eleChargeConsistent_.push_back((Int_t)el->isGsfCtfScPixChargeConsistent());
+
    
-   // Conversion rejection
+ //  UShort_t tmpeleIDbit = 0;
+ //  bool isPassVeto   = el->electronID("cutBasedElectronID-Fall17-94X-V1-veto");
+ //  if (isPassVeto)   setbit(tmpeleIDbit, 0);
+ //  bool isPassLoose  = el->electronID("cutBasedElectronID-Fall17-94X-V1-loose");
+ //  if (isPassLoose)  setbit(tmpeleIDbit, 1);
+ //  bool isPassMedium = el->electronID("cutBasedElectronID-Fall17-94X-V1-medium");
+ //  if (isPassMedium) setbit(tmpeleIDbit, 2);
+ //  bool isPassTight  = el->electronID("cutBasedElectronID-Fall17-94X-V1-tight");
+ //  if (isPassTight)  setbit(tmpeleIDbit, 3);
+   //bool isPassHEEP   = el->electronID("heepElectronID-HEEPV70");
+   //if (isPassHEEP)   setbit(tmpeleIDbit, 4);
+   
+   
    bool passConvVeto = !ConversionTools::hasMatchedConversion(*el, 
    							      conversions,
    							      theBeamSpot->position());

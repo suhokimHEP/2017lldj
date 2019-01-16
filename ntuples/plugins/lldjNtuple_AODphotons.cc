@@ -14,21 +14,21 @@ vector<float>    AOD_phoSCEn_;
 vector<float>    AOD_phoSCEta_;
 vector<float>    AOD_phoSCPhi_;
 
-vector<float>    AOD_phoPassElectronVeto_;
-vector<float>    AOD_phoHasPixelSeed_;
+///vector<float>    AOD_phoPassElectronVeto_;
+///vector<float>    AOD_phoHasPixelSeed_;
 
 //vector<UShort_t> AOD_phoIDbit_;
 //vector<Float_t>  AOD_phoIDMVA_;
 
-vector<float>    AOD_phoObjPFChIso_;
-vector<float>    AOD_phoObjPFPhoIso_;
-vector<float>    AOD_phoObjPFNeuIso_;
-vector<float>    AOD_phoObjPFChWorstIso_;
-
-vector<float>    AOD_phoMapPFChIso_;
-vector<float>    AOD_phoMapPFPhoIso_;
-vector<float>    AOD_phoMapPFNeuIso_;
-vector<float>    AOD_phoMapPFChWorstIso_;
+///vector<float>    AOD_phoObjPFChIso_;
+///vector<float>    AOD_phoObjPFPhoIso_;
+///vector<float>    AOD_phoObjPFNeuIso_;
+///vector<float>    AOD_phoObjPFChWorstIso_;
+///
+///vector<float>    AOD_phoMapPFChIso_;
+///vector<float>    AOD_phoMapPFPhoIso_;
+///vector<float>    AOD_phoMapPFNeuIso_;
+///vector<float>    AOD_phoMapPFChWorstIso_;
 
 
 void lldjNtuple::branchesAODPhotons(TTree* tree) {
@@ -45,21 +45,21 @@ void lldjNtuple::branchesAODPhotons(TTree* tree) {
 
  tree->Branch("AOD_phoSCPhi",           &AOD_phoSCPhi_             );             
 
- tree->Branch("AOD_phoPassElectronVeto", &AOD_phoPassElectronVeto_ );
- tree->Branch("AOD_phoHasPixelSeed",     &AOD_phoHasPixelSeed_     );
+/// tree->Branch("AOD_phoPassElectronVeto", &AOD_phoPassElectronVeto_ );
+/// tree->Branch("AOD_phoHasPixelSeed",     &AOD_phoHasPixelSeed_     );
 
  //tree->Branch("AOD_phoIDbit",           &AOD_phoIDbit_           );             
  //tree->Branch("AOD_phoIDMVA",           &AOD_phoIDMVA_           );             
   
- tree->Branch("AOD_phoObjPFChIso",      &AOD_phoObjPFChIso_      );
- tree->Branch("AOD_phoObjPFPhoIso",     &AOD_phoObjPFPhoIso_     );
- tree->Branch("AOD_phoObjPFNeuIso",     &AOD_phoObjPFNeuIso_     );
- tree->Branch("AOD_phoObjPFChWorstIso", &AOD_phoObjPFChWorstIso_ );
-  
- tree->Branch("AOD_phoMapPFChIso",      &AOD_phoMapPFChIso_      );
- tree->Branch("AOD_phoMapPFPhoIso",     &AOD_phoMapPFPhoIso_     );
- tree->Branch("AOD_phoMapPFNeuIso",     &AOD_phoMapPFNeuIso_     );
- tree->Branch("AOD_phoMapPFChWorstIso", &AOD_phoMapPFChWorstIso_ );
+/// tree->Branch("AOD_phoObjPFChIso",      &AOD_phoObjPFChIso_      );
+/// tree->Branch("AOD_phoObjPFPhoIso",     &AOD_phoObjPFPhoIso_     );
+/// tree->Branch("AOD_phoObjPFNeuIso",     &AOD_phoObjPFNeuIso_     );
+/// tree->Branch("AOD_phoObjPFChWorstIso", &AOD_phoObjPFChWorstIso_ );
+///  
+/// tree->Branch("AOD_phoMapPFChIso",      &AOD_phoMapPFChIso_      );
+/// tree->Branch("AOD_phoMapPFPhoIso",     &AOD_phoMapPFPhoIso_     );
+/// tree->Branch("AOD_phoMapPFNeuIso",     &AOD_phoMapPFNeuIso_     );
+/// tree->Branch("AOD_phoMapPFChWorstIso", &AOD_phoMapPFChWorstIso_ );
 
 }
 
@@ -76,22 +76,22 @@ void lldjNtuple::fillAODPhotons(const edm::Event& e, const edm::EventSetup& es) 
  AOD_phoSCEta_           .clear();       
  AOD_phoSCPhi_           .clear();       
 
- AOD_phoPassElectronVeto_ .clear();
- AOD_phoHasPixelSeed_     .clear();
+ ///AOD_phoPassElectronVeto_ .clear();
+ ///AOD_phoHasPixelSeed_     .clear();
 
  ///AOD_phoIDbit_           .clear();       
  //AOD_phoIDMVA_           .clear();       
 
- AOD_phoObjPFChIso_      .clear();
- AOD_phoObjPFPhoIso_     .clear();
- AOD_phoObjPFNeuIso_     .clear();
- AOD_phoObjPFChWorstIso_ .clear();
-
- AOD_phoMapPFChIso_      .clear();
- AOD_phoMapPFPhoIso_     .clear();
- AOD_phoMapPFNeuIso_     .clear();
- AOD_phoMapPFChWorstIso_ .clear();
-
+/// AOD_phoObjPFChIso_      .clear();
+/// AOD_phoObjPFPhoIso_     .clear();
+/// AOD_phoObjPFNeuIso_     .clear();
+/// AOD_phoObjPFChWorstIso_ .clear();
+///
+/// AOD_phoMapPFChIso_      .clear();
+/// AOD_phoMapPFPhoIso_     .clear();
+/// AOD_phoMapPFNeuIso_     .clear();
+/// AOD_phoMapPFChWorstIso_ .clear();
+///
  edm::Handle<edm::View<reco::Photon> > photonHandle;
  e.getByToken(photonAODCollection_, photonHandle);
 
@@ -141,18 +141,18 @@ void lldjNtuple::fillAODPhotons(const edm::Event& e, const edm::EventSetup& es) 
    AOD_phoSCEta_  .push_back( (*pho).superCluster()->eta());       
    AOD_phoSCPhi_  .push_back( (*pho).superCluster()->phi());       
 
-   //https://cmssdt.cern.ch/lxr/source/DataFormats/EgammaCandidates/interface/Photon.h?%21v=CMSSW_8_0_28
-   AOD_phoPassElectronVeto_ .push_back( -1 ) ; //pho->passElectronVeto() ); 
-   AOD_phoHasPixelSeed_     .push_back( pho->hasPixelSeed()     ); 
-   
-   AOD_phoObjPFChIso_       .push_back(pho->chargedHadronIso());
-   AOD_phoObjPFPhoIso_      .push_back(pho->photonIso());
-   AOD_phoObjPFNeuIso_      .push_back(pho->neutralHadronIso());
-   
-   AOD_phoMapPFChIso_     .push_back((*AOD_phoChargedIsolationHandle_)[pho]);
-   AOD_phoMapPFPhoIso_    .push_back((*AOD_phoPhotonIsolationHandle_)[pho]);
-   AOD_phoMapPFNeuIso_    .push_back((*AOD_phoNeutralHadronIsolationHandle_)[pho]);
-   AOD_phoMapPFChWorstIso_.push_back((*AOD_phoWorstChargedIsolationHandle_)[pho]);
+ //  //https://cmssdt.cern.ch/lxr/source/DataFormats/EgammaCandidates/interface/Photon.h?%21v=CMSSW_8_0_28
+ //  AOD_phoPassElectronVeto_ .push_back( -1 ) ; //pho->passElectronVeto() ); 
+ //  AOD_phoHasPixelSeed_     .push_back( pho->hasPixelSeed()     ); 
+ //  
+ //  AOD_phoObjPFChIso_       .push_back(pho->chargedHadronIso());
+ //  AOD_phoObjPFPhoIso_      .push_back(pho->photonIso());
+ //  AOD_phoObjPFNeuIso_      .push_back(pho->neutralHadronIso());
+ //  
+ //  AOD_phoMapPFChIso_     .push_back((*AOD_phoChargedIsolationHandle_)[pho]);
+ //  AOD_phoMapPFPhoIso_    .push_back((*AOD_phoPhotonIsolationHandle_)[pho]);
+ //  AOD_phoMapPFNeuIso_    .push_back((*AOD_phoNeutralHadronIsolationHandle_)[pho]);
+ //  AOD_phoMapPFChWorstIso_.push_back((*AOD_phoWorstChargedIsolationHandle_)[pho]);
    
    nAODPho_++;
 

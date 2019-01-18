@@ -20,17 +20,24 @@
 
 # Set up the area
   export SCRAM_ARCH=slc6_amd64_gcc630;
+  
   scram pro -n 2017-LLDJ_slc6_630_CMSSW_9_4_10 CMSSW CMSSW_9_4_10;
+  
   cd 2017-LLDJ_slc6_630_CMSSW_9_4_10/src;
+  
   cmsenv;
 
 ## CMSSW imports and customizations
   git cms-init
+  
   git cms-merge-topic cms-egamma:EgammaID_949 #if you want the V2 IDs, otherwise skip
+  
   git cms-merge-topic cms-egamma:EgammaPostRecoTools_940 #just adds in an extra file to have a setup function to make things  easier
+  
   scramv1 build -j 8;
   
   #git cms-merge-topic cms-met:METFixEE2017_949 #haven't tried it, but was part of Tom's recipe
+  
   #scramv1 build -j 20
 
 ## LLDJstandalones Framework checkout

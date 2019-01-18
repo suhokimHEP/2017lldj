@@ -58,23 +58,17 @@ dataFormat = DataFormat.AOD
 #for idmod in my_id_modules:
 #    setupAllVIDIdsInModule(process,idmod,setupVIDPhotonSelection) 
 
-
+###########----Test Area
 # 2017 AOD Electron ID: https://twiki.cern.ch/twiki/bin/view/CMS/EgammaPostRecoRecipes#Running_on_2016_2017_AOD
 # 2017 ID recommendations: https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations#Fall17v1 
+## for AOD Electrons
 from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
+
 setupEgammaPostRecoSeq(process,
                        runVID=True,
                        era='2017-Nov17ReReco', 
-		       isMiniAOD=False)
-
-### for AOD Electrons
-##switchOnVIDElectronIdProducer(process, dataFormat)
-###my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronHLTPreselecition_Summer16_V1_cff']
-##my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID-Fall17-94X-V1_cff']
-##my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff']
-##for idmod in my_id_modules:
-##    setupAllVIDIdsInModule(process,idmod,setupVIDElectronSelection)
-
+		       isMiniAOD=False,
+		       eleIDModules=['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff'])
 
 
 
@@ -112,13 +106,7 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  doAOD                     = cms.bool(True),
  doMiniAOD                 = cms.bool(False),
 
- electronSrc               = cms.InputTag('selectedElectrons','','LLDJ'),
  rhoLabel                  = cms.InputTag('fixedGridRhoFastjetAll'),
- eleVetoIdMap              = cms.InputTag('egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-veto'),
- eleLooseIdMap             = cms.InputTag('egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose'),
- eleMediumIdMap            = cms.InputTag('egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-medium'),
- eleTightIdMap             = cms.InputTag('egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-tight'),
- eleHLTIdMap               = cms.InputTag('egmGsfElectronIDs:cutBasedElectronHLTPreselection-Summer16-V1'),
 
  rhoCentralLabel           = cms.InputTag('fixedGridRhoFastjetCentralNeutral'),
  pileupCollection          = cms.InputTag('slimmedAddPileupInfo'),
@@ -155,16 +143,9 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
 
  muonSrc                   = cms.InputTag('slimmedMuons'),
  muonAODSrc                = cms.InputTag('selectedPatMuons'),
+ #muonAODSrc                = cms.InputTag('muons' , '', 'RECO'),
 
  photonSrc                 = cms.InputTag('selectedPhotons','','LLDJ'),
-# phoLooseIdMap             = cms.InputTag('egmPhotonIDs:cutBasedPhotonID-Fall17-94X-V1-loose'),
-# phoMediumIdMap            = cms.InputTag('egmPhotonIDs:cutBasedPhotonID-Fall17-94X-V1-medium'),
-# phoTightIdMap             = cms.InputTag('egmPhotonIDs:cutBasedPhotonID-Fall17-94X-V1-tight'),
-# phoChargedIsolation       = cms.InputTag('photonIDValueMapProducer:phoChargedIsolation'),
-# phoNeutralHadronIsolation = cms.InputTag('photonIDValueMapProducer:phoNeutralHadronIsolation'),
-# phoPhotonIsolation        = cms.InputTag('photonIDValueMapProducer:phoPhotonIsolation'),
-# phoWorstChargedIsolation  = cms.InputTag('photonIDValueMapProducer:phoWorstChargedIsolation'),
- #photonAODSrc              = cms.InputTag('selectedPatPhotons'),
  photonAODSrc              = cms.InputTag('gedPhotons'),
 
 # AOD_phoLooseIdMap  = cms.InputTag("egmPhotonIDs:cutBasedPhotonID-Fall17-94X-V1-loose"),
@@ -193,10 +174,6 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
 
 #builds Ntuple
 process.p = cms.Path(
+    process.egammaPostRecoSeq *
     process.lldjNtuple
     )
-# process.egmPhotonIDSequence *
-#process.ep = cms.EndPath(process.out)
-#print process.dumpPython()
-#print process.egmGsfElectronIDSequence.dumpPython()
-

@@ -39,21 +39,21 @@
   #git cms-merge-topic cms-met:METFixEE2017_949 #haven't tried it, but was part of Tom's recipe
   
   #scramv1 build -j 20
-
+ 
 ## LLDJstandalones Framework checkout
 
 # first fork the repository to make your own workspace
   git clone https://github.com/<mygithubusername>/2017lldj.git;
 
- # If you want to check out a specific branch
- # git fetch origin
- # git branch -v -a # list branches available, find yours
- # git checkout -b NAMEOFBRANCH origin/NAMEOFBRANCH
+# If you want to check out a specific branch
+  # git fetch origin
+  # git branch -v -a # list branches available, find yours
+  # git checkout -b NAMEOFBRANCH origin/NAMEOFBRANCH
 
- cd 2017lldj
 # compile a clean are
- scramv1 build -j 10;
+  cd 2017lldj
+  scramv1 build -j 10;
 
 ## Every time you log in
 # set up some environment variables (bash)
-# source LLDJstandalones/setup.sh
+# source 2017lldj/setup.sh

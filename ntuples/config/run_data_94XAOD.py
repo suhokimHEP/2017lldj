@@ -32,16 +32,15 @@ process.source = cms.Source('PoolSource',
 # output name
 process.TFileService = cms.Service('TFileService', fileName = cms.string('lldjntuple_data_AOD.root'));
 
-#process.out = cms.OutputModule(
-#'PoolOutputModule',
-#     fileName = cms.untracked.string('output6.root'),
-#     outputCommands = cms.untracked.vstring( 
-#      'keep *', )  
-#)
-
 # cms geometry
-process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
-process.load('Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cff')
+#process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
+#process.load('Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cff')
+
+# In EGamma POG PostRecoTools twiki, instead of two above
+process.load("Configuration.Geometry.GeometryRecoDB_cff")
+process.load("Configuration.StandardSequences.Services_cff")
+process.load("Configuration.StandardSequences.MagneticField_cff")
+process.load("Geometry.CaloEventSetup.CaloTowerConstituents_cfi")
 
 # global tag
 process.load('Configuration.StandardSequences.Services_cff')
@@ -49,21 +48,55 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.GlobalTag.globaltag = '94X_mc2017_realistic_v12'
 #newer recommendation is v14
 
+##from old config for 2016
+###########################################################################################
+## Declare this is data (is this necessary?)
+## 
+process.load( 'PhysicsTools.PatAlgos.producersLayer1.patCandidates_cff' )
+process.load( 'PhysicsTools.PatAlgos.triggerLayer1.triggerProducer_cff' )
+process.load('PhysicsTools.PatAlgos.patSequences_cff')
+
+#from PhysicsTools.PatAlgos.tools.coreTools import *
+#runOnData( process,  names=['Photons', 'Electrons','Muons','Taus','Jets'], outputModules = [] )
+
+##########################################################################################
+
 
 # for AOD Photons
-from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
-dataFormat = DataFormat.AOD
+#from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
+#dataFormat = DataFormat.AOD
 #switchOnVIDPhotonIdProducer(process, dataFormat)
 #my_id_modules = ['RecoEgamma.PhotonIdentification.Identification.cutBasedPhotonID_Fall17_94X_V1_TrueVtx_cff']
 #for idmod in my_id_modules:
 #    setupAllVIDIdsInModule(process,idmod,setupVIDPhotonSelection) 
+
+# pat for trigger
+process.load( 'PhysicsTools.PatAlgos.triggerLayer1.triggerProducer_cff' )
+
+# load the coreTools of PAT
+from PhysicsTools.PatAlgos.tools.jetTools import *
+
+# pat for muons
+#process.load('PhysicsTools.PatAlgos.patSequences_cff')
+
+from PhysicsTools.PatAlgos.tools.coreTools import *
+runOnData( process, names=['All'], outputModules = [])
+
+#### import skeleton process
+###from PhysicsTools.PatAlgos.patTemplate_cfg import *
+#process.load("PhysicsTools.PatAlgos.producersLayer1.patCandidates_cff")
+#patAlgosToolsTask.add(process.patCandidatesTask)
+
+#process.load("PhysicsTools.PatAlgos.selectionLayer1.selectedPatCandidates_cff")
+#patAlgosToolsTask.add(process.selectedPatCandidatesTask)
+
+
 
 ###########----Test Area
 # 2017 AOD Electron ID: https://twiki.cern.ch/twiki/bin/view/CMS/EgammaPostRecoRecipes#Running_on_2016_2017_AOD
 # 2017 ID recommendations: https://twiki.cern.ch/twiki/bin/view/CMS/EgammaRunIIRecommendations#Fall17v1 
 ## for AOD Electrons
 from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
-
 setupEgammaPostRecoSeq(process,
                        runVID=True,
                        era='2017-Nov17ReReco', 
@@ -71,19 +104,6 @@ setupEgammaPostRecoSeq(process,
 		       eleIDModules=['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff'])
 
 
-
-
-# pat for trigger
-process.load( 'PhysicsTools.PatAlgos.triggerLayer1.triggerProducer_cff' )
-
-# pat for muons
-process.load('PhysicsTools.PatAlgos.patSequences_cff')
-
-from PhysicsTools.PatAlgos.tools.coreTools import *
-runOnData( process, names=['All'], outputModules = [])
-
-# load the coreTools of PAT
-from PhysicsTools.PatAlgos.tools.jetTools import *
 
 # For AOD Track variables
 process.MaterialPropagator = cms.ESProducer('PropagatorWithMaterialESProducer',
@@ -99,6 +119,7 @@ process.MaterialPropagator = cms.ESProducer('PropagatorWithMaterialESProducer',
 process.TransientTrackBuilderESProducer = cms.ESProducer('TransientTrackBuilderESProducer',
     ComponentName = cms.string('TransientTrackBuilder')
 )
+
 
 #NTuplizer
 process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
@@ -175,5 +196,8 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
 #builds Ntuple
 process.p = cms.Path(
     process.egammaPostRecoSeq *
+    process.particleFlowPtrs *
+    process.patCandidates *
+    process.selectedPatCandidates *
     process.lldjNtuple
     )

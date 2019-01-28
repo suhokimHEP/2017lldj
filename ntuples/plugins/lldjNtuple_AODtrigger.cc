@@ -413,7 +413,7 @@ void lldjNtuple::fillAODTrigger(const edm::Event &e, const edm::EventSetup &es){
     unsigned int isPrescaled = (hltPrescale_.prescaleValue(e,es,name)) != 1;
     const unsigned int triggerIndex = hltConfig_.triggerIndex(name);
     unsigned int isFired     = AODTriggerHandle_->accept(triggerIndex);
-    //cout << "was run " << AODTriggerHandle_->wasrun(triggerIndex) << endl;
+    //cout << "was run " << AODTriggerHandle_->wasrun(triggerIndex) << endl; //check, doesnt seem to work
     
     // if statement checks if trigger was present (any version XXX_vN)
     // set the bit N of our trigger variable to 1 or 0 based on isFired

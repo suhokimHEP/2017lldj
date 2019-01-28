@@ -197,7 +197,6 @@ void lldjNtuple::analyze(const edm::Event& e, const edm::EventSetup& es) {
 
  if(doAOD_){
   fillAODEvent(e, es);
-  if (!e.isRealData()) //fillGenPart(e);
   fillAODTrigger(e, es);
   fillAODJets(e, es);
   fillAODPhotons(e, es);

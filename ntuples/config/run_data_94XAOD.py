@@ -45,20 +45,14 @@ process.load("Geometry.CaloEventSetup.CaloTowerConstituents_cfi")
 # global tag
 process.load('Configuration.StandardSequences.Services_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
-process.GlobalTag.globaltag = '94X_mc2017_realistic_v12'
+process.GlobalTag.globaltag = '94X_dataRun2_v11'
 #newer recommendation is v14
 
 ##from old config for 2016
 ###########################################################################################
-## Declare this is data (is this necessary?)
-## 
 process.load( 'PhysicsTools.PatAlgos.producersLayer1.patCandidates_cff' )
 process.load( 'PhysicsTools.PatAlgos.triggerLayer1.triggerProducer_cff' )
 process.load('PhysicsTools.PatAlgos.patSequences_cff')
-
-#from PhysicsTools.PatAlgos.tools.coreTools import *
-#runOnData( process,  names=['Photons', 'Electrons','Muons','Taus','Jets'], outputModules = [] )
-
 ##########################################################################################
 
 
@@ -157,16 +151,16 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  patTriggerResults         = cms.InputTag('TriggerResults', '', 'PAT'),
  BadChargedCandidateFilter = cms.InputTag('BadChargedCandidateFilter'),
  BadPFMuonFilter           = cms.InputTag('BadPFMuonFilter'),
- pfMETLabel                = cms.InputTag('slimmedMETsMuEGClean', '', 'LLDJ'),
+ #pfMETLabel                = cms.InputTag('slimmedMETsMuEGClean', '', 'LLDJ'),
  AODCaloMETlabel           = cms.InputTag('caloMet','','RECO'),    
- AODpfChMETlabel           = cms.InputTag('pfChMet','','RECO'),    
- AODpfMETlabel             = cms.InputTag('pfMet','','RECO'),  
+ #AODpfChMETlabel           = cms.InputTag('pfChMet','','RECO'),    
+ #AODpfMETlabel             = cms.InputTag('pfMet','','RECO'),  
 
  muonSrc                   = cms.InputTag('slimmedMuons'),
  muonAODSrc                = cms.InputTag('selectedPatMuons'),
  #muonAODSrc                = cms.InputTag('muons' , '', 'RECO'),
 
- photonSrc                 = cms.InputTag('selectedPhotons','','LLDJ'),
+ #photonSrc                 = cms.InputTag('selectedPhotons','','LLDJ'),
  photonAODSrc              = cms.InputTag('gedPhotons'),
 
 # AOD_phoLooseIdMap  = cms.InputTag("egmPhotonIDs:cutBasedPhotonID-Fall17-94X-V1-loose"),
@@ -184,13 +178,20 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  AOD_eleTightIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose"),
  conversions  = cms.InputTag('allConversions'),
 
- genParticleSrc    = cms.InputTag("genParticles"),
+# genParticleSrc    = cms.InputTag("genParticles"),
 
  bits = cms.InputTag("TriggerResults","","HLT"),
  prescales = cms.InputTag("patTrigger"),
  objects = cms.InputTag("selectedPatTrigger"),
 
 )
+
+# Double check: this is to remove the OOT photons, which is causing a crash
+process.patCandidates.remove(process.patCandidateSummary)
+process.patCandidatesTask.remove(process.makePatOOTPhotonsTask)
+process.selectedPatCandidates.remove(process.selectedPatCandidateSummary)
+process.selectedPatCandidatesTask.remove(process.selectedPatOOTPhotons)
+process.cleanPatCandidates.remove(process.cleanPatCandidateSummary)
 
 
 #builds Ntuple

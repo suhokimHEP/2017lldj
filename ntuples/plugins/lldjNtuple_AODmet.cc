@@ -5,14 +5,14 @@
 using namespace std;
 
  float AOD_CaloMET_pt_  ; 
- float AOD_pfChMET_pt_  ; 
- float AOD_pfMET_pt_    ; 
+ //float AOD_pfChMET_pt_  ; 
+ //float AOD_pfMET_pt_    ; 
  float AOD_CaloMET_phi_ ;  
- float AOD_pfChMET_phi_ ;  
- float AOD_pfMET_phi_   ;  
+ //float AOD_pfChMET_phi_ ;  
+ //float AOD_pfMET_phi_   ;  
  float AOD_CaloMET_sumEt_ ;  
- float AOD_pfChMET_sumEt_ ;  
- float AOD_pfMET_sumEt_   ;  
+ //float AOD_pfChMET_sumEt_ ;  
+ //float AOD_pfMET_sumEt_   ;  
 
  //float  AOD_pfMET_T1JERUp_ ; 
  //float  AOD_pfMET_T1JERDo_ ; 
@@ -38,11 +38,11 @@ void lldjNtuple::branchesAODMET(TTree* tree) {
 
  //printf(" making AOD MET branches\n");
  tree->Branch("AOD_CaloMET_pt" , &AOD_CaloMET_pt_  ); 
- tree->Branch("AOD_pfChMET_pt" , &AOD_pfChMET_pt_  ); 
- tree->Branch("AOD_pfMET_pt"   , &AOD_pfMET_pt_    ); 
+ //tree->Branch("AOD_pfChMET_pt" , &AOD_pfChMET_pt_  ); 
+ //tree->Branch("AOD_pfMET_pt"   , &AOD_pfMET_pt_    ); 
  tree->Branch("AOD_CaloMET_phi", &AOD_CaloMET_phi_ );  
- tree->Branch("AOD_pfChMET_phi", &AOD_pfChMET_phi_ );  
- tree->Branch("AOD_pfMET_phi"  , &AOD_pfMET_phi_   );  
+ //tree->Branch("AOD_pfChMET_phi", &AOD_pfChMET_phi_ );  
+ //tree->Branch("AOD_pfMET_phi"  , &AOD_pfMET_phi_   );  
 
  //tree->Branch("AOD_pfMET_T1JERUp" , &AOD_pfMET_T1JERUp_ ) ; 
  //tree->Branch("AOD_pfMET_T1JERDo" , &AOD_pfMET_T1JERDo_ ) ; 
@@ -70,12 +70,12 @@ void lldjNtuple::fillAODMET(const edm::Event& e, const edm::EventSetup& es) {
  //printf(" filling AOD MET branches\n");
 
  edm::Handle<edm::View<reco::CaloMET> > AODCaloMETHandle;
- edm::Handle<edm::View<reco::PFMET> >   AODpfChMETHandle;
- edm::Handle<edm::View<reco::PFMET> >   AODpfMETHandle;
+ //edm::Handle<edm::View<reco::PFMET> >   AODpfChMETHandle;
+ //edm::Handle<edm::View<reco::PFMET> >   AODpfMETHandle;
 
  e.getByToken(AODCaloMETlabel_, AODCaloMETHandle); 
- e.getByToken(AODpfChMETlabel_, AODpfChMETHandle); 
- e.getByToken(AODpfMETlabel_  , AODpfMETHandle);   
+ //e.getByToken(AODpfChMETlabel_, AODpfChMETHandle); 
+ //e.getByToken(AODpfMETlabel_  , AODpfMETHandle);   
 
  if (AODCaloMETHandle.isValid()) {
    const reco::CaloMET *AODCaloMET = 0;
@@ -85,24 +85,24 @@ void lldjNtuple::fillAODMET(const edm::Event& e, const edm::EventSetup& es) {
    AOD_CaloMET_phi_  = AODCaloMET->phi() ;  
    AOD_CaloMET_sumEt_= AODCaloMET->sumEt() ;  
  }
-
- if (AODpfChMETHandle.isValid()) {
-   const reco::PFMET *AODpfChMET = 0;
-   AODpfChMET = &(AODpfChMETHandle->at(0));
-   //printf("AODpfChMETHandle is valid\n");
-   AOD_pfChMET_pt_    = AODpfChMET->pt() ; 
-   AOD_pfChMET_phi_   = AODpfChMET->phi() ;  
-   AOD_pfChMET_sumEt_ = AODpfChMET->sumEt() ;  
- }
-
- if (AODpfMETHandle.isValid()) {
-   const reco::PFMET *AODpfMET = 0;
-   AODpfMET = &(AODpfMETHandle->at(0));
-   //printf("AODpfMETHandle is valid\n");
-   AOD_pfMET_pt_     = AODpfMET->pt() ; 
-   AOD_pfMET_phi_    = AODpfMET->phi() ;  
-   AOD_pfMET_sumEt_  = AODpfMET->sumEt() ;  
-
+//
+// if (AODpfChMETHandle.isValid()) {
+//   const reco::PFMET *AODpfChMET = 0;
+//   AODpfChMET = &(AODpfChMETHandle->at(0));
+//   //printf("AODpfChMETHandle is valid\n");
+//   AOD_pfChMET_pt_    = AODpfChMET->pt() ; 
+//   AOD_pfChMET_phi_   = AODpfChMET->phi() ;  
+//   AOD_pfChMET_sumEt_ = AODpfChMET->sumEt() ;  
+// }
+//
+// if (AODpfMETHandle.isValid()) {
+//   const reco::PFMET *AODpfMET = 0;
+//   AODpfMET = &(AODpfMETHandle->at(0));
+//   //printf("AODpfMETHandle is valid\n");
+//   AOD_pfMET_pt_     = AODpfMET->pt() ; 
+//   AOD_pfMET_phi_    = AODpfMET->phi() ;  
+//   AOD_pfMET_sumEt_  = AODpfMET->sumEt() ;  
+//
    // shifts
    //const pat::MET *patAODpfMET = 0;
    //patAODpfMET = &(AODpfMETHandle->at(0));
@@ -128,6 +128,6 @@ void lldjNtuple::fillAODMET(const edm::Event& e, const edm::EventSetup& es) {
    //AOD_pfMETPhi_T1JESDo_ = patAODpfMET.shiftedPhi(pat::MET::JetEnDown);
    //AOD_pfMETPhi_T1UESUp_ = patAODpfMET.shiftedPhi(pat::MET::UnclusteredEnUp);
    //AOD_pfMETPhi_T1UESDo_ = patAODpfMET.shiftedPhi(pat::MET::UnclusteredEnDown);
- }
+// }
 
 }

@@ -178,11 +178,12 @@ void lldjNtuple::fillAODTrigger(const edm::Event &e, const edm::EventSetup &es){
   AOD_HLT_Photon175_isPS_         = 0;
   AOD_HLT_Photon165_HE10_isPS_    = 0;  
 
+  //std::cout << "entered Trigger prog" << std::endl;
 
   if( !( e.getByToken(AODTriggerToken_, AODTriggerHandle_) && e.getByToken(AODTriggerEventToken_, AODTriggerEventHandle_) ) ){ return; }
   
   for(int i = 0; i < (int)hltConfig_.size(); i++){
-    string name = hltConfig_.triggerName(i);
+    //string name = hltConfig_.triggerName(i);
     //std::cout<<name<<"\n";
     
     int bitEle23Loose = -1;

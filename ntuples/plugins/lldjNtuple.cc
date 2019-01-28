@@ -61,10 +61,10 @@ lldjNtuple::lldjNtuple(const edm::ParameterSet& ps) :
   patTrgResultsLabel_      = consumes<edm::TriggerResults>           (ps.getParameter<InputTag>("patTriggerResults"));
   BadChCandFilterToken_    = consumes<bool>                          (ps.getParameter<InputTag>("BadChargedCandidateFilter"));
   BadPFMuonFilterToken_    = consumes<bool>                          (ps.getParameter<edm::InputTag>("BadPFMuonFilter"));
-  pfMETlabel_              = consumes<View<pat::MET> >               (ps.getParameter<InputTag>("pfMETLabel"));
+  //pfMETlabel_              = consumes<View<pat::MET> >               (ps.getParameter<InputTag>("pfMETLabel"));
   AODCaloMETlabel_         = consumes<edm::View<reco::CaloMET> >     (ps.getParameter<InputTag>("AODCaloMETlabel"));
-  AODpfChMETlabel_         = consumes<edm::View<reco::PFMET> >       (ps.getParameter<InputTag>("AODpfChMETlabel"));
-  AODpfMETlabel_           = consumes<edm::View<reco::PFMET> >       (ps.getParameter<InputTag>("AODpfMETlabel"));
+  //AODpfChMETlabel_         = consumes<edm::View<reco::PFMET> >       (ps.getParameter<InputTag>("AODpfChMETlabel"));
+  //AODpfMETlabel_           = consumes<edm::View<reco::PFMET> >       (ps.getParameter<InputTag>("AODpfMETlabel"));
 
   // muons
   muonCollection_          = consumes<View<pat::Muon> >              (ps.getParameter<InputTag>("muonSrc"));
@@ -72,7 +72,7 @@ lldjNtuple::lldjNtuple(const edm::ParameterSet& ps) :
   //muonAODCollection_       = consumes<View<reco::Muon> >              (ps.getParameter<InputTag>("muonAODSrc"));
 
   // photons
-  photonCollection_        = consumes<View<pat::Photon> >            (ps.getParameter<InputTag>("photonSrc"));
+  //photonCollection_        = consumes<View<pat::Photon> >            (ps.getParameter<InputTag>("photonSrc"));
   //photonAODCollection_     = consumes<View<pat::Photon> >            (ps.getParameter<InputTag>("photonAODSrc"));
   photonAODCollection_     =  mayConsume<edm::View<reco::Photon> >           (ps.getParameter<InputTag>("photonAODSrc"));
 
@@ -116,7 +116,7 @@ lldjNtuple::lldjNtuple(const edm::ParameterSet& ps) :
   AODTriggerEventToken_           = consumes<trigger::TriggerEvent>(AODTriggerEventLabel_);
 
   // gen
-  genParticlesCollection_    = consumes<vector<reco::GenParticle> >    (ps.getParameter<InputTag>("genParticleSrc"));
+  //genParticlesCollection_    = consumes<vector<reco::GenParticle> >    (ps.getParameter<InputTag>("genParticleSrc"));
 
   Service<TFileService> fs;
   tree_    = fs->make<TTree>("EventTree", "Event data");
@@ -136,7 +136,7 @@ lldjNtuple::lldjNtuple(const edm::ParameterSet& ps) :
  //}
  if(doAOD_){
   branchesAODEvent(tree_);
-  branchesGenPart(tree_);
+  //branchesGenPart(tree_);
   branchesAODTrigger(tree_);
   branchesAODJets(tree_);
   branchesAODMuons(tree_);
@@ -197,7 +197,7 @@ void lldjNtuple::analyze(const edm::Event& e, const edm::EventSetup& es) {
 
  if(doAOD_){
   fillAODEvent(e, es);
-  if (!e.isRealData()) fillGenPart(e);
+  if (!e.isRealData()) //fillGenPart(e);
   fillAODTrigger(e, es);
   fillAODJets(e, es);
   fillAODPhotons(e, es);

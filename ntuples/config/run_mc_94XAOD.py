@@ -26,7 +26,7 @@ process.source = cms.Source('PoolSource',
 #'root://cmsxrootd.fnal.gov//store/mc/RunIISummer17DRPremix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/92X_upgrade2017_realistic_v10_ext1-v1/50003/BEF5C718-BA86-E711-8A89-C81F66B7ED98.root'
 #'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v2/40000/E852C6B8-349F-E811-B40F-24BE05C63631.root'
 #'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_TuneCP5Down/AODSIM/PU2017_94X_mc2017_realistic_v11-v2/60000/D85856D2-1C72-E811-BB88-A0369FD1EF00.root'
-'file:ZH.root'
+'file:/uscms/home/ddiaz/nobackup/ZH.root'
  ),
 )
 
@@ -35,8 +35,14 @@ process.TFileService = cms.Service('TFileService', fileName = cms.string('lldjnt
 
 
 # cms geometry
-process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
-process.load('Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cff')
+#process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
+#process.load('Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cff')
+
+# In EGamma POG PostRecoTools twiki, instead of two above
+process.load("Configuration.Geometry.GeometryRecoDB_cff")
+process.load("Configuration.StandardSequences.Services_cff")
+process.load("Configuration.StandardSequences.MagneticField_cff")
+process.load("Geometry.CaloEventSetup.CaloTowerConstituents_cfi")
 
 # global tag
 process.load('Configuration.StandardSequences.Services_cff')
@@ -44,7 +50,7 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.GlobalTag.globaltag = '94X_mc2017_realistic_v12'
 
 ## for AOD Photons
-from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
+#from PhysicsTools.SelectorUtils.tools.vid_id_tools import *
 #dataFormat = DataFormat.AOD
 #switchOnVIDPhotonIdProducer(process, dataFormat)
 #my_id_modules = ['RecoEgamma.PhotonIdentification.Identification.cutBasedPhotonID_Spring16_V2p2_cff']
@@ -63,6 +69,13 @@ process.load( 'PhysicsTools.PatAlgos.triggerLayer1.triggerProducer_cff' )
 
 # pat for muons
 process.load('PhysicsTools.PatAlgos.patSequences_cff')
+
+from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
+setupEgammaPostRecoSeq(process,
+                       runVID=True,
+                       era='2017-Nov17ReReco', 
+		       isMiniAOD=False,
+		       eleIDModules=['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff'])
 
 # For AOD Track variables
 process.MaterialPropagator = cms.ESProducer('PropagatorWithMaterialESProducer',
@@ -129,10 +142,10 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  muonSrc                   = cms.InputTag('slimmedMuons'),
  muonAODSrc                = cms.InputTag('selectedPatMuons'),
 
- photonSrc                 = cms.InputTag('selectedPhotons','','LLDJ'),
- phoLooseIdMap             = cms.InputTag('egmPhotonIDs:cutBasedPhotonID-Spring15-25ns-V1-standalone-loose'),
- phoMediumIdMap            = cms.InputTag('egmPhotonIDs:cutBasedPhotonID-Spring15-25ns-V1-standalone-medium'),
- phoTightIdMap             = cms.InputTag('egmPhotonIDs:cutBasedPhotonID-Spring15-25ns-V1-standalone-tight'),
+ #photonSrc                 = cms.InputTag('selectedPhotons','','LLDJ'),
+ #phoLooseIdMap             = cms.InputTag('egmPhotonIDs:cutBasedPhotonID-Spring15-25ns-V1-standalone-loose'),
+ #phoMediumIdMap            = cms.InputTag('egmPhotonIDs:cutBasedPhotonID-Spring15-25ns-V1-standalone-medium'),
+ #phoTightIdMap             = cms.InputTag('egmPhotonIDs:cutBasedPhotonID-Spring15-25ns-V1-standalone-tight'),
  #phoChargedIsolation       = cms.InputTag('photonIDValueMapProducer:phoChargedIsolation'),
  #phoNeutralHadronIsolation = cms.InputTag('photonIDValueMapProducer:phoNeutralHadronIsolation'),
  #phoPhotonIsolation        = cms.InputTag('photonIDValueMapProducer:phoPhotonIsolation'),
@@ -140,9 +153,9 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
 
  #photonAODSrc              = cms.InputTag('selectedPatPhotons'),
  photonAODSrc              = cms.InputTag('gedPhotons'),
- AOD_phoLooseIdMap  = cms.InputTag("egmPhotonIDs:cutBasedPhotonID-Spring16-V2p2-loose"),
- AOD_phoMediumIdMap = cms.InputTag("egmPhotonIDs:cutBasedPhotonID-Spring16-V2p2-medium"),
- AOD_phoTightIdMap  = cms.InputTag("egmPhotonIDs:cutBasedPhotonID-Spring16-V2p2-tight"),
+ #AOD_phoLooseIdMap  = cms.InputTag("egmPhotonIDs:cutBasedPhotonID-Spring16-V2p2-loose"),
+ #AOD_phoMediumIdMap = cms.InputTag("egmPhotonIDs:cutBasedPhotonID-Spring16-V2p2-medium"),
+ #AOD_phoTightIdMap  = cms.InputTag("egmPhotonIDs:cutBasedPhotonID-Spring16-V2p2-tight"),
  #AOD_phoChargedIsolationMap       = cms.InputTag("photonIDValueMapProducer", "phoChargedIsolation"),
  #AOD_phoNeutralHadronIsolationMap = cms.InputTag("photonIDValueMapProducer", "phoNeutralHadronIsolation"),
  #AOD_phoPhotonIsolationMap        = cms.InputTag("photonIDValueMapProducer", "phoPhotonIsolation"),
@@ -150,12 +163,12 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
 
  electronAODSrc = cms.InputTag("gedGsfElectrons"),
  #AOD_eleIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronHLTPreselection-Summer16-V1"),#doesn't work with AOD
- AOD_eleLooseIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-loose"),
- AOD_eleMediumIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-medium"),
- AOD_eleTightIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-tight"),
+ AOD_eleLooseIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose"),
+ AOD_eleMediumIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose"),
+ AOD_eleTightIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose"),
  conversions  = cms.InputTag('allConversions'),                                    
 
- genParticleSrc    = cms.InputTag("genParticles"),
+ #genParticleSrc    = cms.InputTag("genParticles"),
 
  bits = cms.InputTag("TriggerResults","","HLT"),
  prescales = cms.InputTag("patTrigger"),
@@ -166,6 +179,10 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
 
 #builds Ntuple
 process.p = cms.Path(
+    process.egammaPostRecoSeq *
+    process.particleFlowPtrs *
+    process.patCandidates *
+    process.selectedPatCandidates *
     process.lldjNtuple
     )
 

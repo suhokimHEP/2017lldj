@@ -80,7 +80,7 @@ class lldjNtuple : public edm::EDAnalyzer {
   void branchesAODJets     (TTree*);
   void branchesTrigger     (TTree*);
   void branchesAODTrigger  (TTree*);
-  void branchesGenPart     (TTree*);
+  //void branchesGenPart     (TTree*);
   void branchesAODEvent    (TTree*);
 
   void fillGlobalEvent (const edm::Event&, const edm::EventSetup&);
@@ -96,7 +96,7 @@ class lldjNtuple : public edm::EDAnalyzer {
   void fillAODJets     (const edm::Event&, const edm::EventSetup&);
   void fillTrigger     (const edm::Event&, const edm::EventSetup&);
   void fillAODTrigger  (const edm::Event&, const edm::EventSetup&);
-  void fillGenPart     (const edm::Event&);
+  //void fillGenPart     (const edm::Event&);
   void fillAODEvent    (const edm::Event&, const edm::EventSetup&);
 
   bool isMediumMuonBCDEF(const reco::Muon & recoMu);
@@ -174,10 +174,10 @@ class lldjNtuple : public edm::EDAnalyzer {
   // for MET filters
   edm::EDGetTokenT<bool> BadChCandFilterToken_;
   edm::EDGetTokenT<bool> BadPFMuonFilterToken_;
-  edm::EDGetTokenT<edm::View<pat::MET> >           pfMETlabel_;
+  //edm::EDGetTokenT<edm::View<pat::MET> >           pfMETlabel_;
   edm::EDGetTokenT<edm::View<reco::CaloMET> >      AODCaloMETlabel_;
-  edm::EDGetTokenT<edm::View<reco::PFMET> >        AODpfChMETlabel_;
-  edm::EDGetTokenT<edm::View<reco::PFMET> >        AODpfMETlabel_;
+  //edm::EDGetTokenT<edm::View<reco::PFMET> >        AODpfChMETlabel_;
+  //edm::EDGetTokenT<edm::View<reco::PFMET> >        AODpfMETlabel_;
 
   // muons
   edm::EDGetTokenT<edm::View<pat::Muon> >          muonCollection_;
@@ -185,7 +185,7 @@ class lldjNtuple : public edm::EDAnalyzer {
   //edm::EDGetTokenT<edm::View<reco::Muon> >          muonAODCollection_;
 
   // photons
-  edm::EDGetTokenT<edm::View<pat::Photon> >        photonCollection_;
+  //edm::EDGetTokenT<edm::View<pat::Photon> >        photonCollection_;
   //edm::EDGetTokenT<edm::View<pat::Photon> >        photonAODCollection_;
   edm::EDGetToken photonAODCollection_;
   
@@ -244,7 +244,7 @@ class lldjNtuple : public edm::EDAnalyzer {
 
 
   //gen
-  edm::EDGetTokenT<vector<reco::GenParticle> >     genParticlesCollection_;
+  //edm::EDGetTokenT<vector<reco::GenParticle> >     genParticlesCollection_;
 
   TTree   *tree_;
   TH1F    *hEvents_;

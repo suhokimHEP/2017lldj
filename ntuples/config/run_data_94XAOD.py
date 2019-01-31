@@ -46,7 +46,6 @@ process.load("Geometry.CaloEventSetup.CaloTowerConstituents_cfi")
 process.load('Configuration.StandardSequences.Services_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.GlobalTag.globaltag = '94X_dataRun2_v11'
-#newer recommendation is v14
 
 ##from old config for 2016
 ###########################################################################################

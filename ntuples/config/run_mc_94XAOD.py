@@ -47,7 +47,8 @@ process.load("Geometry.CaloEventSetup.CaloTowerConstituents_cfi")
 # global tag
 process.load('Configuration.StandardSequences.Services_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
-process.GlobalTag.globaltag = '94X_mc2017_realistic_v12'
+#process.GlobalTag.globaltag = '94X_mc2017_realistic_v12'
+process.GlobalTag.globaltag = '94X_mc2017_realistic_v17'
 
 ## for AOD Photons
 #from PhysicsTools.SelectorUtils.tools.vid_id_tools import *

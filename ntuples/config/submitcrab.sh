@@ -56,6 +56,7 @@ cp "${subdir}/${msubmitconfig}"  ${thesubdir}
 # sample names to run over
 samples=( \
 # put your samples here, copy from below
+  "Data_MuonEG17_D"      \
 )
 
 # Signal Samples
@@ -121,6 +122,15 @@ samples=( \
 #  "Data_DoubleEG_C"      \
 #  "Data_DoubleEG_B_2"    \
 
+#  "DataMuonEG_H_3"    \
+#  "DataMuonEG_H_2"    \
+#  "DataMuonEG_G"      \
+#  "DataMuonEG_F"      \
+#  "DataMuonEG_E"      \
+#  "DataMuonEG_D"      \
+#  "DataMuonEG_C"      \
+#  "DataMuonEG_B_2"    \
+
 #  "Data_SinglePhoton_H_3"    \
 #  "Data_SinglePhoton_H_2"    \
 #  "Data_SinglePhoton_G"      \
@@ -180,7 +190,7 @@ samples=( \
 #  "DY5to50_HT70to100"    \
 #  "DY5to50_HT100to200_1" \
 #  "DY5to50_HT100to200_2" \
-#  "DY5to50_HT200to400_1" \
+#  "DY4to50_HT200to400_1" \
 #  "DY5to50_HT200to400_2" \
 #  "DY5to50_HT400to600_1" \
 #  "DY5to50_HT400to600_2" \
@@ -226,11 +236,11 @@ do
  printf "dodata = ${dodata}\n"
 
  ## lumi mask
- #LUMIMASK=""
- #if [ ${dodata} = true ]
- #then
- #    LUMIMASK="'${PWD}/jsons/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'"
- #fi
+ LUMIMASK=""
+ if [ ${dodata} = true ]
+ then
+     LUMIMASK="'${PWD}/jsons/Cert_294927-306462_13TeV_PromptReco_Collisions17_JSON.txt'"
+ fi
 
  # choose correct config parameters
  if [ ${dodata} = true ]
@@ -272,7 +282,7 @@ do
   SPLITTING="'FileBased'"
  fi
 
- NUNITS="-1"
+ NUNITS="10000" #"-1"
  REQUESTNAME="'${samplename}'"
  DATASET="'${datasetname}'"
  STORESITE="'T3_US_FNALLPC'"
@@ -286,7 +296,7 @@ do
  printf "SPLITTING     ${SPLITTING}    \n" 
  printf "REQUESTNAME   ${REQUESTNAME}  \n" 
  printf "DATASET       ${DATASET}      \n" 
- #printf "LUMIMASK      ${LUMIMASK}     \n" 
+ printf "LUMIMASK      ${LUMIMASK}     \n" 
  printf "STORESITE     ${STORESITE}    \n" 
  printf "OUTLFNBASE    ${OUTLFNBASE}   \n" 
  printf "MAXMEM        ${MAXMEM}       \n" 
@@ -300,16 +310,16 @@ do
  sed -i "s@SPLITTING@${SPLITTING}@g"       "${submitfile}" 
  sed -i "s@REQUESTNAME@${REQUESTNAME}@g"   "${submitfile}" 
  sed -i "s@DATASET@${DATASET}@g"           "${submitfile}" 
- #sed -i "s@LUMIMASK@${LUMIMASK}@g"         "${submitfile}" 
+ sed -i "s@LUMIMASK@${LUMIMASK}@g"         "${submitfile}" 
  sed -i "s@STORESITE@${STORESITE}@g"       "${submitfile}" 
  sed -i "s@OUTLFNBASE@${OUTLFNBASE}@g"     "${submitfile}" 
  sed -i "s@MAXMEM@${MAXMEM}@g"             "${submitfile}" 
 
-# # remove lumi mask for mc
-# if [ ${dodata} = false ]
-# then
-#     sed -i "/config.Data.lumiMask/d" "${submitfile}"
-# fi
+ # remove lumi mask for mc
+ if [ ${dodata} = false ]
+ then
+     sed -i "/config.Data.lumiMask/d" "${submitfile}"
+ fi
 
  # submit the jobs
  if [ ${dosubmit} = true ]

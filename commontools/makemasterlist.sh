@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # define output directory where lists will end up
-outdir="${CMSSW_BASE}/src/LLDJstandalones/lists"
+outdir="${CMSSW_BASE}/src/${FWVersion}/lists"
 
 # read first layer of storage directory save output to temp file
 xrdfs root://cmseos.fnal.gov ls ${depot}/${nversion} > templayer1.out

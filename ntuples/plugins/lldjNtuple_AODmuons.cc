@@ -62,15 +62,15 @@ void lldjNtuple::branchesAODMuons(TTree* tree) {
  tree->Branch("AOD_muType",                         &AOD_muType_                         ) ; 
  tree->Branch("AOD_muIsGlobalMuon",                 &AOD_muIsGlobalMuon_                 ) ; 
  tree->Branch("AOD_muIsPFMuon",                     &AOD_muIsPFMuon_                     ) ; 
-// tree->Branch("AOD_muPassLooseID",                  &AOD_muPassLooseID_                  ) ; 
-// tree->Branch("AOD_muPassMediumBCDEFID",            &AOD_muPassMediumBCDEFID_            ) ; 
-// tree->Branch("AOD_muPassMediumGHID",               &AOD_muPassMediumGHID_               ) ; 
-// tree->Branch("AOD_muPassTightID",                  &AOD_muPassTightID_                  ) ; 
-// tree->Branch("AOD_muPFdBetaIsolation",             &AOD_muPFdBetaIsolation_             ) ; 
-// tree->Branch("AOD_muDxy",                          &AOD_muDxy_                          ) ; 
-// tree->Branch("AOD_muDxyErr",                       &AOD_muDxyErr_                       ) ; 
-// tree->Branch("AOD_muDB_BS2D",                      &AOD_muDB_BS2D_                       ) ; 
-// tree->Branch("AOD_muDB_PV2D",                      &AOD_muDB_PV2D_                       ) ; 
+ tree->Branch("AOD_muPassLooseID",                  &AOD_muPassLooseID_                  ) ; 
+ tree->Branch("AOD_muPassMediumBCDEFID",            &AOD_muPassMediumBCDEFID_            ) ; 
+ tree->Branch("AOD_muPassMediumGHID",               &AOD_muPassMediumGHID_               ) ; 
+ tree->Branch("AOD_muPassTightID",                  &AOD_muPassTightID_                  ) ; 
+ tree->Branch("AOD_muPFdBetaIsolation",             &AOD_muPFdBetaIsolation_             ) ; 
+ tree->Branch("AOD_muDxy",                          &AOD_muDxy_                          ) ; 
+ tree->Branch("AOD_muDxyErr",                       &AOD_muDxyErr_                       ) ; 
+ tree->Branch("AOD_muDB_BS2D",                      &AOD_muDB_BS2D_                       ) ; 
+ tree->Branch("AOD_muDB_PV2D",                      &AOD_muDB_PV2D_                       ) ; 
 }
 
 
@@ -86,17 +86,16 @@ void lldjNtuple::fillAODMuons(const edm::Event& e, reco::Vertex vtx) {
  AOD_muType_                        .clear() ; 
  AOD_muIsGlobalMuon_                .clear() ; 
  AOD_muIsPFMuon_                    .clear() ; 
-// AOD_muPassLooseID_                 .clear() ;
-// AOD_muPassMediumBCDEFID_           .clear() ;
-// AOD_muPassMediumGHID_              .clear() ;
-// AOD_muPassTightID_                 .clear() ;
-// AOD_muPFdBetaIsolation_            .clear() ; 
-// AOD_muDxy_                         .clear() ; 
-// AOD_muDxyErr_                      .clear() ; 
-// AOD_muDB_BS2D_                     .clear() ; 
-// AOD_muDB_PV2D_                     .clear() ; 
+ AOD_muPassLooseID_                 .clear() ;
+ AOD_muPassMediumBCDEFID_           .clear() ;
+ AOD_muPassMediumGHID_              .clear() ;
+ AOD_muPassTightID_                 .clear() ;
+ AOD_muPFdBetaIsolation_            .clear() ; 
+ AOD_muDxy_                         .clear() ; 
+ AOD_muDxyErr_                      .clear() ; 
+ AOD_muDB_BS2D_                     .clear() ; 
+ AOD_muDB_PV2D_                     .clear() ; 
 
- //edm::Handle<edm::View<reco::Muon> > muonHandle;
  edm::Handle<edm::View<pat::Muon> > muonHandle;
  e.getByToken(muonAODCollection_, muonHandle);
  
@@ -110,7 +109,6 @@ void lldjNtuple::fillAODMuons(const edm::Event& e, reco::Vertex vtx) {
  e.getByToken(beamspotLabel_, beamspotHandle_);
 
  for (edm::View<pat::Muon>::const_iterator iMu = muonHandle->begin(); iMu != muonHandle->end(); ++iMu) {
- //for (edm::View<reco::Muon>::const_iterator iMu = muonHandle->begin(); iMu != muonHandle->end(); ++iMu) {
 
   Float_t pt = iMu->pt();
   Float_t eta = iMu->eta();
@@ -121,7 +119,7 @@ void lldjNtuple::fillAODMuons(const edm::Event& e, reco::Vertex vtx) {
 
   nAODMu_++;
 
-  //const reco::Muon &recoMu = dynamic_cast<const reco::Muon &>(*iMu);
+  const reco::Muon &recoMu = dynamic_cast<const reco::Muon &>(*iMu);
 
   //Basic info
   AOD_muPt_           .push_back(pt);
@@ -134,10 +132,10 @@ void lldjNtuple::fillAODMuons(const edm::Event& e, reco::Vertex vtx) {
   AOD_muIsPFMuon_     .push_back(iMu->isPFMuon     () ) ; 
 
   //ID
-  //AOD_muPassLooseID_       .push_back( iMu->isLooseMuon() );
-  //AOD_muPassMediumBCDEFID_ .push_back( isMediumMuonBCDEF(recoMu) );
-  //AOD_muPassMediumGHID_    .push_back( isMediumMuonGH(recoMu) );
-  //AOD_muPassTightID_       .push_back( iMu->isTightMuon(vtx) );
+  AOD_muPassLooseID_       .push_back( iMu->isLooseMuon() );
+  AOD_muPassMediumBCDEFID_ .push_back( isMediumMuonBCDEF(recoMu) );
+  AOD_muPassMediumGHID_    .push_back( isMediumMuonGH(recoMu) );
+  AOD_muPassTightID_       .push_back( iMu->isTightMuon(vtx) );
 
   //Isolation
   Float_t muPFChIso      = iMu->pfIsolationR04().sumChargedHadronPt ;
@@ -147,20 +145,19 @@ void lldjNtuple::fillAODMuons(const edm::Event& e, reco::Vertex vtx) {
   Float_t pfdBetaIso     = ( muPFChIso + max(0.0,muPFNeuIso + muPFPhoIso - 0.5*muPFPUIso ) ) / pt ;
   AOD_muPFdBetaIsolation_.push_back( pfdBetaIso     ) ;   
 
-  //---turn of for now need to check if this works with reco::muon
-  ////Impact parameter
-  //AOD_muDB_BS2D_.push_back (iMu->dB(pat::Muon::BS2D));
-  //AOD_muDB_PV2D_.push_back (iMu->dB(pat::Muon::PV2D));
-  //if(iMu->innerTrack().isNonnull()){
-  //  float dxy = fabs(iMu->innerTrack()->dxy(*beamspotHandle_));
-  //  float dxyErr = fabs(iMu->innerTrack()->dxyError());
-  //  AOD_muDxy_.push_back( dxy );
-  //  AOD_muDxyErr_.push_back( dxyErr );
-  //}
-  //else{
-  // AOD_muDxy_.push_back( -1 ) ;
-  // AOD_muDxyErr_.push_back( -1 ) ;
-  //}
+  //Impact parameter
+  AOD_muDB_BS2D_.push_back (iMu->dB(pat::Muon::BS2D));
+  AOD_muDB_PV2D_.push_back (iMu->dB(pat::Muon::PV2D));
+  if(iMu->innerTrack().isNonnull()){
+    float dxy = fabs(iMu->innerTrack()->dxy(*beamspotHandle_));
+    float dxyErr = fabs(iMu->innerTrack()->dxyError());
+    AOD_muDxy_.push_back( dxy );
+    AOD_muDxyErr_.push_back( dxyErr );
+  }
+  else{
+   AOD_muDxy_.push_back( -1 ) ;
+   AOD_muDxyErr_.push_back( -1 ) ;
+  }
  }//End muon collection loop
 
 }//End fillAODMuons

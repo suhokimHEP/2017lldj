@@ -56,9 +56,10 @@ cp "${subdir}/${msubmitconfig}"  ${thesubdir}
 # sample names to run over
 samples=( \
 # put your samples here, copy from below
-  "Data_MuonEG17_D"      \
+  "Data_DoubleMuon17_C"      \
 )
 
+#  "DY5017_1"               \
 # Signal Samples
 #  "ZH_HToSSTobbbb_MS-55_ctauS-1"      \
 #  "ZH_HToSSTobbbb_MS-55_ctauS-10"     \
@@ -282,7 +283,7 @@ do
   SPLITTING="'FileBased'"
  fi
 
- NUNITS="10000" #"-1"
+ NUNITS="-1"
  REQUESTNAME="'${samplename}'"
  DATASET="'${datasetname}'"
  STORESITE="'T3_US_FNALLPC'"

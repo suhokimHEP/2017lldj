@@ -15,7 +15,7 @@ process.load("RecoTracker.TkNavigation.NavigationSchoolESProducer_cfi")
 
 # log output
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )  ## number of events -1 does all
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(101) )  ## number of events -1 does all
 process.MessageLogger.cerr.FwkReport.reportEvery = 100
 
 # input files
@@ -64,6 +64,19 @@ process.GlobalTag.globaltag = '94X_mc2017_realistic_v17'
 #for idmod in my_id_modules:
 #    setupAllVIDIdsInModule(process,idmod,setupVIDElectronSelection)
 
+# for JEC
+# Load the corrections
+process.load('JetMETCorrections.Configuration.JetCorrectors_cff')
+
+
+# Produce corrected jets collection
+process.ak4CaloCorrectedJets   = cms.EDProducer('CorrectedCaloJetProducer',
+    src         = cms.InputTag('ak4CaloJets'),
+    #L1(PU), L2L3(MCTruth), L2L3Residuals
+    correctors  = cms.VInputTag('ak4CaloL1FastL2L3ResidualCorrector')
+    #correctors  = cms.VInputTag('ak4CaloL1FastjetCorrector', 'ak4CaloL2L3Corrector', 'ak4CaloL2L3ResidualCorrector')
+    #correctors  = cms.VInputTag('ak4CaloL2L3Corrector')
+    )
 
 # pat for trigger
 process.load( 'PhysicsTools.PatAlgos.triggerLayer1.triggerProducer_cff' )
@@ -93,6 +106,7 @@ process.TransientTrackBuilderESProducer = cms.ESProducer('TransientTrackBuilderE
     ComponentName = cms.string('TransientTrackBuilder')
 )
 
+
 #NTuplizer
 process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
 
@@ -119,7 +133,8 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  beamspotLabel_            = cms.InputTag('offlineBeamSpot'),
 
  #ak4JetSrc                 = cms.InputTag('slimmedJets'),
- AODak4CaloJetsSrc         = cms.InputTag('ak4CaloJets' , '', 'RECO'),
+ #AODak4CaloJetsSrc         = cms.InputTag('ak4CaloJets' , '', 'RECO'),
+ AODak4CorrCaloJetsSrc     = cms.InputTag('ak4CaloCorrectedJets'),
  #AODak4PFJetsSrc           = cms.InputTag('ak4PFJets'   , '', 'RECO'),
  #AODak4PFJetsCHSSrc        = cms.InputTag('ak4PFJetsCHS', '', 'RECO'),
  #selectedPatJetsSrc        = cms.InputTag('selectedPatJets'),                                   
@@ -187,6 +202,8 @@ process.selectedPatCandidatesTask.remove(process.selectedPatOOTPhotons)
 #builds Ntuple
 process.p = cms.Path(
     process.egammaPostRecoSeq *
+    process.ak4CaloCorrectedJets *
+    process.ak4CaloL1FastL2L3ResidualCorrectorChain *
     process.particleFlowPtrs *
     process.patCandidates *
     process.selectedPatCandidates *

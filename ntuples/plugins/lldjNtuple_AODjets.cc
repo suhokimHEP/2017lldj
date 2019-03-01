@@ -450,7 +450,7 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  magneticField_ = &*magneticField;
 
  //JEC uncertainties Daniel
- es.get<JetCorrectionsRecord>().get("AK5Calo",JetCorParColl); 
+ es.get<JetCorrectionsRecord>().get("AK4Calo",JetCorParColl); 
  JetCorrectorParameters const & JetCorPar = (*JetCorParColl)["Uncertainty"];
  JetCorrectionUncertainty *jecUnc = new JetCorrectionUncertainty(JetCorPar);
  

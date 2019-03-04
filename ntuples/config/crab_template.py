@@ -14,6 +14,7 @@ if __name__ == '__main__':
     config.General.transferLogs       = False
     config.JobType.pluginName         = 'Analysis' # PrivateMC
     config.JobType.psetName           = CMSRUNCONFIG
+    config.JobType.allowUndistributedCMSSW = True
     #config.JobType.inputFiles         = [INPUTFILES]
     config.JobType.sendExternalFolder = True
     config.JobType.maxMemoryMB        = MAXMEM

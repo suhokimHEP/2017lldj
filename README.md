@@ -2,7 +2,7 @@
   For 2017 data.
 
 ##-----Removed everything in code for:
-  
+```  
   -PFJets
   
   -PFchsJets
@@ -10,12 +10,13 @@
   -slimmedJets
   
   -all photonID variables
-
+```
 ##-----Starting recipe:
-  # Fermilab uses tcsh by default even though it has bash!
-  # This framework is based in bash and
-  # technically maybe you don't need this,
-  # but tcshers be warned
+```
+# Fermilab uses tcsh by default even though it has bash!
+# This framework is based in bash and
+# technically maybe you don't need this,
+# but tcshers be warned
   bash --login
 
 # Set up the area

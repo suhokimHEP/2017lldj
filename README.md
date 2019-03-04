@@ -34,7 +34,7 @@
 ```
 # first fork the repository to make your own workspace
   git clone https://github.com/<mygithubusername>/2017lldj.git;
-  pushd 2017lldj;
+  cd 2017lldj
 
 # If you want to check out a specific branch
   git fetch origin
@@ -43,7 +43,6 @@
   
 # add DisplacedHiggs as upstream
   git remote add upstream https://github.com/DisplacedHiggs/2017lldj.git
-  cd 2017lldj
 ```
 #-----Compile a clean area
 ```

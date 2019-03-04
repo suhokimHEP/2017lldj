@@ -4,11 +4,8 @@
 ##-----Removed everything in code for:
 ```  
   -PFJets
-  
   -PFchsJets
-  
   -slimmedJets
-  
   -all photonID variables
 ```
 ##-----Starting recipe:
@@ -17,6 +14,7 @@
 # This framework is based in bash and
 # technically maybe you don't need this,
 # but tcshers be warned
+
   bash --login
 
 # Set up the area
@@ -24,6 +22,7 @@
   scram pro -n 2017-LLDJ_slc6_630_CMSSW_9_4_10 CMSSW CMSSW_9_4_10;
   cd 2017-LLDJ_slc6_630_CMSSW_9_4_10/src;
   cmsenv;
+  
 ## CMSSW imports and customizations
   git cms-init;
   git cms-merge-topic cms-egamma:EgammaID_949; #if you want the V2 IDs, otherwise skip  
@@ -34,13 +33,12 @@
 ## LLDJstandalones Framework checkout
 ```
 # first fork the repository to make your own workspace
-  git clone https://github.com/<mygithubusername>/LLDJstandalones.git;
-  #git clone https://github.com/<mygithubusername>/2017lldj.git;
+  git clone https://github.com/<mygithubusername>/2017lldj.git;
 
 # If you want to check out a specific branch
-  # git fetch origin
-  # git branch -v -a # list branches available, find yours
-  # git checkout -b NAMEOFBRANCH origin/NAMEOFBRANCH
+  git fetch origin
+  git branch -v -a # list branches available, find yours
+  git checkout -b NAMEOFBRANCH origin/NAMEOFBRANCH
 ```
 # compile a clean are
 ```
@@ -49,6 +47,6 @@
 ```
 ## Every time you log in
 ```
-# set up some environment variables (bash)
-# source 2017lldj/setup.sh
+  #set up some environment variables (bash)
+  source 2017lldj/setup.sh
 ```

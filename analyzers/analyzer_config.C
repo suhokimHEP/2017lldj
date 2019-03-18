@@ -61,7 +61,7 @@ void analyzer_config::setConfiguration()
  tag_shiftminTA     = -1.773; // = -1.75; // loggit
 
  // set which collections                          // loggit 
- phoid = "Medium"; // "Tight"; "Loose"; //Medium"; // loggit 
+// phoid = "Medium"; // "Tight"; "Loose"; //Medium"; // loggit 
  eleid = "Loose";  // "Tight"; "Loose"; //Medium"; // loggit 
  muoid = "Loose";  // "Tight"; "Loose"; //Medium"; // loggit 
  jetid = "Loose";  // "Tight"; "Loose";            // loggit 
@@ -69,9 +69,9 @@ void analyzer_config::setConfiguration()
  jetmatchdRcut = 0.4; // loggit
  objcleandRcut = 0.4; // loggit
 
- if (phoid = "Loose")  phoidbit=0;
- if (phoid = "Medium") phoidbit=1;
- if (phoid = "Tight")  phoidbit=2;
+// if (phoid = "Loose")  phoidbit=0;
+// if (phoid = "Medium") phoidbit=1;
+// if (phoid = "Tight")  phoidbit=2;
 
  if (eleid = "Loose")  eleidbit=0;
  if (eleid = "Medium") eleidbit=1;

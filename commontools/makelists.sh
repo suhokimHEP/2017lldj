@@ -16,8 +16,9 @@ makealist() {
  sed -i -e "s@/eos/uscms@@" ${listdir}/$1.list
 }
 
-makealist "Data_DoubleMuon17_C"          "/DoubleMuon/crab_Data_DoubleMuon17_C"
-makealist "DY5017"                          "/DYJetsToLL_M-50_"
+#makealist "DY5017"                          "/DYJetsToLL_M-50_"
+makealist "DYJetsToLL_M-50"            "/DYJetsToLL_M-50_"
+makealist "Data_DoubleMuon_D"          "/DoubleMuon/crab_Data_DoubleMuon_D"
 ## Data
 #makealist "Data_SingleMu_H_3"        "/SingleMuon/crab_Data_SingleMu_H_3"
 #makealist "Data_SingleMu_H_2"        "/SingleMuon/crab_Data_SingleMu_H_2"

@@ -82,15 +82,15 @@ Float_t analyzer_scalefactors::makeElectronWeight( std::vector<int> &electron_li
  return tmpsf;
 }
 
-//----------------------------makeTTWeight
-Float_t analyzer_scalefactors::makeTTWeight( Float_t TTavgweight){
-  Float_t TTSF = 1.; 
-  if(toppts->size() == 2){ 
-   TTSF =  ( exp( 0.0615 - 0.0005*toppts->at(0)) * exp( 0.0615 - 0.0005*toppts->at(1)) ) / TTavgweight ;
-   //std::cout<<" doing TTSF: "<<TTSF<<std::endl;
-  }
- return TTSF;
-}
+////----------------------------makeTTWeight
+//Float_t analyzer_scalefactors::makeTTWeight( Float_t TTavgweight){
+//  Float_t TTSF = 1.; 
+//  if(toppts->size() == 2){ 
+//   TTSF =  ( exp( 0.0615 - 0.0005*toppts->at(0)) * exp( 0.0615 - 0.0005*toppts->at(1)) ) / TTavgweight ;
+//   //std::cout<<" doing TTSF: "<<TTSF<<std::endl;
+//  }
+// return TTSF;
+//}
 
 
 //----------------------------loadPUWeight

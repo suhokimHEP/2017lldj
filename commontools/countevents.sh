@@ -131,8 +131,8 @@ countalist () {
 }
 
 
-countalist "Data_DoubleMuon17_C"        
-countalist "DY5017"       ${xcDY5017}  
+countalist "DYJetsToLL_M-50"                   ${xcDY50}                
+countalist "Data_DoubleMu_D"        
 
 ### Data
 #countalist "Data_SingleMu_H_3"      

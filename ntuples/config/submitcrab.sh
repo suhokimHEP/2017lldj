@@ -1,7 +1,7 @@
 #voms-proxy-init --voms cms --valid 100:00
 
 # do we submit or just generate submit scripts
-dosubmit=true
+dosubmit=false
 doAOD=true
 dominiAOD=false
 domakeMiniAOD=false
@@ -56,11 +56,8 @@ cp "${subdir}/${msubmitconfig}"  ${thesubdir}
 # sample names to run over
 samples=( \
 # put your samples here, copy from below
-  "Data_sl7_DoubleMuon17_C"      \
-  "DY5017_sl7_1"               \
 )
 
-#  "DY5017_1"               \
 # Signal Samples
 #  "ZH_HToSSTobbbb_MS-55_ctauS-1"      \
 #  "ZH_HToSSTobbbb_MS-55_ctauS-10"     \
@@ -87,117 +84,70 @@ samples=( \
 #  "ggZH_HToSSTobbbb_MS-15_ctauS-100"  \
 #  "ggZH_HToSSTobbbb_MS-15_ctauS-1000" \
 
-# Datasets
-#  "Data_SingleEle_H_3"   \
-#  "Data_SingleEle_H_2"   \
-#  "Data_SingleEle_G"     \
-#  "Data_SingleEle_F"     \
-#  "Data_SingleEle_E"     \
-#  "Data_SingleEle_D"     \
-#  "Data_SingleEle_C"     \
-#  "Data_SingleEle_B_2"   \
-
-#  "Data_SingleMu_H_3"    \
-#  "Data_SingleMu_H_2"    \
-#  "Data_SingleMu_G"      \
-#  "Data_SingleMu_F"      \
-#  "Data_SingleMu_E"      \
-#  "Data_SingleMu_D"      \
-#  "Data_SingleMu_C"      \
-#  "Data_SingleMu_B_2"    \
-
-#  "Data_DoubleMu_H_3"    \
-#  "Data_DoubleMu_H_2"    \
-#  "Data_DoubleMu_G"      \
-#  "Data_DoubleMu_F"      \
-#  "Data_DoubleMu_E"      \
-#  "Data_DoubleMu_D"      \
-#  "Data_DoubleMu_C"      \
-#  "Data_DoubleMu_B_2"    \
-
-#  "Data_DoubleEG_H_3"    \
-#  "Data_DoubleEG_H_2"    \
-#  "Data_DoubleEG_G"      \
-#  "Data_DoubleEG_F"      \
-#  "Data_DoubleEG_E"      \
-#  "Data_DoubleEG_D"      \
-#  "Data_DoubleEG_C"      \
-#  "Data_DoubleEG_B_2"    \
-
-#  "DataMuonEG_H_3"    \
-#  "DataMuonEG_H_2"    \
-#  "DataMuonEG_G"      \
-#  "DataMuonEG_F"      \
-#  "DataMuonEG_E"      \
-#  "DataMuonEG_D"      \
-#  "DataMuonEG_C"      \
-#  "DataMuonEG_B_2"    \
-
-#  "Data_SinglePhoton_H_3"    \
-#  "Data_SinglePhoton_H_2"    \
-#  "Data_SinglePhoton_G"      \
-#  "Data_SinglePhoton_F"      \
-#  "Data_SinglePhoton_E"      \
-#  "Data_SinglePhoton_D"      \
-#  "Data_SinglePhoton_C"      \
-#  "Data_SinglePhoton_B_2"    \
-
-# Main Backgrounds
-#  "DY50_1"               \
-#  "DY50_2"               \
-#  "TTtoLL_1"             \
-#  "TTtoLL_2"             \
-#  "WJets_1"              \
-#  "WJets_2"              \
-
-# Other Backgrounds
-#  "TTtoLfromT_1"         \
-#  "TTtoLfromT_2"         \
-#  "TTtoLfromTbar_1"      \
-#  "TTtoLfromTbar_2"      \
-#  "STs"                  \
-#  "STtbar"               \
-#  "STt"                  \
-#  "STtbarW_1"            \
-#  "STtbarW_2"            \
-#  "STtW_1"               \
-#  "STtW_2"               \
-#  "WWToLNuLNu"           \
-#  "WWToLNuQQ_1"          \
-#  "WWToLNuQQ_2"          \
-#  "WZToLNu2QorQQ2L"      \
-#  "WZToLNuNuNu"          \
-#  "WZToLLLNu"            \
-#  "ZZToNuNuQQ"           \
-#  "ZZToLLQQ"             \
-#  "ZZToLLNuNu"           \
-#  "ZZToLLLL"             \
-#  "WG"                   \
-#  "ZG"                   \
-#  "ZH_Hbb_1"             \
-#  "ZH_Hbb_2"             \
-#  "ggZH_Hbb_1"           \
-#  "ggZH_Hbb_2"           \
-#  "ggZH_Hbb_3"           \
-#  "GJets_HT40to100_1"    \
-#  "GJets_HT40to100_2"    \
-#  "GJets_HT100to200_1"   \
-#  "GJets_HT100to200_2"   \
-#  "GJets_HT200to400_1"   \
-#  "GJets_HT200to400_2"   \
-#  "GJets_HT400to600_1"   \
-#  "GJets_HT400to600_2"   \
-#  "GJets_HT600toInf_1"   \
-#  "GJets_HT600toInf_2"   \
-#  "DY5to50_HT70to100"    \
-#  "DY5to50_HT100to200_1" \
-#  "DY5to50_HT100to200_2" \
-#  "DY4to50_HT200to400_1" \
-#  "DY5to50_HT200to400_2" \
-#  "DY5to50_HT400to600_1" \
-#  "DY5to50_HT400to600_2" \
-#  "DY5to50_HT600toInf_1" \
-#  "DY5to50_HT600toInf_2" \
+#  "DY50_1"    \
+#  "DY50_2"    \
+#  
+#  "QCD_HT100to200"    \
+#  "QCD_HT200to300"    \
+#  "QCD_HT500to700"    \
+#  "QCD_HT700to1000"    \
+#  "QCD_HT2000toInf"    \
+#  "QCD_HT50to100"    \
+#  "QCD_HT300to500"    \
+#  "QCD_HT1500to2000"    \
+#  
+#  "STtbar_PSWeights"    \
+#  "STtbarW_PSWeights"    \
+#  "STs_PSWeights"    \
+#  "STt_PSWeights"    \
+#  "STtW"    \
+#  
+#  "TTJets_amc"    \
+#  "TTJets_mad"    \
+#  "TTtoLL"    \
+#  "TTtoLfromTbar"    \
+#  
+#  "WJets_1"    \
+#  "WJets_2"    \
+#  
+#  "WW"    \
+#  "WZ"    \
+#  "ZZ"    \
+#  "WG"    \
+#  "WWToLNuLNu"    \
+#  "WWToLNuQQ"    \
+#  "WZToLNuQQ"    \
+#  "WZToQQ2L"    \
+#  "WZToLNuNuNu"    \
+#  "WZToLLLNu"    \
+#  "ZZToNuNuQQ"    \
+#  "ZZToLLQQ"    \
+#  "ZZToLLNuNu"    \
+#  "ZZToLLLL"    \
+#  "ZZToLLLL_v2"    \
+#  "WWToLNuLNu_PSWeights"    \
+#  "WWToLNuQQ_PSWeight"    \
+#  
+#  "ZH_Hbb"    \
+#  "ggZH_Hbb"    \
+#  
+#  "Data_DoubleEG_B"    \
+#  "Data_DoubleEG_C"    \
+#  "Data_DoubleEG_D"    \
+#  "Data_DoubleEG_E"    \
+#  "Data_DoubleEG_F"    \
+#  
+#  "Data_DoubleMuon_B"    \
+#  "Data_DoubleMuon_C"    \
+#  "Data_DoubleMuon_D"    \
+#  "Data_DoubleMuon_E"    \
+#  "Data_DoubleMuon_F"    \
+#  
+#  "Data_MuonEG_B"    \
+#  "Data_MuonEG_C"    \
+#  "Data_MuonEG_D"    \
+#  "Data_MuonEG_E"    \
+#  "Data_MuonEG_F"    \
 
 # print which samples we're running over
 printf "For:\n"

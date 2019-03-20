@@ -243,7 +243,7 @@ Bool_t analyzer_selections::askPassDoubleEle()
   //if(isMC) doespass = kTRUE;
   //else doespass = (Bool_t)((AOD_HLT_Ele23Ele12 > 0) );
   if(TTOC) doespass = kTRUE;
-  else doespass = (Bool_t)( (AOD_HLT_Ele23Ele12 > 0) ); 
+  else doespass = (Bool_t)( (AOD_HLT_Ele23Ele12_noDZ > 0) ); 
  } 
  return doespass;
 }
@@ -266,7 +266,7 @@ Bool_t analyzer_selections::askPassDoubleMu()
   //if(isMC) doespass = kTRUE;
   //else doespass = (Bool_t)( (AOD_HLT_Mu17Mu8 > 0) || (AOD_HLT_Mu17TkMu8 > 0) || (AOD_HLT_Mu17Mu8_noDZ > 0) || (AOD_HLT_Mu17TkMu8_noDZ > 0)) ; 
   if(TTOC) doespass = kTRUE;
-  else doespass     = (Bool_t)( (AOD_HLT_Mu17Mu8 > 0) || (AOD_HLT_Mu17Mu8_noDZ > 0)) ; 
+  else doespass     = (Bool_t)( (AOD_HLT_Mu17Mu8_Mass3p8 > 0) ) ; 
  } 
  return doespass;
 }
@@ -293,16 +293,8 @@ Bool_t analyzer_selections::askPassMuEG()
   } // if(TTOC)
   else{
    if( isMC ){
-    doespass =  (Bool_t)( (AOD_HLT_Mu12Ele23_DZ > 0) || (AOD_HLT_Mu23Ele12_DZ > 0) );
+    doespass =  (Bool_t)( (AOD_HLT_Mu12Ele23_DZ > 0) || (AOD_HLT_Mu23Ele12_noDZ > 0) );
    } // if( isMC )
-//   else{
-//    if(run>=273158 && run<=278272){
-//     doespass =  (Bool_t)( (AOD_HLT_Mu8Ele23 > 0) || (AOD_HLT_Mu23Ele12 > 0) );
-//    }
-//    else if(run>=278273 && run<=284044){
-//     doespass = (Bool_t)( (AOD_HLT_Mu12Ele23_DZ > 0) || (AOD_HLT_Mu23Ele12_DZ > 0) );
-//    }
-//   } // if( !isMC )
   } // if(!TTOC)
  } // if(muon_list.size()>0 && electron_list.size()>0)
  return doespass;

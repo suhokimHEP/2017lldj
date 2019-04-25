@@ -1,7 +1,7 @@
 import sys,os
 
-#listfile = open("dasmapAOD.list", "r")
-listfile = open("names.txt", "r")
+listfile = open("dasmapAOD.list", "r")
+#listfile = open("names.txt", "r")
     
 for line in listfile:
     values = line.split()

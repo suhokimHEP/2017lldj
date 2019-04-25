@@ -269,7 +269,7 @@ do
    # DATA AOD
    CMSRUNCONFIG="'${dsubmitconfig}'" 
    #UPERJOB="50" #use when not automatic splitting
-   UPERJOB="60"
+   UPERJOB="180"
   elif [ ${dominiAOD} = true ]
   then
    # DATA miniAOD
@@ -288,7 +288,7 @@ do
   then
    # MC AOD
    CMSRUNCONFIG="'${msubmitconfig}'" 
-   UPERJOB="60"
+   UPERJOB="180"
   elif [ ${dominiAOD} = true ]
   then
    # MC miniAOD

@@ -53,4 +53,5 @@
 ```
   #set up some environment variables (bash)
   source 2017lldj/setup.sh
+  #Set nversion to 2017_LLDJ for official version of ntuples
 ```

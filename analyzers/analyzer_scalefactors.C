@@ -82,15 +82,15 @@ Float_t analyzer_scalefactors::makeElectronWeight( std::vector<int> &electron_li
  return tmpsf;
 }
 
-//----------------------------makeTTWeight
-Float_t analyzer_scalefactors::makeTTWeight( Float_t TTavgweight){
-  Float_t TTSF = 1.; 
-  if(toppts->size() == 2){ 
-   TTSF =  ( exp( 0.0615 - 0.0005*toppts->at(0)) * exp( 0.0615 - 0.0005*toppts->at(1)) ) / TTavgweight ;
-   //std::cout<<" doing TTSF: "<<TTSF<<std::endl;
-  }
- return TTSF;
-}
+////----------------------------makeTTWeight
+//Float_t analyzer_scalefactors::makeTTWeight( Float_t TTavgweight){
+//  Float_t TTSF = 1.; 
+//  if(toppts->size() == 2){ 
+//   TTSF =  ( exp( 0.0615 - 0.0005*toppts->at(0)) * exp( 0.0615 - 0.0005*toppts->at(1)) ) / TTavgweight ;
+//   //std::cout<<" doing TTSF: "<<TTSF<<std::endl;
+//  }
+// return TTSF;
+//}
 
 
 //----------------------------loadPUWeight
@@ -115,13 +115,12 @@ void analyzer_scalefactors::loadPUWeight(){
 //----------------------------loadElectronWeight
 void analyzer_scalefactors::loadElectronWeight(TString eleid){
  std::cout << "loading Electron weight" << std::endl;
- TString filename = "egammaEffi_MoriondBH_ele"+eleid+".root" ;
+ TString filename = "2017_Electron"+eleid+".root" ;
  TFile* file_eleweights = new TFile( filename ) ;
  std::cout << " filename: " << filename << std::endl;
  EleWeights = (TH2F*)file_eleweights->Get("EGamma_SF2D")->Clone("EleWeights");
  return ;
 }
-
 
 //----------------------------loadMistagRate
 void analyzer_scalefactors::loadMistagRate(){

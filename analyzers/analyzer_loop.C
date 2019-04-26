@@ -22,6 +22,7 @@ void analyzer_loop::Loop(TString outfilename,
                        Int_t nevts, TFile *optfile, TFile *NM1file, TString uncbin)
 {
 
+
  if(makelog){
   logfile = fopen( outfilename+".txt", "w"); 
  }
@@ -39,7 +40,8 @@ void analyzer_loop::Loop(TString outfilename,
  if(isMC) loadElectronWeight( eleid );
 
  std::cout<<"uncbin: "<<uncbin<<std::endl;
- TFile *outfile_bkgest = 0;
+
+TFile *outfile_bkgest = 0;
  bool doBkgEst = true;
  if( doBkgEst && uncbin.EqualTo("") ){
    std::cout<<"doBkgEst"<<std::endl;
@@ -53,6 +55,7 @@ void analyzer_loop::Loop(TString outfilename,
   
   L1PFremoved=kFALSE;
   cleareventcounters();
+
   if( uncbin.EqualTo("") ){
    optfile->cd();
    clearOPTtree(); 
@@ -82,16 +85,35 @@ void analyzer_loop::Loop(TString outfilename,
   // get lists of "good" electrons, photons, jets
   // idbit, pt, eta, sysbinname
   electron_list    = electron_passID  ( eleidbit,        ele_minPt1, ele_minPt2, ele_maxEta, "");
-  photon_list      = photon_passID    ( phoidbit,        pho_minPt, pho_maxEta, ""); 
+  photon_list      = photon_passID    ( pho_minPt, pho_maxEta, ""); 
   muon_list        = muon_passID      ( muoidbit,        mu_minPt1,  mu_minPt2,  mu_maxEta,  ""); 
   aodcalojet_list  = jet_passID       ( aodcalojetidbit, "calo",  jet_minPt, jet_maxEta, "" ); 
-  aodpfjet_list    = jet_passID       ( aodcalojetidbit, "pf",    jet_minPt, jet_maxEta, ""); 
-  aodpfchsjet_list = jet_passID       ( aodcalojetidbit, "pfchs", jet_minPt, jet_maxEta, ""); 
+//  aodpfjet_list    = jet_passID       ( aodcalojetidbit, "pf",    jet_minPt, jet_maxEta, ""); 
+//  aodpfchsjet_list = jet_passID       ( aodcalojetidbit, "pfchs", jet_minPt, jet_maxEta, ""); 
   taggedjet_list   = jet_passTagger   ();
   taggedjetSB1_list   = jet_passTaggerSB1   ();
   taggedjetSB2_list   = jet_passTaggerSB2   ();
   taggedjetSB3_list   = jet_passTaggerSB3   ();
-  
+  taggedjetSB4_list   = jet_passTaggerSB4   ();
+  taggedjetSB5_list   = jet_passTaggerSB5   ();
+  taggedjetSB6_list   = jet_passTaggerSB6   ();
+  taggedjetSB7_list   = jet_passTaggerSB7   ();
+  taggedjetSBL1_list   = jet_passTaggerSBL1   ();
+  taggedjetSBL2_list   = jet_passTaggerSBL2   ();
+  taggedjetSBL3_list   = jet_passTaggerSBL3   ();
+  taggedjetSBL4_list   = jet_passTaggerSBL4   ();
+  taggedjetSBL5_list   = jet_passTaggerSBL5   ();
+  taggedjetSBL6_list   = jet_passTaggerSBL6   ();
+  taggedjetSBL7_list   = jet_passTaggerSBL7   ();
+  taggedjetSB2a_list   = jet_passTaggerSB2a   ();
+  taggedjetSB2b_list   = jet_passTaggerSB2b   ();
+  taggedjetSB2c_list   = jet_passTaggerSB2c   ();
+  taggedjetIP_list   = jet_passTaggerIP   ();
+  taggedjetSBIPa_list   = jet_passTaggerSBIPa   ();
+  taggedjetSBIPb_list   = jet_passTaggerSBIPb   ();
+  taggedjetSBIPc_list   = jet_passTaggerSBIPc   ();  
+
+
   //save jets list for L1PF test clear list if does not pass
   aodcalojet_L1PF_list  = jet_passID       ( aodcalojetidbit, "calo",  jet_minPt, jet_maxEta, "" ); 
   bool pass_L1PF = true;
@@ -109,19 +131,19 @@ void analyzer_loop::Loop(TString outfilename,
   taggedjet_list_L1PF = jet_passTagger_L1PF ();
 
   // make calomatchedPF_list PFmatchedCalo_list calomatchedPFchs_list PFchsmatchedCalo_list 
-  matchPFCalojets( "PF" );
-  matchPFCalojets( "PFchs" );
-  n_totalPF          += aodpfjet_list.size()         ; 
-  n_totalPFchs       += aodpfchsjet_list.size()      ; 
+//  matchPFCalojets( "PF" );
+//  matchPFCalojets( "PFchs" );
+//  n_totalPF          += aodpfjet_list.size()         ; 
+//  n_totalPFchs       += aodpfchsjet_list.size()      ; 
   n_totalCalo        += aodcalojet_list.size()        ; 
-  n_matchedPFCalo    += calomatchedPF_list.size()    ; 
-  n_matchedPFchsCalo += calomatchedPFchs_list.size() ; 
+//  n_matchedPFCalo    += calomatchedPF_list.size()    ; 
+//  n_matchedPFchsCalo += calomatchedPFchs_list.size() ; 
 
   aodcalojet_minDR_list = jet_minDR();
-  aodcalojet_matchedCSV_list = jet_matchCSV();
-  aodcalojet_matchedPartonFlavour_list = jet_matchPartonFlavour();
+//  aodcalojet_matchedCSV_list = jet_matchCSV();
+//  aodcalojet_matchedPartonFlavour_list = jet_matchPartonFlavour();
 
-  nBPartonFlavour = coutNBPartonFlavour();
+//  nBPartonFlavour = coutNBPartonFlavour();
 
   // colisions happen @LHC at a given rate, use event_weight
   // to make the simulation match the rate seen in data
@@ -129,15 +151,15 @@ void analyzer_loop::Loop(TString outfilename,
   event_weight = makeEventWeight(crossSec,lumi,nrEvents);
   // for MC, simulated pileup is different from observed
   // in commontools/pileup we make a ratio for scaling MC
-  if(isMC) PUweight_DoubleEG     = makePUWeight("DoubleEG"    ) ;
-  if(isMC) PUweight_DoubleMu     = makePUWeight("DoubleMu"    ) ;
-  if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
-  if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
+//  if(isMC) PUweight_DoubleEG     = makePUWeight("DoubleEG"    ) ;
+//  if(isMC) PUweight_DoubleMu     = makePUWeight("DoubleMu"    ) ;
+//  if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
+//  if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
   // electrons also have an associated scale factor for MC 
   if(isMC) event_weight *= makeElectronWeight( electron_list );
-  if(isMC) event_weight *= makeTTWeight( avgTTSF );
+//  if(isMC) event_weight *= makeTTWeight( avgTTSF );
 
-  getMET();
+//  getMET();
 
   calculateHT();
 
@@ -342,11 +364,11 @@ void analyzer_loop::Loop(TString outfilename,
 
    if(isMC){
      // ok I'm sorry, this is terrible
-     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight * PUweight_DoubleEG;
-     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight * PUweight_DoubleMu;
-     if(i==18) fullweight = event_weight * PUweight_MuonEG;
-     if(i==20) fullweight = event_weight * PUweight_MuonEG;
-     if(i==19) fullweight = event_weight * PUweight_SinglePhoton;
+     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight;// * PUweight_DoubleEG;
+     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight;// * PUweight_DoubleMu;
+     if(i==18) fullweight = event_weight ;//* PUweight_MuonEG;
+     if(i==20) fullweight = event_weight ;//* PUweight_MuonEG;
+     if(i==19) fullweight = event_weight ;//* PUweight_SinglePhoton;
    }
    else{
      fullweight = event_weight;
@@ -415,13 +437,13 @@ void analyzer_loop::Loop(TString outfilename,
  std::cout<<std::endl;
 
  std::cout<<" Jet Matching "<<std::endl;
- std::cout<<"  n_totalPF          "<< n_totalPF          <<std::endl;
- std::cout<<"  n_totalPFchs       "<< n_totalPFchs       <<std::endl;
+// std::cout<<"  n_totalPF          "<< n_totalPF          <<std::endl;
+// std::cout<<"  n_totalPFchs       "<< n_totalPFchs       <<std::endl;
  std::cout<<"  n_totalCalo        "<< n_totalCalo        <<std::endl;
- std::cout<<"  n_matchedPFCalo    "<< n_matchedPFCalo    <<std::endl;
- std::cout<<"  n_matchedPFchsCalo "<< n_matchedPFchsCalo <<std::endl;
- std::cout<<"   Percent calo matched to PF: "<<(float)n_matchedPFCalo/(float)n_totalCalo<<std::endl;
- std::cout<<"   Percent calo matched to PFchs: "<<(float)n_matchedPFchsCalo/(float)n_totalCalo<<std::endl;
+// std::cout<<"  n_matchedPFCalo    "<< n_matchedPFCalo    <<std::endl;
+// std::cout<<"  n_matchedPFchsCalo "<< n_matchedPFchsCalo <<std::endl;
+// std::cout<<"   Percent calo matched to PF: "<<(float)n_matchedPFCalo/(float)n_totalCalo<<std::endl;
+// std::cout<<"   Percent calo matched to PFchs: "<<(float)n_matchedPFchsCalo/(float)n_totalCalo<<std::endl;
  std::cout<<std::endl<<std::endl;
 
  if(doBkgEst && uncbin.EqualTo("")){
@@ -449,16 +471,15 @@ void analyzer_loop::Loop(TString outfilename,
   NM1EleZHtree->CloneTree()->Write();
   NM1file->Close();
  }
+
  // make outfile and save histograms
  // write the histograms
  for(unsigned int i=0; i<selbinnames.size(); ++i){
   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20  ){
-   TFile *outfile = new TFile(outfilename+"_"+selbinnames[i]+"_histograms.root","UPDATE");
-   outfile->cd();
 
      //Normalize variable binned histograms by bin width
      //Could put this in its own loop for clarity
-     scaleVariableBinHistograms( i );
+    //scaleVariableBinHistograms( i ); //broken
      
      writeSelectedHistograms( i );
      writeCutflowHistograms( i );
@@ -477,7 +498,6 @@ void analyzer_loop::Loop(TString outfilename,
        writeSelectedTagHistograms( i, k );
      }
 
-   outfile->Close();
   } 
  } // if i== one of the phase spaces we want to write
 } // end analyzer_loop::Loop()
@@ -647,14 +667,14 @@ void analyzer_loop::debug_printjets()
 void analyzer_loop::debug_printtriggers()
 {
 
- printf("AOD_HLT_Ele23Loose %llu \n", AOD_HLT_Ele23Loose) ;
- printf("AOD_HLT_Ele27Tight %llu \n", AOD_HLT_Ele27Tight) ;
- printf("AOD_HLT_Ele17Ele12 %llu \n", AOD_HLT_Ele17Ele12) ;
- printf("AOD_HLT_Ele23Ele12 %llu \n", AOD_HLT_Ele23Ele12) ;
- printf("AOD_HLT_IsoMu22    %llu \n", AOD_HLT_IsoMu22   ) ;
- printf("AOD_HLT_IsoTkMu22  %llu \n", AOD_HLT_IsoTkMu22 ) ;
- printf("AOD_HLT_Mu17Mu8    %llu \n", AOD_HLT_Mu17Mu8   ) ;
- printf("AOD_HLT_Mu17TkMu8  %llu \n", AOD_HLT_Mu17TkMu8 ) ;
+///// printf("AOD_HLT_Ele23Loose %llu \n", AOD_HLT_Ele23Loose) ;
+///// printf("AOD_HLT_Ele27Tight %llu \n", AOD_HLT_Ele27Tight) ;
+///// printf("AOD_HLT_Ele17Ele12 %llu \n", AOD_HLT_Ele17Ele12) ;
+///// printf("AOD_HLT_Ele23Ele12 %llu \n", AOD_HLT_Ele23Ele12) ;
+///// printf("AOD_HLT_IsoMu22    %llu \n", AOD_HLT_IsoMu22   ) ;
+///// printf("AOD_HLT_IsoTkMu22  %llu \n", AOD_HLT_IsoTkMu22 ) ;
+///// printf("AOD_HLT_Mu17Mu8    %llu \n", AOD_HLT_Mu17Mu8   ) ;
+///// printf("AOD_HLT_Mu17TkMu8  %llu \n", AOD_HLT_Mu17TkMu8 ) ;
  //printf("AOD_HLT_Photon90 %llu \n", AOD_HLT_Photon90) ;
  //printf("AOD_HLT_Photon120 %llu \n", AOD_HLT_Photon120) ;
  //printf("AOD_HLT_Photon175 %llu \n", AOD_HLT_Photon175) ;

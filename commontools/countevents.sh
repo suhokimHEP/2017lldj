@@ -131,64 +131,88 @@ countalist () {
 }
 
 
-countalist "Data_DoubleMuon17_C"        
-countalist "DY5017"       ${xcDY5017}  
-
+##countalist "DYJetsToLL_M-50"                   ${xcDY50}                
 ### Data
-#countalist "Data_SingleMu_H_3"      
-#countalist "Data_SingleMu_H_2"      
-#countalist "Data_SingleMu_G"        
-##countalist "Data_SingleMu_F"        
-##countalist "Data_SingleMu_E"        
-##countalist "Data_SingleMu_D"        
-##countalist "Data_SingleMu_C"        
-##countalist "Data_SingleMu_B_2"      
 #
-#countalist "Data_SingleEle_H_3"     
-#countalist "Data_SingleEle_H_2"     
-#countalist "Data_SingleEle_G"       
-##countalist "Data_SingleEle_F"       
-##countalist "Data_SingleEle_E"       
-##countalist "Data_SingleEle_D"       
-##countalist "Data_SingleEle_C"       
-##countalist "Data_SingleEle_B_2"     
+countalist "Data_DoubleMuon_B"        
+countalist "Data_DoubleMuon_C"        
+countalist "Data_DoubleMuon_D"        
+countalist "Data_DoubleMuon_E"        
+countalist "Data_DoubleMuon_F"        
 #
-#countalist "Data_DoubleMu_H_3"      
-#countalist "Data_DoubleMu_H_2"      
-#countalist "Data_DoubleMu_G"        
-##countalist "Data_DoubleMu_F"        
-##countalist "Data_DoubleMu_E"        
-##countalist "Data_DoubleMu_D"        
-##countalist "Data_DoubleMu_C"        
-##countalist "Data_DoubleMu_B_2"      
+countalist "Data_DoubleEG_B"        
+countalist "Data_DoubleEG_C"        
+countalist "Data_DoubleEG_D"        
+countalist "Data_DoubleEG_E"        
+countalist "Data_DoubleEG_F"        
 #
-#countalist "Data_DoubleEG_H_3"      
-#countalist "Data_DoubleEG_H_2"      
-#countalist "Data_DoubleEG_G"        
-##countalist "Data_DoubleEG_F"        
-##countalist "Data_DoubleEG_E"        
-##countalist "Data_DoubleEG_D"        
-##countalist "Data_DoubleEG_C"        
-##countalist "Data_DoubleEG_B_2"      
-#
-#countalist "Data_MuonEG_H_3"        
-#countalist "Data_MuonEG_H_2"        
-#countalist "Data_MuonEG_G"          
-##countalist "Data_MuonEG_F"          
-##countalist "Data_MuonEG_E"          
-##countalist "Data_MuonEG_D"          
-##countalist "Data_MuonEG_C"          
-##countalist "Data_MuonEG_B_2"        
-#
-#countalist "Data_SinglePhoton_H_3"  
-#countalist "Data_SinglePhoton_H_2"  
-#countalist "Data_SinglePhoton_G"    
-##countalist "Data_SinglePhoton_F"    
-##countalist "Data_SinglePhoton_E"    
-##countalist "Data_SinglePhoton_D"    
-##countalist "Data_SinglePhoton_C"    
-##countalist "Data_SinglePhoton_B_2"  
-#
+countalist "Data_MuonEG_B"        
+countalist "Data_MuonEG_C"        
+countalist "Data_MuonEG_D"        
+countalist "Data_MuonEG_E"        
+countalist "Data_MuonEG_F"        
+### MC backgrounds
+
+# DY
+countalist "DYJetsToLL_M-50"                   ${xcDY50}                
+
+# WJets
+countalist "WJetsToLNu"     ${xcWJetsToLNu}                      
+
+# TTbar
+countalist "TTJets"         ${xcTTJets}
+
+# Single Top
+countalist  "ST_s-channel_4f_leptonDecays"             ${xcST_s}
+countalist  "ST_t-channel_antitop_4f_inclusiveDecays"  ${xcSTbar_t}
+countalist  "ST_t-channel_top_4f_inclusiveDecays"      ${xcST_t}
+countalist  "ST_tW_antitop_5f_NoFullyHadronicDecays"   ${xcSTbar_tW}
+countalist  "ST_tW_top_5f_NoFullyHadronicDecays"       ${xcST_tW}
+
+# Diboson
+countalist "WW"                 ${xcWW} 
+countalist "WZ"                 ${xcWZ} 
+countalist "ZZ"                 ${xcZZ} 
+
+# VGamma
+#countalist "ZGTo2LG"              ${xcZG} 
+countalist "WGToLNuG"             ${xcWG} 
+
+# ZH
+#countalist "ggZH_HToBB_ZToLL"      ${xcggZH_HToBB_ZToLL} 
+#countalist "ZH_HToBB_ZToLL"        ${xcZH_HToBB_ZToLL}   
+
+# QCD
+countalist "QCD_HT100to200"       ${xcQCD_HT100to200}
+countalist "QCD_HT200to300"       ${xcQCD_HT200to300}
+countalist "QCD_HT300to500"       ${xcQCD_HT300to500}
+countalist "QCD_HT500to700"       ${xcQCD_HT500to700}
+countalist "QCD_HT700to1000"      ${xcQCD_HT700to1000}
+countalist "QCD_HT1000to1500"     ${xcQCD_HT1000to1500}
+countalist "QCD_HT1500to2000"     ${xcQCD_HT1500to2000}
+countalist "QCD_HT2000toInf"      ${xcQCD_HT2000toInf}
+
+
+# Bank
+#### Data
+##
+#countalist "Data_DoubleMuon_B"        
+#countalist "Data_DoubleMuon_C"        
+#countalist "Data_DoubleMuon_D"        
+#countalist "Data_DoubleMuon_E"        
+#countalist "Data_DoubleMuon_F"        
+##
+#countalist "Data_DoubleEG_B"        
+#countalist "Data_DoubleEG_C"        
+#countalist "Data_DoubleEG_D"        
+#countalist "Data_DoubleEG_E"        
+#countalist "Data_DoubleEG_F"        
+##
+#countalist "Data_MuonEG_B"        
+#countalist "Data_MuonEG_C"        
+#countalist "Data_MuonEG_D"        
+#countalist "Data_MuonEG_E"        
+#countalist "Data_MuonEG_F"        
 ### MC backgrounds
 #
 ## DY

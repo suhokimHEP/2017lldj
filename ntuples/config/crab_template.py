@@ -14,10 +14,11 @@ if __name__ == '__main__':
     config.General.transferLogs       = False
     config.JobType.pluginName         = 'Analysis' # PrivateMC
     config.JobType.psetName           = CMSRUNCONFIG
-    config.JobType.allowUndistributedCMSSW = True
     #config.JobType.inputFiles         = [INPUTFILES]
+    config.JobType.allowUndistributedCMSSW = True
     config.JobType.sendExternalFolder = True
     config.JobType.maxMemoryMB        = MAXMEM
+    #config.JobType.maxJobRuntimeMin   = MAXTM
     config.JobType.numCores           = 4
     #config.JobType.priority           = 50 # default=10, first 10 jobs=20
     config.Data.inputDBS              = 'global'    

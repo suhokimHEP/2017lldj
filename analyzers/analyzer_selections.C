@@ -228,11 +228,11 @@ Int_t analyzer_selections::setSelBits( std::vector<Bool_t> selvec, int &counter)
 Bool_t analyzer_selections::askPassSingleEle()
 {
  Bool_t doespass = kFALSE;
- if(electron_list.size()>0){ 
-   //if(isMC) doespass = kTRUE;
-   //else doespass = (Bool_t)( (AOD_HLT_Ele23Loose > 0) || (AOD_HLT_Ele27Tight > 0) );
-   doespass = (Bool_t)( (AOD_HLT_Ele23Loose > 0) || (AOD_HLT_Ele27Tight > 0) );
- } 
+// if(electron_list.size()>0){ 
+//   //if(isMC) doespass = kTRUE;
+//   //else doespass = (Bool_t)( (AOD_HLT_Ele23Loose > 0) || (AOD_HLT_Ele27Tight > 0) );
+//   doespass = (Bool_t)( (AOD_HLT_Ele23Loose > 0) || (AOD_HLT_Ele27Tight > 0) );
+// } 
  return doespass;
 }
 
@@ -242,8 +242,9 @@ Bool_t analyzer_selections::askPassDoubleEle()
  if(electron_list.size()>1){ 
   //if(isMC) doespass = kTRUE;
   //else doespass = (Bool_t)((AOD_HLT_Ele23Ele12 > 0) );
-  if(TTOC) doespass = kTRUE;
-  else doespass = (Bool_t)( (AOD_HLT_Ele23Ele12 > 0) ); 
+  //if(TTOC) doespass = kTRUE;
+  //else doespass = (Bool_t)( (AOD_HLT_Ele23Ele12_noDZ > 0) ); 
+  if ( AOD_elePt->at(electron_list[0])>=23.0 &&  AOD_elePt->at(electron_list[1])>=12.0 ) doespass = kTRUE;
  } 
  return doespass;
 }
@@ -251,11 +252,11 @@ Bool_t analyzer_selections::askPassDoubleEle()
 Bool_t analyzer_selections::askPassSingleMu()
 {
  Bool_t doespass = kFALSE;
- if(muon_list.size()>0){ 
-  //if(isMC) doespass = kTRUE;
-  //else doespass =(Bool_t)( (AOD_HLT_IsoMu22 > 0) || (AOD_HLT_IsoTkMu22 > 0) || (AOD_HLT_IsoMu24 > 0) || (AOD_HLT_IsoTkMu24 > 0) );
-  doespass = (Bool_t)( (AOD_HLT_IsoMu22 > 0) || (AOD_HLT_IsoTkMu22 > 0) || (AOD_HLT_IsoMu24 > 0) || (AOD_HLT_IsoTkMu24 > 0) );
- } 
+// if(muon_list.size()>0){ 
+//  //if(isMC) doespass = kTRUE;
+//  //else doespass =(Bool_t)( (AOD_HLT_IsoMu22 > 0) || (AOD_HLT_IsoTkMu22 > 0) || (AOD_HLT_IsoMu24 > 0) || (AOD_HLT_IsoTkMu24 > 0) );
+//  doespass = (Bool_t)( (AOD_HLT_IsoMu22 > 0) || (AOD_HLT_IsoTkMu22 > 0) || (AOD_HLT_IsoMu24 > 0) || (AOD_HLT_IsoTkMu24 > 0) );
+// } 
  return doespass;
 }
 
@@ -265,8 +266,9 @@ Bool_t analyzer_selections::askPassDoubleMu()
  if(muon_list.size()>1){ 
   //if(isMC) doespass = kTRUE;
   //else doespass = (Bool_t)( (AOD_HLT_Mu17Mu8 > 0) || (AOD_HLT_Mu17TkMu8 > 0) || (AOD_HLT_Mu17Mu8_noDZ > 0) || (AOD_HLT_Mu17TkMu8_noDZ > 0)) ; 
-  if(TTOC) doespass = kTRUE;
-  else doespass     = (Bool_t)( (AOD_HLT_Mu17Mu8 > 0) || (AOD_HLT_Mu17TkMu8 > 0) || (AOD_HLT_Mu17Mu8_noDZ > 0) || (AOD_HLT_Mu17TkMu8_noDZ > 0)) ; 
+  //if(TTOC) doespass = kTRUE;
+  //else doespass     = (Bool_t)( (AOD_HLT_Mu17Mu8_Mass3p8 > 0) ) ;
+  if ( AOD_muPt->at(muon_list[0])>=17.0 &&  AOD_muPt->at(muon_list[1])>=8.0 ) doespass = kTRUE;
  } 
  return doespass;
 }
@@ -274,13 +276,13 @@ Bool_t analyzer_selections::askPassDoubleMu()
 Bool_t analyzer_selections::askPassSinglePho()
 {
  Bool_t doespass = kFALSE;
- if(photon_list.size()>0){ 
-  //doespass = kTRUE;
-  //if(isMC) doespass = kTRUE;
-  //else doespass = (Bool_t)( (AOD_HLT_Photon165_HE10) );
-  if(TTOC) doespass = kTRUE;
-  else     doespass = (Bool_t)(AOD_HLT_Photon165_HE10 > 0);
- } 
+// if(photon_list.size()>0){ 
+//  //doespass = kTRUE;
+//  //if(isMC) doespass = kTRUE;
+//  //else doespass = (Bool_t)( (AOD_HLT_Photon165_HE10) );
+//  if(TTOC) doespass = kTRUE;
+//  else     doespass = (Bool_t)(AOD_HLT_Photon165_HE10 > 0);
+// } 
  return doespass;
 }
 
@@ -288,22 +290,23 @@ Bool_t analyzer_selections::askPassMuEG()
 {
  Bool_t doespass = kFALSE;
  if(muon_list.size()>0 && electron_list.size()>0){
-  if(TTOC){
-   doespass = kTRUE;
-  } // if(TTOC)
-  else{
-   if( isMC ){
-    doespass =  (Bool_t)( (AOD_HLT_Mu12Ele23_DZ > 0) || (AOD_HLT_Mu23Ele12_DZ > 0) );
-   } // if( isMC )
-   else{
-    if(run>=273158 && run<=278272){
-     doespass =  (Bool_t)( (AOD_HLT_Mu8Ele23 > 0) || (AOD_HLT_Mu23Ele12 > 0) );
-    }
-    else if(run>=278273 && run<=284044){
-     doespass = (Bool_t)( (AOD_HLT_Mu12Ele23_DZ > 0) || (AOD_HLT_Mu23Ele12_DZ > 0) );
-    }
-   } // if( !isMC )
-  } // if(!TTOC)
+ //if (isMC) doespass = kTRUE;
+ // if(TTOC){
+ //  doespass = kTRUE;
+ // } // if(TTOC)
+ // else{
+ //  if( isMC ){
+ //   doespass =  (Bool_t)( (AOD_HLT_Mu12Ele23_DZ > 0) || (AOD_HLT_Mu23Ele12_noDZ > 0) );
+  //if ( AOD_muPt->at(muon_list[0])>=17.0 &&  AOD_muPt->at(muon_list[1])>=8.0 ) doespass = kTRUE;
+  // } // if( isMC )
+  //} // if(!TTOC)
+
+  if (  (AOD_muPt->at(muon_list[0])>AOD_elePt->at(electron_list[0])) && ( AOD_muPt->at(muon_list[0])>=23.0 && AOD_elePt->at(electron_list[0])>= 12.0) ) doespass = kTRUE;
+  if (  (AOD_muPt->at(muon_list[0])<AOD_elePt->at(electron_list[0])) && ( AOD_muPt->at(muon_list[0])>=12.0 && AOD_elePt->at(electron_list[0])>= 23.0) ) doespass = kTRUE;
+  //else 
+  //if (  (AOD_elePt->at(electron_list[0])>AOD_muPt->at(muon_list[0])) && ( AOD_muPt->at(muon_list[0])>=12.0 && AOD_elePt->at(electron_list[0])>= 23.0) ) doespass = kTRUE;
+//  else doespass = kFALSE;
  } // if(muon_list.size()>0 && electron_list.size()>0)
+// else doespass = kFALSE;
  return doespass;
 }

@@ -140,6 +140,8 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  #selectedPatJetsSrc        = cms.InputTag('selectedPatJets'),                                   
  AODVertexSrc              = cms.InputTag('offlinePrimaryVertices', '', 'RECO'),
  AODTrackSrc               = cms.InputTag('generalTracks', '', 'RECO'),
+ AODGenJetsSrc               = cms.InputTag('ak4GenJets', '', 'SIM'),
+ AODGenEventInfoSrc               = cms.InputTag('generator', '', 'SIM'), 
  vertexFitterConfig = cms.PSet(
         finder = cms.string('avf'),
         sigmacut = cms.double(10.),
@@ -184,7 +186,7 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  AOD_eleTightIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose"),
  conversions  = cms.InputTag('allConversions'),                                    
 
- #genParticleSrc    = cms.InputTag("genParticles"),
+ genParticleSrc    = cms.InputTag("genParticles"),
 
  bits = cms.InputTag("TriggerResults","","HLT"),
  prescales = cms.InputTag("patTrigger"),

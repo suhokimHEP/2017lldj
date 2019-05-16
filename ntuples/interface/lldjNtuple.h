@@ -80,7 +80,7 @@ class lldjNtuple : public edm::EDAnalyzer {
   void branchesAODJets     (TTree*);
   void branchesTrigger     (TTree*);
   void branchesAODTrigger  (TTree*);
-  //void branchesGenPart     (TTree*);
+  void branchesGenPart     (TTree*);
   void branchesAODEvent    (TTree*);
 
   void fillGlobalEvent (const edm::Event&, const edm::EventSetup&);
@@ -96,7 +96,7 @@ class lldjNtuple : public edm::EDAnalyzer {
   void fillAODJets     (const edm::Event&, const edm::EventSetup&);
   void fillTrigger     (const edm::Event&, const edm::EventSetup&);
   void fillAODTrigger  (const edm::Event&, const edm::EventSetup&);
-  //void fillGenPart     (const edm::Event&);
+  void fillGenPart     (const edm::Event&);
   void fillAODEvent    (const edm::Event&, const edm::EventSetup&);
 
   bool isMediumMuonBCDEF(const reco::Muon & recoMu);
@@ -145,22 +145,30 @@ class lldjNtuple : public edm::EDAnalyzer {
   //edm::EDGetTokenT<reco::VertexCollection>      AODVertexLabel_;
   edm::EDGetTokenT<edm::View<reco::Vertex>  >      AODVertexLabel_;
   edm::EDGetTokenT<edm::View<reco::Track>  >       AODTrackLabel_;
+  edm::EDGetTokenT<edm::View<reco::GenJet>  >       AODGenJetsLabel_;
+  edm::EDGetTokenT<GenEventInfoProduct  >       AODGenEventInfoLabel_;
   const MagneticField*                             magneticField_;
   edm::ESHandle<Propagator>                        thePropagator_;
   edm::ESHandle<TransientTrackBuilder>             theBuilder_;
 
   // jet functions
   vector<int> getJetTrackIndexs( float jeteta, float jetphi);
+  Int_t getGenMatchPtcl( float jeteta, float jetphi, float trackpt );
   void calculateAlphaMax( vector<int> jetTrackIDs,
    float& alphaMax, float& alphaMaxP, float& beta,
-   float& alphaMax2, float& alphaMaxP2, float& beta2);
+   float& alphaMax2, float& alphaMaxP2, float& beta2,int& MaxVtx);
   void calculateTrackAngle( vector<int> jetTrackIDs,
    vector<float> &allTrackAngles,
    float &totalTrackAngle, float &totalTrackAnglePt);
+  Float_t MatchRadiusTA( vector<int> jetTrackIDs,
+   vector<float> &MatchedRadius);
+
   void calculateIP( vector<int> jetTrackIDs,
    vector<float> &jetIPs, vector<float> &jetIPSigs,
    float &sumIP, float &sumIPSig);
-
+  vector<int> MaxVtxTrackIDs(vector<int> jetTrackIDs, int MaxVtx);
+  Int_t finalMatching (vector<int> jetTrackIDs);
+ 
   float findMedian(vector<float> thevector);
 
   void calculateDisplacedVertices(const edm::EventSetup& es, vector<int> jetTrackIDs);
@@ -244,7 +252,7 @@ class lldjNtuple : public edm::EDAnalyzer {
 
 
   //gen
-  //edm::EDGetTokenT<vector<reco::GenParticle> >     genParticlesCollection_;
+  edm::EDGetTokenT<vector<reco::GenParticle> >     genParticlesCollection_;
 
   TTree   *tree_;
   TH1F    *hEvents_;

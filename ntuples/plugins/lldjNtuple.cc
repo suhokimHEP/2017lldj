@@ -57,6 +57,8 @@ lldjNtuple::lldjNtuple(const edm::ParameterSet& ps) :
   //AODak4PFJetsCHSLabel_    = consumes<View<reco::PFJet>   >          (ps.getParameter<InputTag>("AODak4PFJetsCHSSrc")); 
   //selectedPatJetsLabel_    = consumes<edm::View<pat::Jet> >          (ps.getParameter<InputTag>("selectedPatJetsSrc"));
   AODTrackLabel_           = consumes<edm::View<reco::Track> >       (ps.getParameter<InputTag>("AODTrackSrc"));
+  AODGenJetsLabel_           = consumes<edm::View<reco::GenJet> >       (ps.getParameter<InputTag>("AODGenJetsSrc"));
+  AODGenEventInfoLabel_           = consumes<GenEventInfoProduct >       (ps.getParameter<InputTag>("AODGenEventInfoSrc"));
 
   // met
   patTrgResultsLabel_      = consumes<edm::TriggerResults>           (ps.getParameter<InputTag>("patTriggerResults"));
@@ -117,7 +119,7 @@ lldjNtuple::lldjNtuple(const edm::ParameterSet& ps) :
   AODTriggerEventToken_           = consumes<trigger::TriggerEvent>(AODTriggerEventLabel_);
 
   // gen
-  //genParticlesCollection_    = consumes<vector<reco::GenParticle> >    (ps.getParameter<InputTag>("genParticleSrc"));
+  genParticlesCollection_    = consumes<vector<reco::GenParticle> >    (ps.getParameter<InputTag>("genParticleSrc"));
 
   Service<TFileService> fs;
   tree_    = fs->make<TTree>("EventTree", "Event data");

@@ -149,9 +149,6 @@ vector<float> eFH;
 vector<int> Cutflow;
 vector<float>   TrkMatchingRatio;
 vector<float>   JetMatchingRatio;
-vector<float>   AODCaloJetV0TrkWeight;
-vector<float>   AODCaloJetV1TrkWeight;
-vector<float>   AODCaloJetV2TrkWeight;
 vector<float>   LowGenMatchAM;
 vector<float>   HighGenMatchAM;
 //// PAT Jets
@@ -318,9 +315,6 @@ tree->Branch("AODEventvertexnum", &AODEventvertexnum_);
   tree->Branch("Cutflow", &Cutflow);
   tree->Branch("TrkMatchingRatio", &TrkMatchingRatio);
   tree->Branch("JetMatchingRatio", &JetMatchingRatio);
-  tree->Branch("AODCaloJetV0TrkWeight", &AODCaloJetV0TrkWeight);
-  tree->Branch("AODCaloJetV1TrkWeight", &AODCaloJetV1TrkWeight);
-  tree->Branch("AODCaloJetV2TrkWeight", &AODCaloJetV2TrkWeight);
   tree->Branch("LowGenMatchAM", &LowGenMatchAM);
   tree->Branch("HighGenMatchAM", &HighGenMatchAM);
   //tree->Branch("AODnPATJet",              &AODnPATJet_);
@@ -459,9 +453,6 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  Cutflow.clear();
  TrkMatchingRatio.clear();
  JetMatchingRatio.clear();
- AODCaloJetV0TrkWeight.clear();
- AODCaloJetV1TrkWeight.clear();
- AODCaloJetV2TrkWeight.clear();
  LowGenMatchAM.clear();
  HighGenMatchAM.clear();
  eventnum +=1;
@@ -863,6 +854,11 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   AODnCaloJet_++;
   
   //Pt, Eta, Phi
+  AODCaloJetPt_.push_back(jetpt);
+  AODCaloJetPt_JECUp_.push_back(ptCor_shiftedUP);
+  AODCaloJetPt_JECDown_.push_back(ptCor_shiftedDN);
+  AODCaloJetEta_.push_back(jeteta);
+  AODCaloJetPhi_.push_back(jetphi);
   
   //AlphaMax-type variables
   AODCaloJetAlphaMax_       .push_back(alphaMax      ) ; 
@@ -1280,10 +1276,7 @@ void lldjNtuple::calculateAlphaMax(vector<int> jetTrackIDs, float& aMax, float& 
    // trackID, AODwhichVertexByTrack[trackID],
    // (int)trackSumPtByVtx.size());
    AODCaloJetTrackVtxID_.push_back(AODwhichVertexByTrack[trackID]);
-   AODCaloJetTrackMaxWeight_.push_back(AODTrackMaxWeight_[trackID]);
-   if (AODwhichVertexByTrack[trackID]==0){AODCaloJetV0TrkWeight.push_back(AODTrackMaxWeight_[trackID]);}
-   else if (AODwhichVertexByTrack[trackID]==1){AODCaloJetV1TrkWeight.push_back(AODTrackMaxWeight_[trackID]);}
-   else {AODCaloJetV2TrkWeight.push_back(AODTrackMaxWeight_[trackID]);}
+   //AODCaloJetTrackMaxWeight_.push_back(AODTrackMaxWeight_[trackID]);
    trackSumPtByVtx[AODwhichVertexByTrack[trackID]] += trackpt;
    trackSumPtByVtx2[AODwhichVertexByTrack[trackID]] += (trackpt*trackpt);
   }

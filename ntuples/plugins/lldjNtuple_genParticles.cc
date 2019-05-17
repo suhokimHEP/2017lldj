@@ -1,5 +1,5 @@
-#include "LLDJstandalones/ntuples/interface/lldjNtuple.h"
-#include "LLDJstandalones/ntuples/interface/GenParticleParentage.h"
+#include "2017lldj/ntuples/interface/lldjNtuple.h"
+#include "2017lldj/ntuples/interface/GenParticleParentage.h"
 #include <TMath.h>
 #include <TLorentzVector.h>
 using namespace std;

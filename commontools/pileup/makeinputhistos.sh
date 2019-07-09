@@ -12,9 +12,9 @@ xcs=( \
 )
 
 datasets=( \
-# "MuonEG"       \
+ "MuonEG"       \
  "DoubleMuon"     \
-# "DoubleEG"     \
+ "DoubleEG"     \
 # "SinglePhoton" \
 )
 

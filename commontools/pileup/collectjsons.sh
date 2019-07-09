@@ -36,9 +36,9 @@ cp   /uscms_data/d3/ddiaz/CRAB_2017-LLDJ_slc7_630_CMSSW_9_4_10/src/2017lldj/ntup
 
 
 
-mergeJSON.py  DoubleEG_B.json DoubleEG_C.json DoubleEG_E.json DoubleEG_F.json --output=DoubleEG.json
-mergeJSON.py  DoubleMuon_B.json DoubleMuon_C.json DoubleMuon_E.json DoubleMuon_F.json  --output=DoubleMuon.json
-mergeJSON.py  MuonEG_B.json MuonEG_D.json MuonEG_E.json MuonEG_F.json --output=MuonEG.json
+mergeJSON.py  DoubleEG_B.json DoubleEG_C.json DoubleEG_D.json DoubleEG_E.json DoubleEG_F.json --output=DoubleEG.json
+mergeJSON.py  DoubleMuon_B.json DoubleMuon_C.json DoubleMuon_D.json DoubleMuon_E.json DoubleMuon_F.json  --output=DoubleMuon.json
+mergeJSON.py  MuonEG_B.json MuonEG_C.json MuonEG_D.json MuonEG_E.json MuonEG_F.json --output=MuonEG.json
 #mergeJSON.py  SinglePhoton_G.json SinglePhoton_H_2.json SinglePhoton_H_3.json  --output=SinglePhoton.json
 
 

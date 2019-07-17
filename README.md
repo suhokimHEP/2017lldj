@@ -17,10 +17,17 @@
 
   bash --login
 
-# Set up the area
+##-----You can choose to set-up the FW in slc6 or slc7 choose your preference from the following 
+# Set up the area (slc6)
   export SCRAM_ARCH=slc6_amd64_gcc630;
   scram pro -n 2017-LLDJ_slc6_630_CMSSW_9_4_10 CMSSW CMSSW_9_4_10;
   cd 2017-LLDJ_slc6_630_CMSSW_9_4_10/src;
+  cmsenv;
+
+# Set up the area (slc7)
+  export SCRAM_ARCH=slc7_amd64_gcc630;
+  scram pro -n 2017-LLDJ_slc7_630_CMSSW_9_4_10 CMSSW CMSSW_9_4_10;
+  cd 2017-LLDJ_slc7_630_CMSSW_9_4_10/src;
   cmsenv;
   
 ## CMSSW imports and customizations

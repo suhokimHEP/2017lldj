@@ -14,7 +14,7 @@ void makePUweights(TString Tsample)
  TString inname_data66017 = "PU_"+Tsample+"_66017.root";
  TString inname_data69200 = "PU_"+Tsample+"_69200.root";
  TString inname_data72383 = "PU_"+Tsample+"_72383.root";
- TString oname_base = "puWeights_"+Tsample+"_69200" ;
+ TString oname_base = "2017_puWeights_"+Tsample+"_69200" ;
 
  TFile* file_data66017 ;
  TFile* file_data69200 ;

@@ -96,9 +96,9 @@ Float_t analyzer_scalefactors::makeElectronWeight( std::vector<int> &electron_li
 //----------------------------loadPUWeight
 void analyzer_scalefactors::loadPUWeight(){
  std::cout << "loading PU weight" << std::endl;
- TString filename_DoubleEG     = "puWeights_DoubleEG_69200.root" ;
- TString filename_DoubleMu     = "puWeights_DoubleMu_69200.root" ;
- TString filename_MuonEG       = "puWeights_MuonEG_69200.root" ;
+ TString filename_DoubleEG     = "2017_puWeights_DoubleEG_69200.root" ;
+ TString filename_DoubleMu     = "2017_puWeights_DoubleMu_69200.root" ;
+ TString filename_MuonEG       = "2017_puWeights_MuonEG_69200.root" ;
  TString filename_SinglePhoton = "puWeights_SinglePhoton_69200.root" ;
  TFile* file_puweights_DoubleEG     = new TFile( filename_DoubleEG     ) ;
  TFile* file_puweights_DoubleMu     = new TFile( filename_DoubleMu     ) ;

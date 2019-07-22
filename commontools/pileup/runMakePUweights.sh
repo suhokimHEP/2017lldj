@@ -15,7 +15,7 @@ for dataset in ${datasets[@]}
 do
 
  runPUweights ${dataset}
- cp puWeights_${dataset}_69200.root ../../analyzers/
+ cp 2017_puWeights_${dataset}_69200.root ../../analyzers/
 
 done
 

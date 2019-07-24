@@ -151,13 +151,13 @@ TFile *outfile_bkgest = 0;
   event_weight = makeEventWeight(crossSec,lumi,nrEvents);
   // for MC, simulated pileup is different from observed
   // in commontools/pileup we make a ratio for scaling MC
-//  if(isMC) PUweight_DoubleEG     = makePUWeight("DoubleEG"    ) ;
-//  if(isMC) PUweight_DoubleMu     = makePUWeight("DoubleMu"    ) ;
-//  if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
-//  if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
+  if(isMC) PUweight_DoubleEG     = makePUWeight("DoubleEG"    ) ;
+  if(isMC) PUweight_DoubleMu     = makePUWeight("DoubleMu"    ) ;
+  if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
+  if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
   // electrons also have an associated scale factor for MC 
   if(isMC) event_weight *= makeElectronWeight( electron_list );
-//  if(isMC) event_weight *= makeTTWeight( avgTTSF );
+  if(isMC) event_weight *= makeTTWeight( avgTTSF );
 
 //  getMET();
 
@@ -364,11 +364,11 @@ TFile *outfile_bkgest = 0;
 
    if(isMC){
      // ok I'm sorry, this is terrible
-     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight;// * PUweight_DoubleEG;
-     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight;// * PUweight_DoubleMu;
-     if(i==18) fullweight = event_weight ;//* PUweight_MuonEG;
-     if(i==20) fullweight = event_weight ;//* PUweight_MuonEG;
-     if(i==19) fullweight = event_weight ;//* PUweight_SinglePhoton;
+     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight * PUweight_DoubleEG;
+     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight * PUweight_DoubleMu;
+     if(i==18) fullweight = event_weight * PUweight_MuonEG;
+     if(i==20) fullweight = event_weight * PUweight_MuonEG;
+     if(i==19) fullweight = event_weight * PUweight_SinglePhoton;
    }
    else{
      fullweight = event_weight;

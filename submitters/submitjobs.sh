@@ -7,7 +7,7 @@
 
 doSubmit=true
 lumi=20000.0 # 7.57582+8.43466+0.2156965 
-nevents=1000000
+nevents=-1
 maxfilesperjob=200   # 500=6h
 
 samples=(  \
@@ -173,8 +173,7 @@ makeasubmitdir () {
  printf "hadd ${hadddir}/$1_BkgEst.root"                   >>       ${haddfile_BkgEst}           
 
  # breaking up input file list
- #nfilesinlist=$( wc -l < "${CMSSW_BASE}/src/${FWVersion}/lists/$1.list" )
- nfilesinlist=200
+ nfilesinlist=$( wc -l < "${CMSSW_BASE}/src/${FWVersion}/lists/$1.list" )
  filenrlow=0
  jobfilenr=0
 

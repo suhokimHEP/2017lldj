@@ -185,7 +185,7 @@ void makePUweights(TString Tsample)
  // add titles
  title->DrawTextNDC(0.13,0.91,"CMS");
  extra->DrawTextNDC(0.23,0.91,"Preliminary");
- lumi->DrawTextNDC(0.9,0.91,"35.9 /fb (13 TeV)");
+ lumi->DrawTextNDC(0.9,0.91,"41.1 /fb (13 TeV)");
  h_PUweight->GetXaxis()->SetTitle("Pileup");
  h_PUweight->GetYaxis()->SetTitle("Weight Factor (data/mc)");
  h_PUweight->GetYaxis()->SetTitleOffset(1.5);

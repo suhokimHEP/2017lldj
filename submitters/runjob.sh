@@ -14,11 +14,9 @@ cd src
 printf "pwd\n"
 pwd
 
-cp ../../puWeights_69200_24jan2017.root         .
-cp ../../puWeights_DoubleEG_69200.root          .
-cp ../../puWeights_DoubleMu_69200.root          .
-cp ../../puWeights_MuonEG_69200.root            .
-cp ../../puWeights_SinglePhoton_69200.root      .
+cp ../../2017_puWeights_DoubleEG_69200.root          .
+cp ../../2017_puWeights_DoubleMuon_69200.root          .
+cp ../../2017_puWeights_MuonEG_69200.root            .
 cp ../../2017_ElectronTight.root     .
 cp ../../2017_ElectronMedium.root    .
 cp ../../2017_ElectronLoose.root     .

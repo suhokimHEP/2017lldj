@@ -82,33 +82,30 @@ Float_t analyzer_scalefactors::makeElectronWeight( std::vector<int> &electron_li
  return tmpsf;
 }
 
-////----------------------------makeTTWeight
-//Float_t analyzer_scalefactors::makeTTWeight( Float_t TTavgweight){
-//  Float_t TTSF = 1.; 
-//  if(toppts->size() == 2){ 
-//   TTSF =  ( exp( 0.0615 - 0.0005*toppts->at(0)) * exp( 0.0615 - 0.0005*toppts->at(1)) ) / TTavgweight ;
-//   //std::cout<<" doing TTSF: "<<TTSF<<std::endl;
-//  }
-// return TTSF;
-//}
+//----------------------------makeTTWeight
+/*Float_t analyzer_scalefactors::makeTTWeight( Float_t TTavgweight){
+  Float_t TTSF = 1.; 
+  if(toppts->size() == 2){ 
+   TTSF =  ( exp( 0.0615 - 0.0005*toppts->at(0)) * exp( 0.0615 - 0.0005*toppts->at(1)) ) / TTavgweight ;
+   //std::cout<<" doing TTSF: "<<TTSF<<std::endl;
+  }
+ return TTSF;
+}*/
 
 
 //----------------------------loadPUWeight
 void analyzer_scalefactors::loadPUWeight(){
  std::cout << "loading PU weight" << std::endl;
  TString filename_DoubleEG     = "2017_puWeights_DoubleEG_69200.root" ;
- TString filename_DoubleMu     = "2017_puWeights_DoubleMu_69200.root" ;
+ TString filename_DoubleMu     = "2017_puWeights_DoubleMuon_69200.root" ;
  TString filename_MuonEG       = "2017_puWeights_MuonEG_69200.root" ;
- TString filename_SinglePhoton = "puWeights_SinglePhoton_69200.root" ;
  TFile* file_puweights_DoubleEG     = new TFile( filename_DoubleEG     ) ;
  TFile* file_puweights_DoubleMu     = new TFile( filename_DoubleMu     ) ;
  TFile* file_puweights_MuonEG       = new TFile( filename_MuonEG       ) ;
- TFile* file_puweights_SinglePhoton = new TFile( filename_SinglePhoton ) ;
  //std::cout <<" filename: " << filename << std::endl;
  PUWeights_DoubleEG     = (TH1F*)file_puweights_DoubleEG    ->Get("h_PUweight")->Clone("PUWeights_DoubleEG"    );
  PUWeights_DoubleMu     = (TH1F*)file_puweights_DoubleMu    ->Get("h_PUweight")->Clone("PUWeights_DoubleMu"    );
  PUWeights_MuonEG       = (TH1F*)file_puweights_MuonEG      ->Get("h_PUweight")->Clone("PUWeights_MuonEG"      );
- PUWeights_SinglePhoton = (TH1F*)file_puweights_SinglePhoton->Get("h_PUweight")->Clone("PUWeights_SinglePhoton");
  return ;
 }
 

@@ -7,45 +7,45 @@
 
 doSubmit=true
 lumi=20000.0 # 7.57582+8.43466+0.2156965 
-nevents=-1
+nevents=1000000
 maxfilesperjob=200   # 500=6h
 
 samples=(  \
- "Data_DoubleMuon_B"         \
- "Data_DoubleMuon_C"         \
- "Data_DoubleMuon_D"         \
- "Data_DoubleMuon_E"         \
- "Data_DoubleMuon_F"         \
- "Data_DoubleEG_B"         \
- "Data_DoubleEG_C"         \
- "Data_DoubleEG_D"         \
- "Data_DoubleEG_E"         \
- "Data_DoubleEG_F"         \
- "Data_MuonEG_B"         \
- "Data_MuonEG_C"         \
- "Data_MuonEG_D"         \
- "Data_MuonEG_E"         \
- "Data_MuonEG_F"         \
+# "Data_DoubleMuon_B"         \
+# "Data_DoubleMuon_C"         \
+# "Data_DoubleMuon_D"         \
+# "Data_DoubleMuon_E"         \
+# "Data_DoubleMuon_F"         \
+# "Data_DoubleEG_B"         \
+# "Data_DoubleEG_C"         \
+# "Data_DoubleEG_D"         \
+# "Data_DoubleEG_E"         \
+# "Data_DoubleEG_F"         \
+# "Data_MuonEG_B"         \
+# "Data_MuonEG_C"         \
+# "Data_MuonEG_D"         \
+# "Data_MuonEG_E"         \
+# "Data_MuonEG_F"         \
  "DYJetsToLL_M-50"            \
- "WJetsToLNu"     \
- "TTJets"          \
- "ST_s-channel_4f_leptonDecays"             \
- "ST_t-channel_antitop_4f_inclusiveDecays"  \
- "ST_t-channel_top_4f_inclusiveDecays"      \
- "ST_tW_antitop_5f_NoFullyHadronicDecays"   \
- "ST_tW_top_5f_NoFullyHadronicDecays"        \
- "WW"                 \
- "WZ"                 \
- "ZZ"                 \
- "WGToLNuG"              \
- "QCD_HT100to200"        \
- "QCD_HT200to300"        \
- "QCD_HT300to500"        \
- "QCD_HT500to700"        \
- "QCD_HT700to1000"       \
- "QCD_HT1000to1500"      \
- "QCD_HT1500to2000"      \
- "QCD_HT2000toInf"       \
+# "WJetsToLNu"     \
+# "TTJets"          \
+# "ST_s-channel_4f_leptonDecays"             \
+# "ST_t-channel_antitop_4f_inclusiveDecays"  \
+# "ST_t-channel_top_4f_inclusiveDecays"      \
+# "ST_tW_antitop_5f_NoFullyHadronicDecays"   \
+# "ST_tW_top_5f_NoFullyHadronicDecays"        \
+# "WW"                 \
+# "WZ"                 \
+# "ZZ"                 \
+# "WGToLNuG"              \
+# "QCD_HT100to200"        \
+# "QCD_HT200to300"        \
+# "QCD_HT300to500"        \
+# "QCD_HT500to700"        \
+# "QCD_HT700to1000"       \
+# "QCD_HT1000to1500"      \
+# "QCD_HT1500to2000"      \
+# "QCD_HT2000toInf"       \
 )
 
 printf "Version: ${aversion}\n"
@@ -77,7 +77,7 @@ makeasubmitdir () {
  printf "Executable = ${CMSSW_BASE}/src/${FWVersion}/submitters/runjob.sh\n" >> submitfile
  printf "Should_Transfer_Files = YES \n" >> submitfile
  printf "WhenToTransferOutput = ON_EXIT\n" >> submitfile
- printf "Transfer_Input_Files = ${CMSSW_BASE}/src/${FWVersion}/analyzers/runanalyzer.exe,${CMSSW_BASE}/src/${FWVersion}/lists/$1.list,${CMSSW_BASE}/src/${FWVersion}/lists/$1.info,${CMSSW_BASE}/src/${FWVersion}/analyzers/puWeights_DoubleEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/puWeights_MuonEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/puWeights_SinglePhoton_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/puWeights_DoubleMu_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronTight.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronMedium.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronLoose.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/feff_ZH.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/puWeights_69200_24jan2017.root\n" >> submitfile
+ printf "Transfer_Input_Files = ${CMSSW_BASE}/src/${FWVersion}/analyzers/runanalyzer.exe,${CMSSW_BASE}/src/${FWVersion}/lists/$1.list,${CMSSW_BASE}/src/${FWVersion}/lists/$1.info,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_DoubleEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_MuonEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_DoubleMuon_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronTight.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronMedium.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronLoose.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/feff_ZH.root\n" >> submitfile
 
  printf "notify_user = $(whoami)@cern.ch\n" >> submitfile
  printf "x509userproxy = $X509_USER_PROXY\n" >> submitfile
@@ -173,7 +173,8 @@ makeasubmitdir () {
  printf "hadd ${hadddir}/$1_BkgEst.root"                   >>       ${haddfile_BkgEst}           
 
  # breaking up input file list
- nfilesinlist=$( wc -l < "${CMSSW_BASE}/src/${FWVersion}/lists/$1.list" )
+ #nfilesinlist=$( wc -l < "${CMSSW_BASE}/src/${FWVersion}/lists/$1.list" )
+ nfilesinlist=200
  filenrlow=0
  jobfilenr=0
 

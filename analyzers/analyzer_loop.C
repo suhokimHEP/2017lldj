@@ -54,7 +54,7 @@ TFile *outfile_bkgest = 0;
 //std::cout<<"Passed create GEW file" <<std::endl;
  // start looping over entries
  Long64_t nbytes = 0, nb = 0;
- for (Long64_t jentry=10; jentry<nentries;jentry++) {
+ for (Long64_t jentry=0; jentry<nentries;jentry++) {
   
   L1PFremoved=kFALSE;
   cleareventcounters();

@@ -48,10 +48,13 @@ TFile *outfile_bkgest = 0;
    outfile_bkgest = TFile::Open(outfilename+"_BkgEst.root","RECREATE");
    loadMistagRate();
  }
-
+ TFile *outfile_GEW = 0;
+ outfile_GEW = TFile::Open(outfilename+"_AODGenEventWeight.root","RECREATE");
+ TH1F* h_sum_AODGenEventWeight = new TH1F("h_sum_AODGenEventWeight","h_sum_AODGenEventWeight", 5,0.,5.);
+//std::cout<<"Passed create GEW file" <<std::endl;
  // start looping over entries
  Long64_t nbytes = 0, nb = 0;
- for (Long64_t jentry=0; jentry<nentries;jentry++) {
+ for (Long64_t jentry=10; jentry<nentries;jentry++) {
   
   L1PFremoved=kFALSE;
   cleareventcounters();
@@ -81,7 +84,8 @@ TFile *outfile_bkgest = 0;
 
   shiftCollections(uncbin);
   n_tot++;
-
+  h_sum_AODGenEventWeight->Fill(2, AODGenEventWeight);
+//std::cout<<"Fill Histo" <<std::endl;
   // get lists of "good" electrons, photons, jets
   // idbit, pt, eta, sysbinname
   electron_list    = electron_passID  ( eleidbit,        ele_minPt1, ele_minPt2, ele_maxEta, "");
@@ -151,13 +155,12 @@ TFile *outfile_bkgest = 0;
   event_weight = makeEventWeight(crossSec,lumi,nrEvents);
   // for MC, simulated pileup is different from observed
   // in commontools/pileup we make a ratio for scaling MC
-//  if(isMC) PUweight_DoubleEG     = makePUWeight("DoubleEG"    ) ;
-//  if(isMC) PUweight_DoubleMu     = makePUWeight("DoubleMu"    ) ;
-//  if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
-//  if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
+  if(isMC) PUweight_DoubleEG     = makePUWeight("DoubleEG"    ) ;
+  if(isMC) PUweight_DoubleMu     = makePUWeight("DoubleMu"    ) ;
+  if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
   // electrons also have an associated scale factor for MC 
   if(isMC) event_weight *= makeElectronWeight( electron_list );
-//  if(isMC) event_weight *= makeTTWeight( avgTTSF );
+  //if(isMC) event_weight *= makeTTWeight( avgTTSF );
 
 //  getMET();
 
@@ -361,14 +364,15 @@ TFile *outfile_bkgest = 0;
 
   // fill the histograms
   for(unsigned int i=0; i<selbinnames.size(); ++i){
+   
 
    if(isMC){
      // ok I'm sorry, this is terrible
-     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight;// * PUweight_DoubleEG;
-     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight;// * PUweight_DoubleMu;
-     if(i==18) fullweight = event_weight ;//* PUweight_MuonEG;
-     if(i==20) fullweight = event_weight ;//* PUweight_MuonEG;
-     if(i==19) fullweight = event_weight ;//* PUweight_SinglePhoton;
+     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight * PUweight_DoubleEG;
+     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight * PUweight_DoubleMu;
+     if(i==18) fullweight = event_weight * PUweight_MuonEG;
+     if(i==20) fullweight = event_weight * PUweight_MuonEG;
+     if(i==19) fullweight = event_weight; //* PUweight_SinglePhoton;
    }
    else{
      fullweight = event_weight;
@@ -393,9 +397,9 @@ TFile *outfile_bkgest = 0;
      for( unsigned int k=0; k<tagmultnames.size(); ++k){
       fillSelectedTagHistograms( fullweight, i, k );
      }  
-    } // if( dofillselbin[i] ){
+    } // if( dofillselbin[i] ){  
    } // if i== one of the phase spaces we want to write
-  } // for(unsigned int i=0; i<selbinnames.size(); ++i){
+  } // for(unsigned int i=0; i<selbinnames.size(); ++i)
 
   //debug_printobjects();   // helpful printout (turn off when submitting!!!)
 
@@ -445,6 +449,12 @@ TFile *outfile_bkgest = 0;
 // std::cout<<"   Percent calo matched to PF: "<<(float)n_matchedPFCalo/(float)n_totalCalo<<std::endl;
 // std::cout<<"   Percent calo matched to PFchs: "<<(float)n_matchedPFchsCalo/(float)n_totalCalo<<std::endl;
  std::cout<<std::endl<<std::endl;
+  
+
+  outfile_GEW->cd();
+  h_sum_AODGenEventWeight->Write();
+  h_sum_AODGenEventWeight->Delete();
+  outfile_GEW->Close();
 
  if(doBkgEst && uncbin.EqualTo("")){
    //Can choose more regions here

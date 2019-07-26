@@ -36,6 +36,7 @@ public :
  static const int PhoEtaBinMin  = -5;
  static const int MuEtaBinMin   = -5;
  static const int EleEtaBinMin  = -5;
+ Float_t x_bins[25]={150.0,170.0,200.0,230.0,260.0,290.0,320.0,350.0,390.0,430.0,470.0,510.0,550.0,590.0,640.0,690.0,740.0,790.0,840.0,900.0,960.0,1020.0,1090.0,1160.0,1250.0};
 
 
  // Histograms
@@ -279,6 +280,7 @@ public :
  // Generic Lepton
  TH1F*  h_AOD_dilepton_Mass           [SELBINNAMESIZE];
  TH1F*  h_AOD_dilepton_Pt             [SELBINNAMESIZE];
+ TH1F*  h_AOD_dileptonNewB_Pt         [SELBINNAMESIZE];
  TH1F*  h_AOD_OSOFdilepton_Mass       [SELBINNAMESIZE];
  TH1F*  h_AOD_OSOFdilepton_Pt         [SELBINNAMESIZE];
 
@@ -440,9 +442,14 @@ public :
  void comb(int n, int r, int *arr, int sz, Float_t weight, TString mistag_name);
  TH1F* h_bkgest_pt = NULL;
  TH1F* h_bkgest_pteta = NULL;
+ //TH1F* h_sum_AODGenEventWeight = NULL;
  Bool_t initBackgroundEstimateHistograms();
  Bool_t fillBackgroundEstimateHistograms(Float_t weight);
  Bool_t writeBackgroundEstimateHistograms(TFile* outfile);
+ //Bool_t writeAODGenEventWeightHisto(TFile* outfile);
+ //Bool_t initEventHistograms();
+ //Bool_t fillEventHistograms(Float_t weight);
+ //Bool_t writeEventHistograms(TFile* outfile);
 
 
 };

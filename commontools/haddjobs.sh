@@ -34,12 +34,13 @@ samples=( \
  "WZ"                 \
  "ZZ"                 \
  "WGToLNuG"              \
+ "ZGTo2LG"               \
+ "ZH_HToBB_ZToLL"        \
+ "ggZH_HToBB_ZToLL"      \
  "QCD_HT100to200"        \
- "QCD_HT200to300"        \
  "QCD_HT300to500"        \
  "QCD_HT500to700"        \
  "QCD_HT700to1000"       \
- "QCD_HT1000to1500"      \
  "QCD_HT1500to2000"      \
  "QCD_HT2000toInf"       \
 )
@@ -50,6 +51,7 @@ do
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OPTtree.sh"
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_NM1trees.sh"
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_BkgEst.sh"
+ chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_AODGenEventWeight.sh"
  #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneEleSig_histograms.sh"    
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoEleSig_histograms.sh"    
  #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneMuSig_histograms.sh"    
@@ -76,6 +78,7 @@ do
  bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OPTtree.sh"
  bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_NM1trees.sh"
  bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_BkgEst.sh"
+ bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_AODGenEventWeight.sh"
  #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneEleSig_histograms.sh"    
  bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoEleSig_histograms.sh"    
  #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneMuSig_histograms.sh"    

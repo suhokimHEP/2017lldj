@@ -48,7 +48,10 @@ TFile *outfile_bkgest = 0;
    outfile_bkgest = TFile::Open(outfilename+"_BkgEst.root","RECREATE");
    loadMistagRate();
  }
-
+ TFile *outfile_GEW = 0;
+ outfile_GEW = TFile::Open(outfilename+"_AODGenEventWeight.root","RECREATE");
+ TH1F* h_sum_AODGenEventWeight = new TH1F("h_sum_AODGenEventWeight","h_sum_AODGenEventWeight", 5,0.,5.);
+//std::cout<<"Passed create GEW file" <<std::endl;
  // start looping over entries
  Long64_t nbytes = 0, nb = 0;
  for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -81,7 +84,8 @@ TFile *outfile_bkgest = 0;
 
   shiftCollections(uncbin);
   n_tot++;
-
+  h_sum_AODGenEventWeight->Fill(2, AODGenEventWeight);
+//std::cout<<"Fill Histo" <<std::endl;
   // get lists of "good" electrons, photons, jets
   // idbit, pt, eta, sysbinname
   electron_list    = electron_passID  ( eleidbit,        ele_minPt1, ele_minPt2, ele_maxEta, "");
@@ -360,6 +364,7 @@ TFile *outfile_bkgest = 0;
 
   // fill the histograms
   for(unsigned int i=0; i<selbinnames.size(); ++i){
+   
 
    if(isMC){
      // ok I'm sorry, this is terrible
@@ -367,7 +372,7 @@ TFile *outfile_bkgest = 0;
      if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight * PUweight_DoubleMu;
      if(i==18) fullweight = event_weight * PUweight_MuonEG;
      if(i==20) fullweight = event_weight * PUweight_MuonEG;
-     if(i==19) fullweight = event_weight * PUweight_SinglePhoton;
+     if(i==19) fullweight = event_weight; //* PUweight_SinglePhoton;
    }
    else{
      fullweight = event_weight;
@@ -392,9 +397,9 @@ TFile *outfile_bkgest = 0;
      for( unsigned int k=0; k<tagmultnames.size(); ++k){
       fillSelectedTagHistograms( fullweight, i, k );
      }  
-    } // if( dofillselbin[i] ){
+    } // if( dofillselbin[i] ){  
    } // if i== one of the phase spaces we want to write
-  } // for(unsigned int i=0; i<selbinnames.size(); ++i){
+  } // for(unsigned int i=0; i<selbinnames.size(); ++i)
 
   //debug_printobjects();   // helpful printout (turn off when submitting!!!)
 
@@ -444,6 +449,12 @@ TFile *outfile_bkgest = 0;
 // std::cout<<"   Percent calo matched to PF: "<<(float)n_matchedPFCalo/(float)n_totalCalo<<std::endl;
 // std::cout<<"   Percent calo matched to PFchs: "<<(float)n_matchedPFchsCalo/(float)n_totalCalo<<std::endl;
  std::cout<<std::endl<<std::endl;
+  
+
+  outfile_GEW->cd();
+  h_sum_AODGenEventWeight->Write();
+  h_sum_AODGenEventWeight->Delete();
+  outfile_GEW->Close();
 
  if(doBkgEst && uncbin.EqualTo("")){
    //Can choose more regions here

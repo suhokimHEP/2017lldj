@@ -255,7 +255,7 @@ int main(int argc, char **argv){
  
  // make the analyzer, init some stuff
  analyzer_loop analyzer;
- analyzer.Init(theChain, isMC, makelog);
+ analyzer.Init(theChain, isMC, makelog, Tsample);
  analyzer.setConfiguration();
 
  // file to be filled with slimmed tree

@@ -107,10 +107,10 @@ void analyzer_selections::setSelections()
  selvecBaseDY      .push_back( !passPTOSSF );
  selvecBaseDY      .push_back( passOneJet  );
 
- selvecBaseOffZ    .push_back( passGoodVtx  );
- selvecBaseOffZ    .push_back( !passZWindow );
- selvecBaseOffZ    .push_back( passOSSF     );
- selvecBaseOffZ    .push_back( passOneJet   );
+ selvecBaseOffZ    .push_back( passGoodVtx );  //.push_back( passGoodVtx  );
+ selvecBaseOffZ    .push_back( passZWindow );  //.push_back( !passZWindow );
+ selvecBaseOffZ    .push_back( true );         //.push_back( passOSSF     );
+ selvecBaseOffZ    .push_back( passOneJet  );  //.push_back( passOneJet   );
 
  selvecBaseNoPair  .push_back( passGoodVtx  );
  selvecBaseNoPair  .push_back( !passZWindow );
@@ -228,8 +228,6 @@ Int_t analyzer_selections::setSelBits( std::vector<Bool_t> selvec, int &counter)
 Bool_t analyzer_selections::askPassSingleEle()
 {
  Bool_t doespass = kFALSE;
-// if(electron_list.size()>0){ 
-//   //if(isMC) doespass = kTRUE;
 //   //else doespass = (Bool_t)( (AOD_HLT_Ele23Loose > 0) || (AOD_HLT_Ele27Tight > 0) );
 //   doespass = (Bool_t)( (AOD_HLT_Ele23Loose > 0) || (AOD_HLT_Ele27Tight > 0) );
 // } 
@@ -240,11 +238,11 @@ Bool_t analyzer_selections::askPassDoubleEle()
 {
  Bool_t doespass = kFALSE;
  if(electron_list.size()>1){ 
-  //if(isMC) doespass = kTRUE;
-  //else doespass = (Bool_t)((AOD_HLT_Ele23Ele12 > 0) );
-  //if(TTOC) doespass = kTRUE;
-  //else doespass = (Bool_t)( (AOD_HLT_Ele23Ele12_noDZ > 0) ); 
-  if ( AOD_elePt->at(electron_list[0])>=23.0 &&  AOD_elePt->at(electron_list[1])>=12.0 ) doespass = kTRUE;
+
+  if(TTOC) doespass = kTRUE;
+  else doespass = (Bool_t)( (AOD_HLT_Ele23Ele12_noDZ > 0) ); 
+
+  //if ( AOD_elePt->at(electron_list[0])>=23.0 &&  AOD_elePt->at(electron_list[1])>=12.0 ) doespass = kTRUE;
  } 
  return doespass;
 }
@@ -264,11 +262,9 @@ Bool_t analyzer_selections::askPassDoubleMu()
 {
  Bool_t doespass = kFALSE;
  if(muon_list.size()>1){ 
-  //if(isMC) doespass = kTRUE;
-  //else doespass = (Bool_t)( (AOD_HLT_Mu17Mu8 > 0) || (AOD_HLT_Mu17TkMu8 > 0) || (AOD_HLT_Mu17Mu8_noDZ > 0) || (AOD_HLT_Mu17TkMu8_noDZ > 0)) ; 
-  //if(TTOC) doespass = kTRUE;
-  //else doespass     = (Bool_t)( (AOD_HLT_Mu17Mu8_Mass3p8 > 0) ) ;
-  if ( AOD_muPt->at(muon_list[0])>=17.0 &&  AOD_muPt->at(muon_list[1])>=8.0 ) doespass = kTRUE;
+  if(TTOC) doespass = kTRUE;
+  else doespass     = (Bool_t)( (AOD_HLT_Mu17Mu8_Mass3p8 > 0) ) ; 
+  //if ( AOD_muPt->at(muon_list[0])>=17.0 &&  AOD_muPt->at(muon_list[1])>=8.0 ) doespass = kTRUE;
  } 
  return doespass;
 }
@@ -290,23 +286,10 @@ Bool_t analyzer_selections::askPassMuEG()
 {
  Bool_t doespass = kFALSE;
  if(muon_list.size()>0 && electron_list.size()>0){
- //if (isMC) doespass = kTRUE;
- // if(TTOC){
- //  doespass = kTRUE;
- // } // if(TTOC)
- // else{
- //  if( isMC ){
- //   doespass =  (Bool_t)( (AOD_HLT_Mu12Ele23_DZ > 0) || (AOD_HLT_Mu23Ele12_noDZ > 0) );
-  //if ( AOD_muPt->at(muon_list[0])>=17.0 &&  AOD_muPt->at(muon_list[1])>=8.0 ) doespass = kTRUE;
-  // } // if( isMC )
-  //} // if(!TTOC)
-
-  if (  (AOD_muPt->at(muon_list[0])>AOD_elePt->at(electron_list[0])) && ( AOD_muPt->at(muon_list[0])>=23.0 && AOD_elePt->at(electron_list[0])>= 12.0) ) doespass = kTRUE;
-  if (  (AOD_muPt->at(muon_list[0])<AOD_elePt->at(electron_list[0])) && ( AOD_muPt->at(muon_list[0])>=12.0 && AOD_elePt->at(electron_list[0])>= 23.0) ) doespass = kTRUE;
-  //else 
-  //if (  (AOD_elePt->at(electron_list[0])>AOD_muPt->at(muon_list[0])) && ( AOD_muPt->at(muon_list[0])>=12.0 && AOD_elePt->at(electron_list[0])>= 23.0) ) doespass = kTRUE;
-//  else doespass = kFALSE;
+  if(TTOC){doespass = kTRUE;                                                              } // if(TTOC)
+  else{doespass =  (Bool_t)( (AOD_HLT_Mu12Ele23_DZ > 0) || (AOD_HLT_Mu23Ele12_noDZ > 0) );} // if(!TTOC)
+  //if (  (AOD_muPt->at(muon_list[0])>AOD_elePt->at(electron_list[0])) && ( AOD_muPt->at(muon_list[0])>=23.0 && AOD_elePt->at(electron_list[0])>= 12.0) ) doespass = kTRUE;
+ //if (  (AOD_muPt->at(muon_list[0])<AOD_elePt->at(electron_list[0])) && ( AOD_muPt->at(muon_list[0])>=12.0 && AOD_elePt->at(electron_list[0])>= 23.0) ) doespass = kTRUE;
  } // if(muon_list.size()>0 && electron_list.size()>0)
-// else doespass = kFALSE;
  return doespass;
 }

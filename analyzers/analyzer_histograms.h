@@ -297,6 +297,9 @@ public :
  TH1F*  h_AOD_MET_pt               [SELBINNAMESIZE];
  TH1F*  h_htall                    [SELBINNAMESIZE];
  TH1F*  h_htaodcalojets            [SELBINNAMESIZE];
+ TH1F*  h_AODnGoodVtx              [SELBINNAMESIZE];
+ TH1F*  h_AODnVtx                  [SELBINNAMESIZE];
+ TH1F*  h_AODnTruePU               [SELBINNAMESIZE];
 
  
  // nJets

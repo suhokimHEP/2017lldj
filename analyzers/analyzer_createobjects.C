@@ -28,9 +28,9 @@ std::vector<int> analyzer_createobjects::muon_passID( int bitnr, Float_t muPtCut
 
   bool pass_bit = AOD_muPassLooseID->at(i);//------should probably make if/else groups for other ID's 
 
-  if (muoid = "Loose")  muoisoval = 0.25 ;
-  if (muoid = "Medium") muoisoval = 0.25 ;
-  if (muoid = "Tight")  muoisoval = 0.15 ;
+  if (muoid == "Loose")  muoisoval = 0.25 ;
+  if (muoid == "Medium") muoisoval = 0.25 ;
+  if (muoid == "Tight")  muoisoval = 0.15 ;
   bool pass_iso = AOD_muPFdBetaIsolation->at(i) < muoisoval ;
 
   if( pass_bit && pass_kin && pass_iso )
@@ -968,7 +968,9 @@ void analyzer_createobjects::shiftCollections( TString uncbin )
 	Shifted_CaloJetMedianLog10TrackAngle.at(i) = Shifted_CaloJetMedianLog10TrackAngle.at(i) * (1+deltaTA) ;
       }
     }
-    
+ //std::cout<<"AMAX Shift:  "<<deltaAmax<<std::endl;    
+ //std::cout<<"  IP Shift:  "<<deltaIPsig<<std::endl;    
+ //std::cout<<"  TA Shift:  "<<deltaTA<<std::endl;    
     //   std::cout<<" shifted"<<std::endl;
     //   for(unsigned int i=0; i<Shifted_CaloJetAlphaMax.size(); ++i){
     //    std::cout<<" Amax:  "<<Shifted_CaloJetAlphaMax.at(i)<<
@@ -984,113 +986,3 @@ void analyzer_createobjects::shiftCollections( TString uncbin )
   return;
   
 }
-
-//void analyzer_createobjects::matchPFCalojets( TString pftype )
-//{
-// std::vector<int> pfjet_list;
-// if ( pftype.EqualTo("PF") ){
-//  pfjet_list = aodpfjet_list;
-// }
-// if ( pftype.EqualTo("PFchs") ){
-//  pfjet_list = aodpfchsjet_list;
-// }
-//
-//  // for(unsigned int i=0;i<pfjet_list.size();++i){
-//  //  std::cout<< "pfjet_list.size()  "<<pfjet_list.size()<<std::endl;
-//  // }
-//
-// Bool_t debugmatch=kFALSE;
-//
-// std::vector<int> tempcalo_list;
-// std::vector<int> temppf_list;
-// // for each calo jet loop through pfjets
-// if( aodcalojet_list.size()>1 )
-// {
-//  if(debugmatch){
-//   std::cout<<" AODCaloJet: "<<aodcalojet_list.size()<<std::endl;
-//   for(int i=0; i<aodcalojet_list.size(); ++i)                              
-//   {                                                                
-//    std::cout<<" "<< AODCaloJetPt->at( aodcalojet_list[i] )<<" "<< AODCaloJetEta->at( aodcalojet_list[i] )<<" "<< AODCaloJetPhi->at( aodcalojet_list[i] )<<std::endl;
-//   }
-//  }
-//  for(int i=0; i<aodcalojet_list.size(); ++i)                              
-//  {                                                                
-//   if(debugmatch) std::cout<<" AODCaloJet: "<< AODCaloJetPt->at( aodcalojet_list[i] )<<" "<< AODCaloJetEta->at( aodcalojet_list[i] )<<" "<< AODCaloJetPhi->at( aodcalojet_list[i] )<<std::endl;
-//   if( pfjet_list.size()>1 )
-//   {
-//    for(int j=0; j<pfjet_list.size(); ++j)
-//    {
-//     if(debugmatch) std::cout<<"  PFJet: "<< AODPFJetPt->at( pfjet_list[j] )<<" "<< AODPFJetEta->at( pfjet_list[j] )<<" "<< AODPFJetPhi->at( pfjet_list[j] )<<std::endl;
-//
-//     if ( pftype.EqualTo("PF") )
-//     {
-//      if( dR( AODPFJetEta->at( pfjet_list[j] ), AODPFJetPhi->at( pfjet_list[j] ), AODCaloJetEta->at( aodcalojet_list[i] ), AODCaloJetPhi->at( aodcalojet_list[i] )  ) < jetmatchdRcut )
-//      {
-//       if(debugmatch) std::cout<<"   MATCH"<<std::endl;
-//
-//       //std::cout<<" MATCH: pf "<< AODPFJetPt->at( pfjet_list[j] )<<" "<< AODPFJetEta->at( pfjet_list[j] )<<" "<< AODPFJetPhi->at( pfjet_list[j] )<<" calo "<< AODCaloJetPt->at( aodcalojet_list[i] )<<" "<< AODCaloJetEta->at( aodcalojet_list[i] )<<" "<< AODCaloJetPhi->at( aodcalojet_list[i] )<<std::endl;
-//       if(debugmatch){
-//        std::cout<< "    list before "<<pfjet_list.size()<<std::endl;
-//        for(int q=0; q<pfjet_list.size(); ++q){
-//          std::cout<<"     q "<<q<<" pfjet_list[q] "<<pfjet_list[q]<<" pt "<<AODPFJetPt->at( pfjet_list[q] )<<std::endl;
-//        }
-//       }
-//       tempcalo_list.push_back(aodcalojet_list[i]);
-//       temppf_list.push_back(pfjet_list[j]);
-//       pfjet_list.erase(pfjet_list.begin()+j);
-//       if(debugmatch){
-//        std::cout<<"    after "<<pfjet_list.size()<<std::endl;
-//        for(int q=0; q<pfjet_list.size(); ++q){
-//          std::cout<<"     q "<<q<<" pfjet_list[q] "<<pfjet_list[q]<<" pt "<<AODPFJetPt->at( pfjet_list[q] )<<std::endl;
-//        }
-//       }
-//       break;
-//      }
-//     }
-//
-//     if ( pftype.EqualTo("PFchs") )
-//     {
-//
-//      if( dR( AODPFchsJetEta->at( pfjet_list[j] ), AODPFchsJetPhi->at( pfjet_list[j] ), AODCaloJetEta->at( aodcalojet_list[i] ), AODCaloJetPhi->at( aodcalojet_list[i] )  ) < jetmatchdRcut )
-//      {
-//       if(debugmatch) std::cout<<"   MATCH"<<std::endl;
-//
-//       if(debugmatch){
-//        std::cout<< "    list before "<<pfjet_list.size()<<std::endl;
-//        for(int q=0; q<pfjet_list.size(); ++q){
-//          std::cout<<"     q "<<q<<" pfjet_list[q] "<<pfjet_list[q]<<" pt "<<AODPFchsJetPt->at( pfjet_list[q] )<<std::endl;
-//        }
-//       }
-//       tempcalo_list.push_back(aodcalojet_list[i]);
-//       temppf_list.push_back(pfjet_list[j]);
-//       pfjet_list.erase(pfjet_list.begin()+j);
-//       if(debugmatch){
-//        std::cout<<"    after "<<pfjet_list.size()<<std::endl;
-//        for(int q=0; q<pfjet_list.size(); ++q){
-//          std::cout<<"     q "<<q<<" pfjet_list[q] "<<pfjet_list[q]<<" pt "<<AODPFchsJetPt->at( pfjet_list[q] )<<std::endl;
-//        }
-//       }
-//       break;
-//      }
-//     }
-//     
-//    } // for(int j=0; j<pfjet_list.size(); ++j)
-//   } // if( pfjet_list.size()>1 )
-//  } // for(int i=0; i<aodcalojet_list.size(); ++i)
-// } // if( aodcalojet_list.size()>1 ){    
-//     
-// if ( pftype.EqualTo("PF") ){
-//  calomatchedPF_list = tempcalo_list;
-//  PFmatchedCalo_list = temppf_list;
-// }
-// if ( pftype.EqualTo("PFchs") ){
-//  calomatchedPFchs_list = tempcalo_list;
-//  PFchsmatchedCalo_list = temppf_list;  
-// }
-//
-// return;
-//}
-
-
-
-

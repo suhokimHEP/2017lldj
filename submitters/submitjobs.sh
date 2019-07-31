@@ -6,7 +6,7 @@
 # source xx/LLDJ/setup.sh for ${aversion}
 
 doSubmit=true
-lumi=20000.0 # 7.57582+8.43466+0.2156965 
+lumi=20000.0
 nevents=-1
 maxfilesperjob=200   # 500=6h
 
@@ -113,7 +113,7 @@ makeasubmitdir () {
  printf "Executable = ${CMSSW_BASE}/src/${FWVersion}/submitters/runjob.sh\n" >> submitfile
  printf "Should_Transfer_Files = YES \n" >> submitfile
  printf "WhenToTransferOutput = ON_EXIT\n" >> submitfile
- printf "Transfer_Input_Files = ${CMSSW_BASE}/src/${FWVersion}/analyzers/runanalyzer.exe,${CMSSW_BASE}/src/${FWVersion}/lists/$1.list,${CMSSW_BASE}/src/${FWVersion}/lists/$1.info,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_DoubleEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_MuonEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_DoubleMu_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronTight.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronMedium.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronLoose.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/feff_ZH.root\n" >> submitfile
+ printf "Transfer_Input_Files = ${CMSSW_BASE}/src/${FWVersion}/analyzers/runanalyzer.exe,${CMSSW_BASE}/src/${FWVersion}/lists/$1.list,${CMSSW_BASE}/src/${FWVersion}/lists/$1.info,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_DoubleEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_MuonEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_DoubleMuon_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronTight.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronMedium.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronLoose.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/feff_ZH.root\n" >> submitfile
 
  printf "notify_user = $(whoami)@cern.ch\n" >> submitfile
  printf "x509userproxy = $X509_USER_PROXY\n" >> submitfile

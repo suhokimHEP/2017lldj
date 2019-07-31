@@ -11,42 +11,42 @@ nevents=-1
 maxfilesperjob=200   # 500=6h
 
 samples=(  \
-# "Data_DoubleMuon_B"         \
-# "Data_DoubleMuon_C"         \
-# "Data_DoubleMuon_D"         \
-# "Data_DoubleMuon_E"         \
-# "Data_DoubleMuon_F"         \
-# "Data_DoubleEG_B"         \
-# "Data_DoubleEG_C"         \
-# "Data_DoubleEG_D"         \
-# "Data_DoubleEG_E"         \
-# "Data_DoubleEG_F"         \
-# "Data_MuonEG_B"         \
-# "Data_MuonEG_C"         \
-# "Data_MuonEG_D"         \
-# "Data_MuonEG_E"         \
-# "Data_MuonEG_F"         \
-# "DYJetsToLL_M-50"            \
-# "WJetsToLNu"     \
-# "TTJets"          \
-# "ST_s-channel_4f_leptonDecays"             \
-# "ST_t-channel_antitop_4f_inclusiveDecays"  \
-# "ST_t-channel_top_4f_inclusiveDecays"      \
-# "ST_tW_antitop_5f_NoFullyHadronicDecays"   \
-# "ST_tW_top_5f_NoFullyHadronicDecays"        \
-# "WW"                 \
-# "WZ"                 \
-# "ZZ"                 \
-# "WGToLNuG"              \
-# "ZGTo2LG"               \
-# "ZH_HToBB_ZToLL"        \
-# "ggZH_HToBB_ZToLL"      \
-# "QCD_HT100to200"        \
-# "QCD_HT300to500"        \
-# "QCD_HT500to700"        \
-# "QCD_HT700to1000"       \
-# "QCD_HT1500to2000"      \
-# "QCD_HT2000toInf"       \
+ "Data_DoubleMuon_B"         \
+ "Data_DoubleMuon_C"         \
+ "Data_DoubleMuon_D"         \
+ "Data_DoubleMuon_E"         \
+ "Data_DoubleMuon_F"         \
+ "Data_DoubleEG_B"         \
+ "Data_DoubleEG_C"         \
+ "Data_DoubleEG_D"         \
+ "Data_DoubleEG_E"         \
+ "Data_DoubleEG_F"         \
+ "Data_MuonEG_B"         \
+ "Data_MuonEG_C"         \
+ "Data_MuonEG_D"         \
+ "Data_MuonEG_E"         \
+ "Data_MuonEG_F"         \
+ "DYJetsToLL_M-50"            \
+ "WJetsToLNu"     \
+ "TTJets"          \
+ "ST_s-channel_4f_leptonDecays"             \
+ "ST_t-channel_antitop_4f_inclusiveDecays"  \
+ "ST_t-channel_top_4f_inclusiveDecays"      \
+ "ST_tW_antitop_5f_NoFullyHadronicDecays"   \
+ "ST_tW_top_5f_NoFullyHadronicDecays"        \
+ "WW"                 \
+ "WZ"                 \
+ "ZZ"                 \
+ "WGToLNuG"              \
+ "ZGTo2LG"               \
+ "ZH_HToBB_ZToLL"        \
+ "ggZH_HToBB_ZToLL"      \
+ "QCD_HT100to200"        \
+ "QCD_HT300to500"        \
+ "QCD_HT500to700"        \
+ "QCD_HT700to1000"       \
+ "QCD_HT1500to2000"      \
+ "QCD_HT2000toInf"       \
 )
 # "Data_DoubleMuon_B"         \
 # "Data_DoubleMuon_C"         \
@@ -141,9 +141,9 @@ makeasubmitdir () {
  #haddfile_OneMuZH_histograms="./haddit_OneMuZH_histograms.sh"                           
  haddfile_TwoMuZH_histograms="./haddit_TwoMuZH_histograms.sh"                           
  #haddfile_OneEleOffZ_histograms="./haddit_OneEleOffZ_histograms.sh"                           
- #haddfile_TwoEleOffZ_histograms="./haddit_TwoEleOffZ_histograms.sh"                           
+ haddfile_TwoEleOffZ_histograms="./haddit_TwoEleOffZ_histograms.sh"                           
  #haddfile_OneMuOffZ_histograms="./haddit_OneMuOffZ_histograms.sh"                           
- #haddfile_TwoMuOffZ_histograms="./haddit_TwoMuOffZ_histograms.sh"                           
+ haddfile_TwoMuOffZ_histograms="./haddit_TwoMuOffZ_histograms.sh"                           
  #haddfile_OneEleNoPair_histograms="./haddit_OneEleNoPair_histograms.sh"                           
  #haddfile_OneMuNoPair_histograms="./haddit_OneMuNoPair_histograms.sh"                           
  haddfile_EleMuOSOF_histograms="./haddit_EleMuOSOF_histograms.sh"                           
@@ -166,9 +166,9 @@ makeasubmitdir () {
  #printf "#!/bin/bash\n\n" > ${haddfile_OneMuZH_histograms}      
  printf "#!/bin/bash\n\n" > ${haddfile_TwoMuZH_histograms}      
  #printf "#!/bin/bash\n\n" > ${haddfile_OneEleOffZ_histograms}   
- #printf "#!/bin/bash\n\n" > ${haddfile_TwoEleOffZ_histograms}   
+ printf "#!/bin/bash\n\n" > ${haddfile_TwoEleOffZ_histograms}   
  #printf "#!/bin/bash\n\n" > ${haddfile_OneMuOffZ_histograms}    
- #printf "#!/bin/bash\n\n" > ${haddfile_TwoMuOffZ_histograms}    
+ printf "#!/bin/bash\n\n" > ${haddfile_TwoMuOffZ_histograms}    
  #printf "#!/bin/bash\n\n" > ${haddfile_OneEleNoPair_histograms} 
  #printf "#!/bin/bash\n\n" > ${haddfile_OneMuNoPair_histograms}  
  printf "#!/bin/bash\n\n" > ${haddfile_EleMuOSOF_histograms}    
@@ -198,9 +198,9 @@ makeasubmitdir () {
  #printf "hadd ${hadddir}/$1_OneMuZH_histograms.root"       >>       ${haddfile_OneMuZH_histograms}      
  printf "hadd ${hadddir}/$1_TwoMuZH_histograms.root"       >>       ${haddfile_TwoMuZH_histograms}      
  #printf "hadd ${hadddir}/$1_OneEleOffZ_histograms.root"    >>       ${haddfile_OneEleOffZ_histograms}   
- #printf "hadd ${hadddir}/$1_TwoEleOffZ_histograms.root"    >>       ${haddfile_TwoEleOffZ_histograms}   
+ printf "hadd ${hadddir}/$1_TwoEleOffZ_histograms.root"    >>       ${haddfile_TwoEleOffZ_histograms}   
  #printf "hadd ${hadddir}/$1_OneMuOffZ_histograms.root"     >>       ${haddfile_OneMuOffZ_histograms}    
- #printf "hadd ${hadddir}/$1_TwoMuOffZ_histograms.root"     >>       ${haddfile_TwoMuOffZ_histograms}    
+ printf "hadd ${hadddir}/$1_TwoMuOffZ_histograms.root"     >>       ${haddfile_TwoMuOffZ_histograms}    
  #printf "hadd ${hadddir}/$1_OneEleNoPair_histograms.root"  >>       ${haddfile_OneEleNoPair_histograms} 
  #printf "hadd ${hadddir}/$1_OneMuNoPair_histograms.root"   >>       ${haddfile_OneMuNoPair_histograms}  
  printf "hadd ${hadddir}/$1_EleMuOSOF_histograms.root"     >>       ${haddfile_EleMuOSOF_histograms}    
@@ -239,9 +239,9 @@ makeasubmitdir () {
   #printf "\\"  >> ${haddfile_OneMuZH_histograms}      
   printf "\\"  >> ${haddfile_TwoMuZH_histograms}      
   #printf "\\"  >> ${haddfile_OneEleOffZ_histograms}   
-  #printf "\\"  >> ${haddfile_TwoEleOffZ_histograms}   
+  printf "\\"  >> ${haddfile_TwoEleOffZ_histograms}   
   #printf "\\"  >> ${haddfile_OneMuOffZ_histograms}    
-  #printf "\\"  >> ${haddfile_TwoMuOffZ_histograms}    
+  printf "\\"  >> ${haddfile_TwoMuOffZ_histograms}    
   #printf "\\"  >> ${haddfile_OneEleNoPair_histograms} 
   #printf "\\"  >> ${haddfile_OneMuNoPair_histograms}  
   printf "\\"  >> ${haddfile_EleMuOSOF_histograms}    
@@ -265,9 +265,9 @@ makeasubmitdir () {
   #printf "\n $(pwd)/$1_${jobfilenr}_OneMuZH_histograms.root"       >> ${haddfile_OneMuZH_histograms}      
   printf "\n $(pwd)/$1_${jobfilenr}_TwoMuZH_histograms.root"       >> ${haddfile_TwoMuZH_histograms}      
   #printf "\n $(pwd)/$1_${jobfilenr}_OneEleOffZ_histograms.root"    >> ${haddfile_OneEleOffZ_histograms}   
-  #printf "\n $(pwd)/$1_${jobfilenr}_TwoEleOffZ_histograms.root"    >> ${haddfile_TwoEleOffZ_histograms}   
+  printf "\n $(pwd)/$1_${jobfilenr}_TwoEleOffZ_histograms.root"    >> ${haddfile_TwoEleOffZ_histograms}   
   #printf "\n $(pwd)/$1_${jobfilenr}_OneMuOffZ_histograms.root"     >> ${haddfile_OneMuOffZ_histograms}    
-  #printf "\n $(pwd)/$1_${jobfilenr}_TwoMuOffZ_histograms.root"     >> ${haddfile_TwoMuOffZ_histograms}    
+  printf "\n $(pwd)/$1_${jobfilenr}_TwoMuOffZ_histograms.root"     >> ${haddfile_TwoMuOffZ_histograms}    
   #printf "\n $(pwd)/$1_${jobfilenr}_OneEleNoPair_histograms.root"  >> ${haddfile_OneEleNoPair_histograms} 
   #printf "\n $(pwd)/$1_${jobfilenr}_OneMuNoPair_histograms.root"   >> ${haddfile_OneMuNoPair_histograms}  
   printf "\n $(pwd)/$1_${jobfilenr}_EleMuOSOF_histograms.root"     >> ${haddfile_EleMuOSOF_histograms}    
@@ -301,9 +301,9 @@ makeasubmitdir () {
  #printf "\n\n" >> ${haddfile_OneMuZH_histograms}      
  printf "\n\n" >> ${haddfile_TwoMuZH_histograms}      
  #printf "\n\n" >> ${haddfile_OneEleOffZ_histograms}   
- #printf "\n\n" >> ${haddfile_TwoEleOffZ_histograms}   
+ printf "\n\n" >> ${haddfile_TwoEleOffZ_histograms}   
  #printf "\n\n" >> ${haddfile_OneMuOffZ_histograms}    
- #printf "\n\n" >> ${haddfile_TwoMuOffZ_histograms}    
+ printf "\n\n" >> ${haddfile_TwoMuOffZ_histograms}    
  #printf "\n\n" >> ${haddfile_OneEleNoPair_histograms} 
  #printf "\n\n" >> ${haddfile_OneMuNoPair_histograms}  
  printf "\n\n" >> ${haddfile_EleMuOSOF_histograms}    

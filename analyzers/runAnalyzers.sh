@@ -8,7 +8,7 @@ for sample in \
 
 do
 #  ./runanalyzer.exe -s ${sample} -l "20000" -x "" -e "-1" -i "../lists" -o "junk" -n 999999999 -a 1 -d -m
-  ./runanalyzer.exe -s ${sample} -l "20000" -x "" -e "1000" -i "../lists" -o "junk" -n 10 -a 1 -d -m
+  ./runanalyzer.exe -s ${sample} -l "20000" -x "" -e "5000" -i "../lists" -o "junk" -n 10 -a 1 -d -m
 
 done #for sample in DY50..
 

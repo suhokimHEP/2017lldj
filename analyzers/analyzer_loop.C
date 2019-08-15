@@ -172,9 +172,11 @@ TFile *outfile_bkgest = 0;
   passOSSF = (dilep_mass>20.);
   passOSOF = (OSOF_mass>20.);
   passPTOSOF = (OSOF_pt>100.);
+  passPTOSOFL = (OSOF_pt>10. && OSOF_pt<100.);
   passZWindow = (dilep_mass>70. && dilep_mass<110.);
   passZWinOSOF= (OSOF_mass>70. && OSOF_mass<110.);
   passPTOSSF  = (dilep_pt>100.);
+  passPTOSSFL  = (dilep_pt>10. && dilep_pt<100.);
   passGoodVtx = AODnGoodVtx>0; 
   passOneJet  = false; if (aodcalojet_list.size()>0) passOneJet=true;  
   passOneTag  = false; if (taggedjet_list.size()>0) passOneTag=true;  
@@ -368,18 +370,20 @@ TFile *outfile_bkgest = 0;
 
    if(isMC){
      // ok I'm sorry, this is terrible
-     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight * PUweight_DoubleEG;
+     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13)          fullweight = event_weight * PUweight_DoubleEG;
      if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight * PUweight_DoubleMu;
+     //if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13)   fullweight = event_weight * PUweight_DoubleEG;
+     //if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight * PUweight_DoubleMu;
      if(i==18) fullweight = event_weight * PUweight_MuonEG;
      if(i==20) fullweight = event_weight * PUweight_MuonEG;
-     if(i==19) fullweight = event_weight; //* PUweight_SinglePhoton;
+     if(i==19) fullweight = event_weight;
    }
    else{
      fullweight = event_weight;
    }
 
    /// quick hack to only write phase spaces we care about
-   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20  ){
+   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==13 || i==15 ){
     fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
     if( dofillselbin[i] ){
      fillSelectedHistograms( fullweight, i );
@@ -485,7 +489,7 @@ TFile *outfile_bkgest = 0;
  // make outfile and save histograms
  // write the histograms
  for(unsigned int i=0; i<selbinnames.size(); ++i){
-  if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20  ){
+  if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==13 || i==15 ){
 
      //Normalize variable binned histograms by bin width
      //Could put this in its own loop for clarity

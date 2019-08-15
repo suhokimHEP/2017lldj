@@ -104,7 +104,7 @@ void analyzer_selections::setSelections()
 
  selvecBaseDY      .push_back( passGoodVtx );
  selvecBaseDY      .push_back( passZWindow );
- selvecBaseDY      .push_back( !passPTOSSF );
+ selvecBaseDY      .push_back( passPTOSSFL );
  selvecBaseDY      .push_back( passOneJet  );
 
  selvecBaseOffZ    .push_back( passGoodVtx );  //.push_back( passGoodVtx  );
@@ -183,7 +183,7 @@ void analyzer_selections::setSelections()
  selvecEleMuOSOFL .push_back( passMuEG     );
  selvecEleMuOSOFL .push_back( passGoodVtx  );
  selvecEleMuOSOFL .push_back( passOneJet   );
- if(!TTOC) selvecEleMuOSOFL .push_back( (!passPTOSOF)  && passZWinOSOF );
+ if(!TTOC) selvecEleMuOSOFL .push_back( (passPTOSOFL)  && passZWinOSOF );
  // One Photon
  selvecOnePho .push_back( passSinglePho);
  selvecOnePho .push_back( passGoodVtx  );
@@ -263,7 +263,7 @@ Bool_t analyzer_selections::askPassDoubleMu()
  Bool_t doespass = kFALSE;
  if(muon_list.size()>1){ 
   if(TTOC) doespass = kTRUE;
-  else doespass     = (Bool_t)( (AOD_HLT_Mu17Mu8_Mass3p8 > 0) ) ; 
+  else doespass     = (Bool_t)( (AOD_HLT_Mu17Mu8_Mass3p8 > 0) || (AOD_HLT_Mu17Mu8_Mass8 > 0)) ; 
   //if ( AOD_muPt->at(muon_list[0])>=17.0 &&  AOD_muPt->at(muon_list[1])>=8.0 ) doespass = kTRUE;
  } 
  return doespass;

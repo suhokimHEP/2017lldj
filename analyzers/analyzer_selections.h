@@ -62,7 +62,7 @@ public :
    Bool_t passDoubleEle ;
    Bool_t passDoubleMu  ;
    Bool_t passSinglePho ;
-   Bool_t passMuEG ;
+   Bool_t passMuEG      ;
    Bool_t passOSSF      ;   
    Bool_t passOSOF      ;   
    Bool_t passZWindow   ;   
@@ -70,6 +70,8 @@ public :
    Bool_t passGoodVtx   ;   
    Bool_t passPTOSSF    ; 
    Bool_t passPTOSOF    ;   
+   Bool_t passPTOSSFL   ; 
+   Bool_t passPTOSOFL   ;   
    Bool_t passOneJet    ; 
    Bool_t passOneTag    ;
    Bool_t passTwoTag    ;

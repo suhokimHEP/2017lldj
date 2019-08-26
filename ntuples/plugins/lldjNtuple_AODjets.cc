@@ -55,8 +55,8 @@ edm::Handle<edm::View<reco::CaloJet> >  AODak4CaloJetsHandle;
 //edm::Handle<edm::View<pat::Jet>      >  selectedPatJetsHandle;  
 edm::Handle<edm::View<reco::Vertex>  >  AODVertexHandle;
 edm::Handle<edm::View<reco::Track>   >  AODTrackHandle;
-edm::Handle<edm::View<reco::GenJet>   >  AODGenJetsHandle;
-edm::Handle<vector<reco::GenParticle> > genParticlesHandle;
+//edm::Handle<edm::View<reco::GenJet>   >  AODGenJetsHandle;
+//edm::Handle<vector<reco::GenParticle> > genParticlesHandle;
 edm::Handle<reco::BeamSpot> beamspotHandle_;
 edm::ESHandle<MagneticField> magneticField;
 edm::ESHandle<JetCorrectorParametersCollection> JetCorParColl;//Daniel
@@ -543,8 +543,8 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  //e.getByToken( selectedPatJetsLabel_,  selectedPatJetsHandle );  
  e.getByToken( AODVertexLabel_      ,  AODVertexHandle );
  e.getByToken( AODTrackLabel_       ,  AODTrackHandle );
- e.getByToken( AODGenJetsLabel_       ,  AODGenJetsHandle );
- e.getByToken(genParticlesCollection_, genParticlesHandle);
+ //e.getByToken( AODGenJetsLabel_       ,  AODGenJetsHandle );
+ //e.getByToken(genParticlesCollection_, genParticlesHandle);
 
  // Magnetic field
  es.get<IdealMagneticFieldRecord>().get(magneticField);

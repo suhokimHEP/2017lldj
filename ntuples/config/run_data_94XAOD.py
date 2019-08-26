@@ -25,7 +25,8 @@ process.source = cms.Source('PoolSource',
                             fileNames = cms.untracked.vstring(
           #'file:MuEG.root'
         #'root://cms-xrd-global.cern.ch//store/data/Run2016G/SingleElectron/AOD/23Sep2016-v1/100000/62B0D6B4-D58A-E611-9F51-002590AC4B5C.root'
-        'file:/uscms/home/ddiaz/nobackup/DataSP.root'
+        'root://cms-xrd-global.cern.ch//store/data/Run2017B/DoubleEG/AOD/17Nov2017-v1/50001/2E2F8194-33D9-E711-88D7-001E6757EAA4.root'
+        #'file:/uscms/home/ddiaz/nobackup/DataSP.root'
  ),
 )
 

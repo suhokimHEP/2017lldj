@@ -3,7 +3,7 @@
 export depot="/eos/uscms/store/group/lpchbb/LLDJntuples"
 export depot2="/store/group/lpchbb/LLDJntuples"
 export FWVersion="2017lldj"
-export nversion="2017_LLDJ"
+export nversion="RadvsTA"
 #export aversion="2017Comparisons_noPUWeights_simTrig"
 export aversion="2017Comparisons_noPUWeights"
 

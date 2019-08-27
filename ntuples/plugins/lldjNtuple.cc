@@ -119,7 +119,7 @@ lldjNtuple::lldjNtuple(const edm::ParameterSet& ps) :
   AODTriggerEventToken_           = consumes<trigger::TriggerEvent>(AODTriggerEventLabel_);
 
   // gen
-  genParticlesCollection_    = consumes<vector<reco::GenParticle> >    (ps.getParameter<InputTag>("genParticleSrc"));
+  //genParticlesCollection_    = consumes<vector<reco::GenParticle> >    (ps.getParameter<InputTag>("genParticleSrc"));
 
   Service<TFileService> fs;
   tree_    = fs->make<TTree>("EventTree", "Event data");
@@ -139,7 +139,7 @@ lldjNtuple::lldjNtuple(const edm::ParameterSet& ps) :
  //}
  if(doAOD_){
   branchesAODEvent(tree_);
-  branchesGenPart(tree_);
+  //branchesGenPart(tree_);
   branchesAODTrigger(tree_);
   branchesAODJets(tree_);
   branchesAODMuons(tree_);

@@ -829,17 +829,17 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   calculateDisplacedVertices(es, caloJetTrackIDs);
   //MaxWeightPassedTrks.push_back(MaxVtxTrkIDs.size());
 
-  int matchedptcls = finalMatching(PVtracks);
-  float matchingratio;
-  if (TrkWeightZero !=0 ){matchingratio = float(matchedptcls)/float(TrkWeightZero);
-  MatchingRatio.push_back(matchingratio);
+  //int matchedptcls = finalMatching(PVtracks);
+  //float matchingratio;
+  //if (TrkWeightZero !=0 ){matchingratio = float(matchedptcls)/float(TrkWeightZero);
+  //MatchingRatio.push_back(matchingratio);
   JetPVTracknum++;
  
   flownum+=1;
   Cutflow.push_back(flownum);
-}
-  if(matchingratio >0.95){HighGenMatchAM.push_back(alphaMax);}
-  else {LowGenMatchAM.push_back(alphaMax);}
+
+  //if(matchingratio >0.95){HighGenMatchAM.push_back(alphaMax);}
+  //else {LowGenMatchAM.push_back(alphaMax);}
   // find medians
   float medianTrackAngle;
   medianTrackAngle = findMedian(caloJetTrackAngles);

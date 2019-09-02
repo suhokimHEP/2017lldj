@@ -15,7 +15,7 @@ process.load("RecoTracker.TkNavigation.NavigationSchoolESProducer_cfi")
 
 # log output
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(101) )  ## number of events -1 does all
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )  ## number of events -1 does all
 process.MessageLogger.cerr.FwkReport.reportEvery = 100
 #process.MessageLogger.cerr.FwkReport.reportEvery = 1
 #process.Tracer = cms.Service('Tracer')
@@ -25,7 +25,18 @@ process.source = cms.Source('PoolSource',
                             fileNames = cms.untracked.vstring(
           #'file:MuEG.root'
         #'root://cms-xrd-global.cern.ch//store/data/Run2016G/SingleElectron/AOD/23Sep2016-v1/100000/62B0D6B4-D58A-E611-9F51-002590AC4B5C.root'
-        'file:/uscms/home/ddiaz/nobackup/DataSP.root'
+        #'root://cms-xrd-global.cern.ch//store/data/Run2017B/DoubleEG/AOD/17Nov2017-v1/710000/CCC0EA18-6EE0-E711-9C68-0CC47A1DF80A.root'
+        'root://cms-xrd-global.cern.ch//store/data/Run2017B/DoubleEG/AOD/17Nov2017-v1/20000/289F10BA-33D3-E711-824E-002590E7DFFE.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2017B/DoubleEG/AOD/17Nov2017-v1/20000/08382F64-77D5-E711-BF83-002590E7DD98.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2017B/DoubleEG/AOD/17Nov2017-v1/20000/080239B6-B2D3-E711-90CA-141877638F39.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2017B/DoubleEG/AOD/17Nov2017-v1/20000/06E4D36E-D9D3-E711-8609-44A84225C3D0.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2017B/DoubleEG/AOD/17Nov2017-v1/20000/0661C776-84D3-E711-A6F1-002590E7DDE6.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2017B/DoubleEG/AOD/17Nov2017-v1/20000/02790DD5-20D4-E711-8BFC-0CC47A1DF80A.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2017B/DoubleEG/AOD/17Nov2017-v1/20000/00CBCC1B-ABD5-E711-8BA7-0CC47A1DF390.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2017B/DoubleEG/AOD/17Nov2017-v1/20000/00462DCC-B2D3-E711-B4D7-141877638F39.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2017B/DoubleEG/AOD/17Nov2017-v1/20000/BEDD67A1-E8D3-E711-BCB9-0CC47A1E0480.root',
+        'root://cms-xrd-global.cern.ch//store/data/Run2017B/DoubleEG/AOD/17Nov2017-v1/20000/BE8A66D1-FED2-E711-994D-0CC47A1DF810.root'
+        #'file:/uscms/home/ddiaz/nobackup/DataSP.root'
  ),
 )
 
@@ -65,16 +76,16 @@ process.load('PhysicsTools.PatAlgos.patSequences_cff')
 
 # for JEC
 # Load the corrections
-process.load('JetMETCorrections.Configuration.JetCorrectors_cff')
-
-# Produce corrected jets collection
-process.ak4CaloCorrectedJets   = cms.EDProducer('CorrectedCaloJetProducer',
-    src         = cms.InputTag('ak4CaloJets'),
+#process.load('JetMETCorrections.Configuration.JetCorrectors_cff')
+#
+## Produce corrected jets collection
+#process.ak4CaloCorrectedJets   = cms.EDProducer('CorrectedCaloJetProducer',
+    #src         = cms.InputTag('ak4CaloJets'),
     #L1(PU), L2L3(MCTruth), L2L3Residuals
-    correctors  = cms.VInputTag('ak4CaloL1FastL2L3ResidualCorrector')
+    #correctors  = cms.VInputTag('ak4CaloL1FastL2L3ResidualCorrector')
     #correctors  = cms.VInputTag('ak4CaloL1FastjetCorrector', 'ak4CaloL2L3Corrector', 'ak4CaloL2L3ResidualCorrector')
     #correctors  = cms.VInputTag('ak4CaloL2L3Corrector')
-    )
+    #)
 
 # pat for trigger
 process.load( 'PhysicsTools.PatAlgos.triggerLayer1.triggerProducer_cff' )
@@ -147,13 +158,15 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  beamspotLabel_            = cms.InputTag('offlineBeamSpot'),
 
  #ak4JetSrc                 = cms.InputTag('slimmedJets'),
- ##AODak4CaloJetsSrc         = cms.InputTag('ak4CaloJets' , '', 'RECO'),
- AODak4CorrCaloJetsSrc     = cms.InputTag('ak4CaloCorrectedJets'),
+ AODak4CaloJetsSrc         = cms.InputTag('ak4CaloJets' , '', 'RECO'),
+ #AODak4CorrCaloJetsSrc     = cms.InputTag('ak4CaloCorrectedJets'),
  #AODak4PFJetsSrc           = cms.InputTag('ak4PFJets'   , '', 'RECO'),
  #AODak4PFJetsCHSSrc        = cms.InputTag('ak4PFJetsCHS', '', 'RECO'),
  #selectedPatJetsSrc        = cms.InputTag('selectedPatJets'),                                   
  AODVertexSrc              = cms.InputTag('offlinePrimaryVertices', '', 'RECO'),
  AODTrackSrc               = cms.InputTag('generalTracks', '', 'RECO'),
+ AODGenJetsSrc               = cms.InputTag('ak4GenJets', '', 'SIM'),
+ AODGenEventInfoSrc               = cms.InputTag('generator', '', 'SIM'), 
  vertexFitterConfig = cms.PSet(
         finder = cms.string('avf'),
         sigmacut = cms.double(10.),
@@ -191,7 +204,7 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  AOD_eleTightIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose"),
  conversions  = cms.InputTag('allConversions'),
 
-# genParticleSrc    = cms.InputTag("genParticles"),
+ genParticleSrc    = cms.InputTag("genParticles"),
 
  bits = cms.InputTag("TriggerResults","","HLT"),
  prescales = cms.InputTag("patTrigger"),
@@ -210,8 +223,8 @@ process.selectedPatCandidatesTask.remove(process.selectedPatOOTPhotons)
 #builds Ntuple
 process.p = cms.Path(
     process.egammaPostRecoSeq *
-    process.ak4CaloCorrectedJets *
-    process.ak4CaloL1FastL2L3ResidualCorrectorChain *
+    #process.ak4CaloCorrectedJets *
+    #process.ak4CaloL1FastL2L3ResidualCorrectorChain *
     process.particleFlowPtrs *
     process.patCandidates *
     process.selectedPatCandidates *

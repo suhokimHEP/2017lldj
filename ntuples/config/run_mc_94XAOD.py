@@ -25,7 +25,17 @@ process.source = cms.Source('PoolSource',
 #'root://cmsxrootd.fnal.gov//store/data/Run2017F/SinglePhoton/AOD/17Nov2017-v1/50000/B86B5B18-0EDF-E711-BEE1-02163E019E8F.root'<--data
 #'root://cmsxrootd.fnal.gov//store/mc/RunIISummer17DRPremix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/92X_upgrade2017_realistic_v10_ext1-v1/50003/BEF5C718-BA86-E711-8A89-C81F66B7ED98.root'
 #'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v2/40000/E852C6B8-349F-E811-B40F-24BE05C63631.root'
-'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/WW_TuneCP5_13TeV-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v1/110000/3292E7E6-5EBA-E811-8ECF-0242AC130002.root'
+#'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/WW_TuneCP5_13TeV-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v1/110000/3292E7E6-5EBA-E811-8ECF-0242AC130002.root'
+'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v1/70000/FEFC52C1-4D54-E811-9709-0242AC130002.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v1/10000/2068E590-055D-E811-9F6F-0CC47AD98BEE.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v1/10000/20293FBC-385C-E811-83ED-0CC47A13CC7E.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v1/10000/1C30F354-655D-E811-B7CC-001E67E71BC8.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v1/10000/1A788A6A-405D-E811-A3F8-0242AC130002.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v1/10000/14564C84-055D-E811-BC18-008CFAC93F28.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v1/10000/105DB19E-055D-E811-BD06-1866DAEB4100.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v1/10000/0EB6C12B-2F5D-E811-8DBB-008CFAC91B1C.root',
+'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v1/10000/0E6B58CC-105D-E811-9E36-A0369F3CF3A0.root'
+
 #'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_TuneCP5Down/AODSIM/PU2017_94X_mc2017_realistic_v11-v2/60000/D85856D2-1C72-E811-BB88-A0369FD1EF00.root'
 #'file:/uscms/home/ddiaz/nobackup/ZH.root'
  ),
@@ -67,17 +77,17 @@ process.GlobalTag.globaltag = '94X_mc2017_realistic_v17'
 
 # for JEC
 # Load the corrections
-process.load('JetMETCorrections.Configuration.JetCorrectors_cff')
+#process.load('JetMETCorrections.Configuration.JetCorrectors_cff')
 
 
 # Produce corrected jets collection
-process.ak4CaloCorrectedJets   = cms.EDProducer('CorrectedCaloJetProducer',
-    src         = cms.InputTag('ak4CaloJets'),
+#process.ak4CaloCorrectedJets   = cms.EDProducer('CorrectedCaloJetProducer',
+    #src         = cms.InputTag('ak4CaloJets'),
     #L1(PU), L2L3(MCTruth), L2L3Residuals
-    correctors  = cms.VInputTag('ak4CaloL1FastL2L3ResidualCorrector')
+    #correctors  = cms.VInputTag('ak4CaloL1FastL2L3ResidualCorrector')
     #correctors  = cms.VInputTag('ak4CaloL1FastjetCorrector', 'ak4CaloL2L3Corrector', 'ak4CaloL2L3ResidualCorrector')
     #correctors  = cms.VInputTag('ak4CaloL2L3Corrector')
-    )
+    #)
 
 # pat for trigger
 process.load( 'PhysicsTools.PatAlgos.triggerLayer1.triggerProducer_cff' )
@@ -134,8 +144,8 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  beamspotLabel_            = cms.InputTag('offlineBeamSpot'),
 
  #ak4JetSrc                 = cms.InputTag('slimmedJets'),
- #AODak4CaloJetsSrc         = cms.InputTag('ak4CaloJets' , '', 'RECO'),
- AODak4CorrCaloJetsSrc     = cms.InputTag('ak4CaloCorrectedJets'),
+ AODak4CaloJetsSrc         = cms.InputTag('ak4CaloJets' , '', 'RECO'),
+ #AODak4CorrCaloJetsSrc     = cms.InputTag('ak4CaloCorrectedJets'),
  #AODak4PFJetsSrc           = cms.InputTag('ak4PFJets'   , '', 'RECO'),
  #AODak4PFJetsCHSSrc        = cms.InputTag('ak4PFJetsCHS', '', 'RECO'),
  #selectedPatJetsSrc        = cms.InputTag('selectedPatJets'),                                   
@@ -205,8 +215,8 @@ process.selectedPatCandidatesTask.remove(process.selectedPatOOTPhotons)
 #builds Ntuple
 process.p = cms.Path(
     process.egammaPostRecoSeq *
-    process.ak4CaloCorrectedJets *
-    process.ak4CaloL1FastL2L3ResidualCorrectorChain *
+    #process.ak4CaloCorrectedJets *
+    #process.ak4CaloL1FastL2L3ResidualCorrectorChain *
     process.particleFlowPtrs *
     process.patCandidates *
     process.selectedPatCandidates *

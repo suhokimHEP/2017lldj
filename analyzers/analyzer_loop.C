@@ -17,7 +17,7 @@ analyzer_loop::~analyzer_loop()
 }
 
 void analyzer_loop::Loop(TString outfilename, 
-                       Float_t lumi, Float_t nrEvents,
+                       Float_t lumi, Float_t nrEvents, Float_t GenMean,
                        Float_t crossSec, Float_t avgTTSF,
                        Int_t nevts, TFile *optfile, TFile *NM1file, TString uncbin)
 {
@@ -40,6 +40,8 @@ void analyzer_loop::Loop(TString outfilename,
  if(isMC) loadElectronWeight( eleid );
 
  std::cout<<"uncbin: "<<uncbin<<std::endl;
+ TH1F* h_AODEventWeight = new TH1F("h_AODEventWeight","h_AODEventWeight",500,0.,10.);
+ TH1F* h_AODTotWeight = new TH1F("h_AODTotWeight","h_AODTotEventWeight",500,0.,10.);
 
 TFile *outfile_bkgest = 0;
  bool doBkgEst = true;
@@ -85,6 +87,8 @@ TFile *outfile_bkgest = 0;
   // get lists of "good" electrons, photons, jets
   // idbit, pt, eta, sysbinname
   electron_list    = electron_passID  ( eleidbit,        ele_minPt1, ele_minPt2, ele_maxEta, "");
+  //if(electron_list>1){std::cout<<"Leading lepton's pt, eta, and ID is :"<<AOD_elePt->at(electron_list[0])<<"and"<<AOD_eleEta->at(electron_list[0])<<"and"<<electron_list[0]}
+  //if(electron_list>1){std::cout<<"Leading lepton's pt, eta, and ID is :"<<AOD_elePt->at(electron_list[1])<<"and"<<AOD_eleEta->at(electron_list[1])<<"and"<<electron_list[1]}
   photon_list      = photon_passID    ( pho_minPt, pho_maxEta, ""); 
   muon_list        = muon_passID      ( muoidbit,        mu_minPt1,  mu_minPt2,  mu_maxEta,  ""); 
   aodcalojet_list  = jet_passID       ( aodcalojetidbit, "calo",  jet_minPt, jet_maxEta, "" ); 
@@ -148,12 +152,12 @@ TFile *outfile_bkgest = 0;
   // colisions happen @LHC at a given rate, use event_weight
   // to make the simulation match the rate seen in data
   // = lum * cross-section / nrEvents generated
-  event_weight = makeEventWeight(crossSec,lumi,nrEvents);
+  event_weight = makeEventWeight(crossSec,lumi,nrEvents,GenMean);
   // for MC, simulated pileup is different from observed
   // in commontools/pileup we make a ratio for scaling MC
-//  if(isMC) PUweight_DoubleEG     = makePUWeight("DoubleEG"    ) ;
-//  if(isMC) PUweight_DoubleMu     = makePUWeight("DoubleMu"    ) ;
-//  if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
+  if(isMC) PUweight_DoubleEG     = makePUWeight("DoubleEG"    ) ;
+  if(isMC) PUweight_DoubleMu     = makePUWeight("DoubleMu"    ) ;
+  if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
 //  if(isMC) PUweight_SinglePhoton = makePUWeight("SinglePhoton") ;
   // electrons also have an associated scale factor for MC 
   if(isMC) event_weight *= makeElectronWeight( electron_list );
@@ -165,22 +169,30 @@ TFile *outfile_bkgest = 0;
 
   makeDiLepton();
 
-  // set booleans if pass selections 
-  passOSSF = (dilep_mass>20.);
   passOSOF = (OSOF_mass>20.);
-  passPTOSOF = (OSOF_pt>100.);
+  //passPTOSOF = (OSOF_pt>100.);
   passZWindow = (dilep_mass>70. && dilep_mass<110.);
+  //passZWindow = true;
+
+  if(passZWindow) Zmcount +=1;
   passZWinOSOF= (OSOF_mass>70. && OSOF_mass<110.);
-  passPTOSSF  = (dilep_pt>100.);
+  passPTOSSF  = (dilep_pt>10.);
+  //passPTOSSF  = true;
   passGoodVtx = AODnGoodVtx>0; 
+  //passGoodVtx = true; 
+  if(passGoodVtx) goodVcount +=1;
   passOneJet  = false; if (aodcalojet_list.size()>0) passOneJet=true;  
+  //passOneJet  = true;   
   passOneTag  = false; if (taggedjet_list.size()>0) passOneTag=true;  
   passTwoTag  = false; if (taggedjet_list.size()>1) passTwoTag=true;  
-  
+  if(passOneJet) OJcount +=1; 
   passSingleEle = askPassSingleEle();
   passSingleMu  = askPassSingleMu();
   passDoubleEle = askPassDoubleEle();
+  //passDoubleEle = true;
+  if(passDoubleEle) DEcount +=1; 
   passDoubleMu  = askPassDoubleMu();
+  if(passDoubleMu) DMcount +=1; 
   passMuEG      = askPassMuEG();
   passSinglePho = askPassSinglePho();
 
@@ -358,17 +370,17 @@ TFile *outfile_bkgest = 0;
    setNM1EleZHtree(); 
    NM1EleZHtree->Fill();
   }
-
+//std::cout<<"his is for calibration"<<std::endl;
   // fill the histograms
   for(unsigned int i=0; i<selbinnames.size(); ++i){
 
    if(isMC){
      // ok I'm sorry, this is terrible
-     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight;// * PUweight_DoubleEG;
-     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight;// * PUweight_DoubleMu;
-     if(i==18) fullweight = event_weight ;//* PUweight_MuonEG;
-     if(i==20) fullweight = event_weight ;//* PUweight_MuonEG;
-     if(i==19) fullweight = event_weight ;//* PUweight_SinglePhoton;
+     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13||i==15)   fullweight = event_weight * PUweight_DoubleEG;
+     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight * PUweight_DoubleMu;
+     if(i==18) fullweight = event_weight * PUweight_MuonEG;
+     if(i==20) fullweight = event_weight * PUweight_MuonEG;
+     if(i==19) fullweight = event_weight * PUweight_SinglePhoton;
    }
    else{
      fullweight = event_weight;
@@ -376,10 +388,20 @@ TFile *outfile_bkgest = 0;
 
    /// quick hack to only write phase spaces we care about
    if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20  ){
+     //fullweight = 1.0;
     fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
+    //fillDiCutflowHistograms( fullweight, i, selvec[i]);
     if( dofillselbin[i] ){
      fillSelectedHistograms( fullweight, i );
-
+	if(i==9){h_AODEventWeight->Fill(event_weight);
+		h_AODTotWeight->Fill(fullweight);}
+	
+	//std::cout<<".................."<<std::endl;
+	//std::cout<<"This is region:"<<i<<std::endl;
+	//std::cout<<"fourVec_l1's pt,eta,phi,E is :"<<fourVec_l1.Pt()<<" & "<<fourVec_l1.Eta()<<" & "<<fourVec_l1.Phi()<<" & "<<fourVec_l1.E()<<std::endl;
+	//std::cout<<"fourVec_l2's pt,eta,phi,E is :"<<fourVec_l2.Pt()<<" & "<<fourVec_l2.Eta()<<" & "<<fourVec_l2.Phi()<<" & "<<fourVec_l2.E()<<std::endl;
+	//std::cout<<"fourVec_l1+2's pt,eta,phi,E is :"<<fourVec_ll.Pt()<<" & "<<fourVec_ll.Eta()<<" & "<<abs(fourVec_l1.Phi()-fourVec_l2.Phi())<<" & "<<fourVec_ll.E()<<std::endl;
+	//std::cout<<"dilep_mass is:"<<dilep_mass<<" and  dilep_pt is:"<<dilep_pt<<std::endl;
      //jets
      if(jetMultOn){
      for( unsigned int k=0; k<jetmultnames.size(); ++k){
@@ -410,6 +432,11 @@ TFile *outfile_bkgest = 0;
  std::cout << std::endl;
  std::cout << std::endl;
  std::cout << " Summary     cleaning dR=" << objcleandRcut << std::endl;
+ //std::cout << " Zmcount=" << Zmcount << std::endl;
+ //std::cout << " OJcount=" << OJcount << std::endl;
+ //std::cout << " goodVcount=" << goodVcount << std::endl;
+ //std::cout << " DEcount=" << DEcount << std::endl;
+ //std::cout << " DMcount=" << DMcount << std::endl;
 
  std::cout << " Total events processed  " << n_tot << std::endl;
 
@@ -480,9 +507,15 @@ TFile *outfile_bkgest = 0;
      //Normalize variable binned histograms by bin width
      //Could put this in its own loop for clarity
     //scaleVariableBinHistograms( i ); //broken
+     if(i==9){hist_file_out[i]->cd();	
+	h_AODEventWeight->Write();	
+	h_AODTotWeight->Write();	
+
+	}
      
      writeSelectedHistograms( i );
      writeCutflowHistograms( i );
+     //writeDiCutflowHistograms( i );
 
      //jet
      if(jetMultOn){

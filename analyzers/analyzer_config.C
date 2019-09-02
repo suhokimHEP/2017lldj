@@ -73,9 +73,9 @@ void analyzer_config::setConfiguration()
 // if (phoid = "Medium") phoidbit=1;
 // if (phoid = "Tight")  phoidbit=2;
 
- if (eleid = "Loose")  eleidbit=0;
- if (eleid = "Medium") eleidbit=1;
- if (eleid = "Tight")  eleidbit=2;
+ if (eleid == "Loose")  eleidbit=0;
+ if (eleid == "Medium") eleidbit=1;
+ if (eleid == "Tight")  eleidbit=2;
 
  if (muoid = "Loose")  muoidbit=0;
  if (muoid = "Medium") muoidbit=1;

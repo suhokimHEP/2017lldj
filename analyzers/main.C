@@ -192,6 +192,7 @@ int main(int argc, char **argv){
 
  // sample-dependent input variables 
  Float_t nrevents     ;
+ Float_t GenMean     ;
  Float_t crosssection ;
  Float_t avgTTSF = 1.    ;
 
@@ -223,6 +224,13 @@ int main(int argc, char **argv){
    std::cout << "  nrevents: " << nrevents << std::endl;
   }
 
+  // read nr events
+  if( Tinputline.Contains("GenMean: ") ){  
+   Tinputline.ReplaceAll("GenMean: ","");
+   GenMean = Tinputline.Atof();
+   std::cout << "  GenMean: " << GenMean << std::endl;
+  }
+
   // read tt avg SF
   if( Tinputline.Contains("ttsf: ") ){  
    Tinputline.ReplaceAll("ttsf: ","");
@@ -236,22 +244,22 @@ int main(int argc, char **argv){
 
  std::vector<TString> unccategories;
  unccategories.push_back("");
-// if( isMC ){
-//   unccategories.push_back("_EGSUp");
-//   unccategories.push_back("_EGSDown");
-//   unccategories.push_back("_MESUp");
-//   unccategories.push_back("_MESDown");
-//   //unccategories.push_back("_JESUp");
-//   //unccategories.push_back("_JESDown");
-//   unccategories.push_back("_AMaxUp");
-//   unccategories.push_back("_AMaxDown");
-//   unccategories.push_back("_IPSigUp");
-//   unccategories.push_back("_IPSigDown");
-//   unccategories.push_back("_TAUp");
-//   unccategories.push_back("_TADown");
-//   unccategories.push_back("_TagVarsUp");
-//   unccategories.push_back("_TagVarsDown");
-//  }
+ /*if( isMC ){
+   unccategories.push_back("_EGSUp");
+   unccategories.push_back("_EGSDown");
+   unccategories.push_back("_MESUp");
+   unccategories.push_back("_MESDown");
+   //unccategories.push_back("_JESUp");
+   //unccategories.push_back("_JESDown");
+   unccategories.push_back("_AMaxUp");
+   unccategories.push_back("_AMaxDown");
+   unccategories.push_back("_IPSigUp");
+   unccategories.push_back("_IPSigDown");
+   unccategories.push_back("_TAUp");
+   unccategories.push_back("_TADown");
+   unccategories.push_back("_TagVarsUp");
+   unccategories.push_back("_TagVarsDown");
+  }*/
  
  // make the analyzer, init some stuff
  analyzer_loop analyzer;
@@ -271,7 +279,7 @@ int main(int argc, char **argv){
   analyzer.initSelectionCategories( );
   if(i==0){
     for(unsigned int i=0; i<analyzer.selbinnames.size(); ++i){
-      analyzer.hist_file_out.push_back(new TFile(outfilename+"_"+analyzer.selbinnames[i]+"_histograms.root","RECREATE"));
+     analyzer.hist_file_out.push_back(new TFile(outfilename+"_"+analyzer.selbinnames[i]+"_histograms.root","RECREATE"));
     }
   }
   analyzer.initEleHistograms( unccategory );
@@ -287,14 +295,18 @@ int main(int argc, char **argv){
   analyzer.initAODCaloJetTagMultHistograms( unccategory );
   analyzer.initAODCaloJetMultHistograms( unccategory );
   analyzer.initCutflowHistograms( unccategory );
+ // analyzer.initDiCutflowHistograms( unccategory );
   analyzer.init2DHistograms( unccategory );
+ // analyzer.initDiPtHistograms( unccategory );
+ // analyzer.initLowDiPtHistograms( unccategory );
+ // analyzer.initHighDiPtHistograms( unccategory );
   if(unccategory=="") analyzer.initBackgroundEstimateHistograms(); //if we end up using this, need to think about unccategory
   if(analyzer.doTTOC())analyzer.initTTOCHistograms( unccategory );
 
   //std::cout << "NAME ELE " << analyzer.h_AOD_nEle[0]->GetName() << std::endl;//doesn't work
 
 
-  analyzer.Loop(outfilename, lumi, nrevents, crosssection, avgTTSF, TIevts, optfile, NM1file, unccategory);
+  analyzer.Loop(outfilename, lumi, TIevts, GenMean, crosssection, avgTTSF, TIevts, optfile, NM1file, unccategory);
  }
 
  //Close histogram output files

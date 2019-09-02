@@ -241,10 +241,10 @@ Bool_t analyzer_selections::askPassDoubleEle()
  Bool_t doespass = kFALSE;
  if(electron_list.size()>1){ 
   //if(isMC) doespass = kTRUE;
-  //else doespass = (Bool_t)((AOD_HLT_Ele23Ele12 > 0) );
-  //if(TTOC) doespass = kTRUE;
+  if(TTOC) doespass = kTRUE;
+  else doespass = (Bool_t)((AOD_HLT_Ele23Ele12 > 0) );
   //else doespass = (Bool_t)( (AOD_HLT_Ele23Ele12_noDZ > 0) ); 
-  if ( AOD_elePt->at(electron_list[0])>=23.0 &&  AOD_elePt->at(electron_list[1])>=12.0 ) doespass = kTRUE;
+  //if ( AOD_elePt->at(electron_list[0])>=23.0 &&  AOD_elePt->at(electron_list[1])>=12.0 ) doespass = kTRUE;
  } 
  return doespass;
 }
@@ -266,9 +266,9 @@ Bool_t analyzer_selections::askPassDoubleMu()
  if(muon_list.size()>1){ 
   //if(isMC) doespass = kTRUE;
   //else doespass = (Bool_t)( (AOD_HLT_Mu17Mu8 > 0) || (AOD_HLT_Mu17TkMu8 > 0) || (AOD_HLT_Mu17Mu8_noDZ > 0) || (AOD_HLT_Mu17TkMu8_noDZ > 0)) ; 
-  //if(TTOC) doespass = kTRUE;
-  //else doespass     = (Bool_t)( (AOD_HLT_Mu17Mu8_Mass3p8 > 0) ) ;
-  if ( AOD_muPt->at(muon_list[0])>=17.0 &&  AOD_muPt->at(muon_list[1])>=8.0 ) doespass = kTRUE;
+  if(TTOC) doespass = kTRUE;
+  else doespass     = (Bool_t)( (AOD_HLT_Mu17Mu8 > 0) ) ;
+  //if ( AOD_muPt->at(muon_list[0])>=17.0 &&  AOD_muPt->at(muon_list[1])>=8.0 ) doespass = kTRUE;
  } 
  return doespass;
 }

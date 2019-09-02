@@ -1,7 +1,7 @@
 #voms-proxy-init --voms cms --valid 100:00
 
 # do we submit or just generate submit scripts
-dosubmit=true
+dosubmit=false
 doAOD=true
 dominiAOD=false
 domakeMiniAOD=false
@@ -56,7 +56,8 @@ cp "${subdir}/${msubmitconfig}"  ${thesubdir}
 # sample names to run over
 samples=( \
 # put your samples here, copy from below
-  "Data_DoubleMuon_B"      \
+#  "Data_DoubleEG_B"      \
+  "DY50_1"               \
 )
 
 #  "Data_DoubleMuon_F"      \
@@ -269,7 +270,7 @@ do
    # DATA AOD
    CMSRUNCONFIG="'${dsubmitconfig}'" 
    #UPERJOB="50" #use when not automatic splitting
-   UPERJOB="180"
+   UPERJOB="50"
   elif [ ${dominiAOD} = true ]
   then
    # DATA miniAOD
@@ -281,14 +282,14 @@ do
    CMSRUNCONFIG="'${dsubmitconfig}'" 
    UPERJOB="100"
   fi
-  #SPLITTING="'LumiBased'"
-  SPLITTING="'Automatic'"
+  SPLITTING="'LumiBased'"
+  #SPLITTING="'Automatic'"
  else #if [ ${dodata} = true ]
   if [ ${doAOD} = true ]
   then
    # MC AOD
    CMSRUNCONFIG="'${msubmitconfig}'" 
-   UPERJOB="180"
+   UPERJOB="1"
   elif [ ${dominiAOD} = true ]
   then
    # MC miniAOD
@@ -300,8 +301,8 @@ do
    CMSRUNCONFIG="'${msubmitconfig}'" 
    UPERJOB="1"
   fi
-  #SPLITTING="'FileBased'"
-  SPLITTING="'Automatic'"
+  SPLITTING="'FileBased'"
+  #SPLITTING="'Automatic'"
  fi
 
  NUNITS="-1"

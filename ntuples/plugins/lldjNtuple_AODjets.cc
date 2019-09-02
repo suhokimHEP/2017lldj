@@ -55,8 +55,8 @@ edm::Handle<edm::View<reco::CaloJet> >  AODak4CaloJetsHandle;
 //edm::Handle<edm::View<pat::Jet>      >  selectedPatJetsHandle;  
 edm::Handle<edm::View<reco::Vertex>  >  AODVertexHandle;
 edm::Handle<edm::View<reco::Track>   >  AODTrackHandle;
-edm::Handle<edm::View<reco::GenJet>   >  AODGenJetsHandle;
-edm::Handle<vector<reco::GenParticle> > genParticlesHandle;
+//edm::Handle<edm::View<reco::GenJet>   >  AODGenJetsHandle;
+//edm::Handle<vector<reco::GenParticle> > genParticlesHandle;
 edm::Handle<reco::BeamSpot> beamspotHandle_;
 edm::ESHandle<MagneticField> magneticField;
 edm::ESHandle<JetCorrectorParametersCollection> JetCorParColl;//Daniel
@@ -143,10 +143,9 @@ vector<float> GenTrackR;
 vector<int>   TrkMaxWeighttoPV;
 vector<float>   MatchingRatio;
 vector<float> TrkPtRatio;
-vector<bool> PassID;
-vector<float> emEF;
-vector<float> eFH;
+
 vector<int> Cutflow;
+
 vector<float>   TrkMatchingRatio;
 vector<float>   JetMatchingRatio;
 vector<float>   LowGenMatchAM;
@@ -309,10 +308,9 @@ tree->Branch("AODEventvertexnum", &AODEventvertexnum_);
   tree->Branch("TrkMaxWeighttoPV", &TrkMaxWeighttoPV);
   tree->Branch("MatchingRatio", &MatchingRatio);
   tree->Branch("TrkPtRatio", &TrkPtRatio);
-  tree->Branch("PassID", &PassID);
-  tree->Branch("emEF", &emEF);
-  tree->Branch("eFH", &eFH);
+
   tree->Branch("Cutflow", &Cutflow);
+
   tree->Branch("TrkMatchingRatio", &TrkMatchingRatio);
   tree->Branch("JetMatchingRatio", &JetMatchingRatio);
   tree->Branch("LowGenMatchAM", &LowGenMatchAM);
@@ -447,10 +445,9 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  TrkMaxWeighttoPV.clear();
  MatchingRatio.clear();
  TrkPtRatio.clear();
- PassID.clear();
- emEF.clear();
- eFH.clear();
+
  Cutflow.clear();
+
  TrkMatchingRatio.clear();
  JetMatchingRatio.clear();
  LowGenMatchAM.clear();
@@ -543,17 +540,17 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  //e.getByToken( selectedPatJetsLabel_,  selectedPatJetsHandle );  
  e.getByToken( AODVertexLabel_      ,  AODVertexHandle );
  e.getByToken( AODTrackLabel_       ,  AODTrackHandle );
- e.getByToken( AODGenJetsLabel_       ,  AODGenJetsHandle );
- e.getByToken(genParticlesCollection_, genParticlesHandle);
+// e.getByToken( AODGenJetsLabel_       ,  AODGenJetsHandle );
+// e.getByToken(genParticlesCollection_, genParticlesHandle);
 
  // Magnetic field
  es.get<IdealMagneticFieldRecord>().get(magneticField);
  magneticField_ = &*magneticField;
 
  //JEC uncertainties Daniel
- es.get<JetCorrectionsRecord>().get("AK4Calo",JetCorParColl); 
- JetCorrectorParameters const & JetCorPar = (*JetCorParColl)["Uncertainty"];
- JetCorrectionUncertainty *jecUnc = new JetCorrectionUncertainty(JetCorPar);
+ //es.get<JetCorrectionsRecord>().get("AK4Calo",JetCorParColl); 
+ //JetCorrectorParameters const & JetCorPar = (*JetCorParColl)["Uncertainty"];
+ //JetCorrectionUncertainty *jecUnc = new JetCorrectionUncertainty(JetCorPar);
  
  // beamspot
  e.getByToken(beamspotLabel_, beamspotHandle_);
@@ -724,44 +721,41 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   float jeteta = iJet->eta();
   float jetphi = iJet->phi();
   
-  jecUnc->setJetEta(iJet->eta());
-  jecUnc->setJetPt(iJet->pt()); // here you must use the CORRECTED jet pt
-  double unc = jecUnc->getUncertainty(true);
-  double ptCor_shiftedUP = jetpt*(1+(1)*unc) ; // shift = +1(up), or -1(down)
-  double ptCor_shiftedDN = jetpt*(1+(-1)*unc) ; // shift = +1(up), or -1(down)
+  //jecUnc->setJetEta(iJet->eta());
+  //jecUnc->setJetPt(iJet->pt()); // here you must use the CORRECTED jet pt
+  //double unc = jecUnc->getUncertainty(true);
+  //double ptCor_shiftedUP = jetpt*(1+(1)*unc) ; // shift = +1(up), or -1(down)
+  //double ptCor_shiftedDN = jetpt*(1+(-1)*unc) ; // shift = +1(up), or -1(down)
 
   int flownum=0; 
   PreJetnum++;
   // ID and jet selections
   bool passID = false;
-  if( iJet->emEnergyFraction()>=0.0
-   && iJet->emEnergyFraction()<=0.9
-   && iJet->energyFractionHadronic()>=0.0
-   && iJet->energyFractionHadronic()<=0.9)  passID = true; 
-  AODCaloJetPt_.push_back(jetpt);
-  AODCaloJetEta_.push_back(fabs(jeteta));
-  AODCaloJetPhi_.push_back(jetphi);
-  PassID.push_back(passID);
-  emEF.push_back(iJet->emEnergyFraction());
-  eFH.push_back(iJet->energyFractionHadronic());
+  if( iJet->emEnergyFraction()>=0.0   && iJet->emEnergyFraction()<=0.9   && iJet->energyFractionHadronic()>=0.0   && iJet->energyFractionHadronic()<=0.9)  passID = true; 
+ 
   Cutflow.push_back(flownum);
+
   if(iJet->pt()<20.0)  continue;
   flownum+=1;
   Cutflow.push_back(flownum);
+
   if (fabs(iJet->eta())>2.4) continue;
   flownum+=1;
   Cutflow.push_back(flownum);
+
   if (!passID) continue;
-  
   flownum+=1;
   Cutflow.push_back(flownum);
+
   Jetnum++;
+  
   // caloJetTrackIDs is a vector of ints where each int is the 
   // index of a track passing deltaR requirement to this jet
 
   // out of the master track record of tracks passing basic selections
   vector<int>   caloJetTrackIDs = getJetTrackIndexs( jeteta, jetphi );
   AODCaloJetNMatchedTracks_.push_back( caloJetTrackIDs.size() );
+
   if(caloJetTrackIDs.size()<1) continue;
   JetTracknum++;
   flownum+=1;
@@ -829,17 +823,17 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   calculateDisplacedVertices(es, caloJetTrackIDs);
   //MaxWeightPassedTrks.push_back(MaxVtxTrkIDs.size());
 
-  int matchedptcls = finalMatching(PVtracks);
-  float matchingratio;
-  if (TrkWeightZero !=0 ){matchingratio = float(matchedptcls)/float(TrkWeightZero);
-  MatchingRatio.push_back(matchingratio);
-  JetPVTracknum++;
+  //int matchedptcls = finalMatching(PVtracks);
+  //float matchingratio;
+  //if (TrkWeightZero !=0 ){matchingratio = float(matchedptcls)/float(TrkWeightZero);
+  //MatchingRatio.push_back(matchingratio);
+  //JetPVTracknum++;
  
-  flownum+=1;
-  Cutflow.push_back(flownum);
-}
-  if(matchingratio >0.95){HighGenMatchAM.push_back(alphaMax);}
-  else {LowGenMatchAM.push_back(alphaMax);}
+  //flownum+=1;
+  //Cutflow.push_back(flownum);
+  //}
+  //if(matchingratio >0.95){HighGenMatchAM.push_back(alphaMax);}
+  //else {LowGenMatchAM.push_back(alphaMax);}
   // find medians
   float medianTrackAngle;
   medianTrackAngle = findMedian(caloJetTrackAngles);
@@ -855,8 +849,8 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   
   //Pt, Eta, Phi
   AODCaloJetPt_.push_back(jetpt);
-  AODCaloJetPt_JECUp_.push_back(ptCor_shiftedUP);
-  AODCaloJetPt_JECDown_.push_back(ptCor_shiftedDN);
+  //AODCaloJetPt_JECUp_.push_back(ptCor_shiftedUP);
+  //AODCaloJetPt_JECDown_.push_back(ptCor_shiftedDN);
   AODCaloJetEta_.push_back(jeteta);
   AODCaloJetPhi_.push_back(jetphi);
   

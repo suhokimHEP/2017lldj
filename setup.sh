@@ -3,9 +3,9 @@
 export depot="/eos/uscms/store/group/lpchbb/LLDJntuples"
 export depot2="/store/group/lpchbb/LLDJntuples"
 export FWVersion="2017lldj"
-export nversion="2017_LLDJ"
+export nversion="2017CaloJet"
 #export aversion="2017Comparisons_noPUWeights_simTrig"
-export aversion="2017Comparisons_noPUWeights"
+export aversion="0721-original"
 
 pushd `dirname ${BASH_SOURCE[0]}` > /dev/null
 export basedir=`pwd`

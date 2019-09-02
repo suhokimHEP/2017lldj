@@ -193,6 +193,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog)
    fChain->SetBranchAddress("AODnGoodVtx", &AODnGoodVtx, &b_AODnGoodVtx);
    fChain->SetBranchAddress("AODnTrksPV", &AODnTrksPV, &b_AODnTrksPV);
    fChain->SetBranchAddress("AODisPVGood", &AODisPVGood, &b_AODisPVGood);
+   if (isMC) fChain->SetBranchAddress("AODGenEventWeight", &AODGenEventWeight, &b_AODGenEventWeight);
 //   fChain->SetBranchAddress("llpId", &llpId, &b_llpId);
 //   fChain->SetBranchAddress("llpStatus", &llpStatus, &b_llpStatus);
 //   fChain->SetBranchAddress("llpPt", &llpPt, &b_llpPt);

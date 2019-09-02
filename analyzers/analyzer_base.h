@@ -45,6 +45,7 @@ public :
    Int_t           AODnGoodVtx;
    Int_t           AODnTrksPV;
    Bool_t          AODisPVGood;
+   Float_t 	   AODGenEventWeight;
 //   std::vector<int>     *llpId;
 //   std::vector<int>     *llpStatus;
 //   std::vector<float>   *llpPt;
@@ -243,6 +244,7 @@ public :
    TBranch        *b_AODnGoodVtx;   //!
    TBranch        *b_AODnTrksPV;   //!
    TBranch        *b_AODisPVGood;   //!
+   TBranch        *b_AODGenEventWeight;   //!
 //   TBranch        *b_llpId;   //!
 //   TBranch        *b_llpStatus;   //!
 //   TBranch        *b_llpPt;   //!

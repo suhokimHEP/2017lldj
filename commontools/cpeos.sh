@@ -1,9 +1,9 @@
 #!\bin\bash
 
-destination="/store/group/lpchbb/LLDJntuples/${nversion}/analyzed/${aversion}/"
+destination="/store/group/lpchbb/2017lldj/${nversion}/analyzed/${aversion}/"
 eos root://cmseos.fnal.gov mkdir -p  ${destination} 
 
-source="${CMSSW_BASE}/src/LLDJstandalones/roots/${aversion}"
+source="${CMSSW_BASE}/src/2017lldj/roots/${aversion}"
 
 ## copy root files over 
 
@@ -23,5 +23,5 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 done < tmp.txt
 
 # copy info file over
-aboutsource="${CMSSW_BASE}/src/LLDJstandalones/submitters/gitignore/${aversion}"
+aboutsource="${CMSSW_BASE}/src/2017lldj/submitters/gitignore/${aversion}"
 xrdcp ${aboutsource}/about.txt  root://cmseos.fnal.gov/${destination}

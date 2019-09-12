@@ -51,7 +51,6 @@ TFile *outfile_bkgest = 0;
  TFile *outfile_GEW = 0;
  outfile_GEW = TFile::Open(outfilename+"_AODGenEventWeight.root","RECREATE");
  TH1F* h_sum_AODGenEventWeight = new TH1F("h_sum_AODGenEventWeight","h_sum_AODGenEventWeight", 5,0.,5.);
-//std::cout<<"Passed create GEW file" <<std::endl;
  // start looping over entries
  Long64_t nbytes = 0, nb = 0;
  for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -85,7 +84,6 @@ TFile *outfile_bkgest = 0;
   shiftCollections(uncbin);
   n_tot++;
   h_sum_AODGenEventWeight->Fill(2, AODGenEventWeight);
-//std::cout<<"Fill Histo" <<std::endl;
   // get lists of "good" electrons, photons, jets
   // idbit, pt, eta, sysbinname
   electron_list    = electron_passID  ( eleidbit,        ele_minPt1, ele_minPt2, ele_maxEta, "");
@@ -363,7 +361,9 @@ TFile *outfile_bkgest = 0;
    setNM1EleZHtree(); 
    NM1EleZHtree->Fill();
   }
-
+  //std::cout<<"PU DoubleEG Weight: "<<PUweight_DoubleEG<<"      Weight:"<<PUWeights_DoubleEG->GetBinContent(PUWeights_DoubleMu->GetBin(AODnTruePU))<<"         Bin:"<<PUWeights_DoubleMu->GetBin(AODnTruePU)<<"    nTruePU: "<<AODnTruePU<<std::endl;
+  //std::cout<<"PU DoubleMu Weight: "<<PUweight_DoubleMu<<std::endl;
+  //std::cout<<"PU MuonEG Weight: "<<PUweight_MuonEG<<std::endl;
   // fill the histograms
   for(unsigned int i=0; i<selbinnames.size(); ++i){
    

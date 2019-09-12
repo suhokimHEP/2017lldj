@@ -26,7 +26,6 @@ Float_t analyzer_scalefactors::makeEventWeight(Float_t crossSec,
 
   return event_weight;
 }
-
 //----------------------------makePUWeight
 Float_t analyzer_scalefactors::makePUWeight( TString dataset ){
  Int_t tmpbin;

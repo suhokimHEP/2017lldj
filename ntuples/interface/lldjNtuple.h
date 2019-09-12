@@ -244,12 +244,14 @@ class lldjNtuple : public edm::EDAnalyzer {
 
 
   //gen
-  edm::EDGetTokenT<GenEventInfoProduct> AODGenEventInfoLabel_;
   //edm::EDGetTokenT<vector<reco::GenParticle> >     genParticlesCollection_;
-
+  edm::EDGetTokenT<GenEventInfoProduct> AODGenEventInfoLabel_;
+  
   TTree   *tree_;
   TH1F    *hEvents_;
   TH1F    *hTTSF_;
+  TH1F    *hGenEventWeightSum_;
+  float   GenEventWeight;
 
   JME::JetResolution            slimmedJetResolution_;
   JME::JetResolutionScaleFactor slimmedJetResolutionSF_;

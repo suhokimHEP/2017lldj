@@ -23,7 +23,6 @@ vector<int>       AODBunchXing_;
 vector<int>       AODnPU_;
 Int_t             AOD0thnPU_;
 vector<int>       AODnPUMean_;
-
 void lldjNtuple::branchesAODEvent(TTree* tree) {
 
   tree->Branch("run",     	       &AODrun_);
@@ -112,7 +111,10 @@ void lldjNtuple::fillAODEvent(const edm::Event& e, const edm::EventSetup& es) {
   } // if AODVertexHandle->at(k).isValid()
   else {edm::LogWarning("lldjNtuple") << "Primary vertices info not unavailable";}
   }
+  if (!e.isRealData()){
   edm::Handle<GenEventInfoProduct>  AODGenEventInfoHandle;
   e.getByToken(AODGenEventInfoLabel_, AODGenEventInfoHandle);
-  AODGenEventWeight_ = AODGenEventInfoHandle->weight();
+  GenEventWeight =AODGenEventInfoHandle->weight();
+  AODGenEventWeight_ = GenEventWeight;
+  }
 }

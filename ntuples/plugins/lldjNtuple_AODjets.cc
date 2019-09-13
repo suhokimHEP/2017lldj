@@ -628,7 +628,6 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
    && iJet->energyFractionHadronic()<=0.9)  passID = true; 
 
   if(iJet->pt()<20.0 || fabs(iJet->eta())>2.4 || !passID) continue;
-
   // caloJetTrackIDs is a vector of ints where each int is the 
   // index of a track passing deltaR requirement to this jet
   // out of the master track record of tracks passing basic selections

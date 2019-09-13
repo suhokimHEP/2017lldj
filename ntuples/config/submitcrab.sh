@@ -56,7 +56,8 @@ cp "${subdir}/${msubmitconfig}"  ${thesubdir}
 # sample names to run over
 samples=( \
 # put your samples here, copy from below
-  "Data_DoubleMuon_B"      \
+  "DY50_PU_1"               \
+  "DY50_PU_2"               \
 )
 
 #  "Data_DoubleMuon_F"      \

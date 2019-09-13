@@ -118,11 +118,13 @@ lldjNtuple::lldjNtuple(const edm::ParameterSet& ps) :
 
   // gen
   //genParticlesCollection_    = consumes<vector<reco::GenParticle> >    (ps.getParameter<InputTag>("genParticleSrc"));
+  AODGenEventInfoLabel_           = consumes <GenEventInfoProduct> (edm::InputTag(std::string("generator")));
 
   Service<TFileService> fs;
   tree_    = fs->make<TTree>("EventTree", "Event data");
   hTTSF_   = fs->make<TH1F>("hTTSF",      "TTbar scalefactors",   200,  0,   2);
   hEvents_ = fs->make<TH1F>("hEvents",    "total processed events",   1,  0,   2);
+  hGenEventWeightSum_ = fs->make<TH1F>("hGenEventWeightSum",    "Sum of GenEventWeights",   1,  0,   2);
 
  //if(doMiniAOD_){
  // // make branches for tree
@@ -162,41 +164,7 @@ void lldjNtuple::beginRun(edm::Run const& run, edm::EventSetup const& eventsetup
 }
 
 void lldjNtuple::analyze(const edm::Event& e, const edm::EventSetup& es) {
-
- //if(doMiniAOD_){
- // //# https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookJetEnergyResolution
- // slimmedJetResolution_   = JME::JetResolution::get(es, "AK4PFchs_pt");
- // slimmedJetResolutionSF_ = JME::JetResolutionScaleFactor::get(es, "AK4PFchs");
- //
- // fillGlobalEvent(e, es);
- // fillTrigger(e, es);
- // fillPhotons(e, es);
- // fillElectrons(e, es);
- //
- // // muons use vtx for isolation
- // edm::Handle<reco::VertexCollection> vtxHandle;
- // e.getByToken(vtxLabel_, vtxHandle);
- // reco::Vertex vtx;
- // // best-known primary vertex coordinates
- // math::XYZPoint pv(0, 0, 0); 
- // for (vector<reco::Vertex>::const_iterator v = vtxHandle->begin(); v != vtxHandle->end(); ++v) {
- //   // replace isFake() for miniAOD since it requires tracks while miniAOD vertices don't have tracks:
- //   // Vertex.h: bool isFake() const {return (chi2_==0 && ndof_==0 && tracks_.empty());}
- //   bool isFake = -(v->chi2() == 0 && v->ndof() == 0); 
- //
- //   if (!isFake) {
- //     pv.SetXYZ(v->x(), v->y(), v->z());
- //     vtx = *v; 
- //     break;
- //   }   
- // }
- // fillMuons(e, vtx); //muons use vtx for isolation
- //
- // fillJets(e,es);
- // fillMET(e, es);
- //}
-
- if(doAOD_){
+ GenEventWeight = 0.0;
   fillAODEvent(e, es);
   fillAODTrigger(e, es);
   fillAODJets(e, es);
@@ -216,9 +184,10 @@ void lldjNtuple::analyze(const edm::Event& e, const edm::EventSetup& es) {
   fillAODMuons(e, vtx); 
   fillAODMET(e, es);
 
- }
 
  hEvents_->Fill(1.);
+ if (!e.isRealData()) hGenEventWeightSum_->Fill(1, GenEventWeight);
+ else hGenEventWeightSum_->Fill(1, 1);
  tree_->Fill();
 }
 

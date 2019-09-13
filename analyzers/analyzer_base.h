@@ -113,6 +113,7 @@ public :
    std::vector<float>   *AODCaloJetLogTrackAngle;
    std::vector<float>   *AODCaloJetMedianLog10TrackAngle;
    std::vector<float>   *AODCaloJetTotalTrackAngle;
+   std::vector<float>   *MinMatchedRadius;
    std::vector<float>   *AODCaloJetAvfVx;
    std::vector<float>   *AODCaloJetAvfVy;
    std::vector<float>   *AODCaloJetAvfVz;
@@ -310,6 +311,7 @@ public :
    TBranch        *b_AODCaloJetMedianLog10IPSig;   //!
    TBranch        *b_AODCaloJetTrackAngle;   //!
    TBranch        *b_AODCaloJetLogTrackAngle;   //!
+   TBranch        *b_MinMatchedRadius;   //!
    TBranch        *b_AODCaloJetMedianLog10TrackAngle;   //!
    TBranch        *b_AODCaloJetTotalTrackAngle;   //!
    TBranch        *b_AODCaloJetAvfVx;   //!

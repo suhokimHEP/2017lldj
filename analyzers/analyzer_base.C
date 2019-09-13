@@ -70,6 +70,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog)
    AODCaloJetLogTrackAngle = 0;
    AODCaloJetMedianLog10TrackAngle = 0;
    AODCaloJetTotalTrackAngle = 0;
+   MinMatchedRadius = 0;
    AODCaloJetAvfVx = 0;
    AODCaloJetAvfVy = 0;
    AODCaloJetAvfVz = 0;
@@ -261,6 +262,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog)
    fChain->SetBranchAddress("AODCaloJetLogTrackAngle", &AODCaloJetLogTrackAngle, &b_AODCaloJetLogTrackAngle);
    fChain->SetBranchAddress("AODCaloJetMedianLog10TrackAngle", &AODCaloJetMedianLog10TrackAngle, &b_AODCaloJetMedianLog10TrackAngle);
    fChain->SetBranchAddress("AODCaloJetTotalTrackAngle", &AODCaloJetTotalTrackAngle, &b_AODCaloJetTotalTrackAngle);
+   fChain->SetBranchAddress("MinMatchedRadius", &MinMatchedRadius, &b_MinMatchedRadius);
    fChain->SetBranchAddress("AODCaloJetAvfVx", &AODCaloJetAvfVx, &b_AODCaloJetAvfVx);
    fChain->SetBranchAddress("AODCaloJetAvfVy", &AODCaloJetAvfVy, &b_AODCaloJetAvfVy);
    fChain->SetBranchAddress("AODCaloJetAvfVz", &AODCaloJetAvfVz, &b_AODCaloJetAvfVz);

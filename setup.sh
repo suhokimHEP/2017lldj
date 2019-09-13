@@ -5,7 +5,7 @@ export depot2="/store/group/lpchbb/LLDJntuples"
 export FWVersion="2017lldj"
 export nversion="RadvsTA"
 #export aversion="2017Comparisons_noPUWeights_simTrig"
-export aversion="2017Comparisons_noPUWeights"
+export aversion="RadvsTA"
 
 pushd `dirname ${BASH_SOURCE[0]}` > /dev/null
 export basedir=`pwd`

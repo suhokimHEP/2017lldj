@@ -15,7 +15,7 @@ printf "pwd\n"
 pwd
 
 cp ../../2017_puWeights_DoubleEG_69200.root          .
-cp ../../2017_puWeights_DoubleMu_69200.root          .
+cp ../../2017_puWeights_DoubleMuon_69200.root          .
 cp ../../2017_puWeights_MuonEG_69200.root            .
 cp ../../2017_ElectronTight.root     .
 cp ../../2017_ElectronMedium.root    .

@@ -178,7 +178,7 @@ void analyzer_selections::setSelections()
  selvecEleMuOSOF .push_back( passMuEG     );
  selvecEleMuOSOF .push_back( passGoodVtx  );
  selvecEleMuOSOF .push_back( passOneJet   );
- if(!TTOC) selvecEleMuOSOF .push_back( passPTOSOF  && passZWinOSOF );
+ /*if(!TTOC)*/ selvecEleMuOSOF .push_back(/* passPTOSOF  &&*/ passZWinOSOF );
  // EleMu OSOF LowPt
  selvecEleMuOSOFL .push_back( passMuEG     );
  selvecEleMuOSOFL .push_back( passGoodVtx  );

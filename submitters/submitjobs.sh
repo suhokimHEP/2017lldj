@@ -26,9 +26,9 @@ samples=(  \
 # "Data_MuonEG_D"         \
 # "Data_MuonEG_E"         \
 # "Data_MuonEG_F"         \
-# "DYJetsToLL_M-50"            \
+ "DYJetsToLL_M-50"            \
 # "WJetsToLNu"     \
-# "TTJets"          \
+ "TTJets"          \
 # "ST_s-channel_4f_leptonDecays"             \
 # "ST_t-channel_antitop_4f_inclusiveDecays"  \
 # "ST_t-channel_top_4f_inclusiveDecays"      \
@@ -113,7 +113,7 @@ makeasubmitdir () {
  printf "Executable = ${CMSSW_BASE}/src/${FWVersion}/submitters/runjob.sh\n" >> submitfile
  printf "Should_Transfer_Files = YES \n" >> submitfile
  printf "WhenToTransferOutput = ON_EXIT\n" >> submitfile
- printf "Transfer_Input_Files = ${CMSSW_BASE}/src/${FWVersion}/analyzers/runanalyzer.exe,${CMSSW_BASE}/src/${FWVersion}/lists/$1.list,${CMSSW_BASE}/src/${FWVersion}/lists/$1.info,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_DoubleEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_MuonEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_DoubleMu_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronTight.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronMedium.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronLoose.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/feff_ZH.root\n" >> submitfile
+ printf "Transfer_Input_Files = ${CMSSW_BASE}/src/${FWVersion}/analyzers/runanalyzer.exe,${CMSSW_BASE}/src/${FWVersion}/lists/$1.list,${CMSSW_BASE}/src/${FWVersion}/lists/$1.info,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_DoubleEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_MuonEG_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_puWeights_DoubleMuon_69200.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronTight.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronMedium.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/2017_ElectronLoose.root,${CMSSW_BASE}/src/${FWVersion}/analyzers/feff_ZH.root\n" >> submitfile
 
  printf "notify_user = $(whoami)@cern.ch\n" >> submitfile
  printf "x509userproxy = $X509_USER_PROXY\n" >> submitfile

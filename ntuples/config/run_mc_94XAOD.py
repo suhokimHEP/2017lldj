@@ -10,12 +10,11 @@ process.options = cms.untracked.PSet( allowUnscheduled = cms.untracked.bool(True
 #Setup FWK for multithreaded
 process.options.numberOfThreads=cms.untracked.uint32(4)
 process.options.numberOfStreams=cms.untracked.uint32(0)
-
 process.load("RecoTracker.TkNavigation.NavigationSchoolESProducer_cfi")
 
 # log output
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(101) )  ## number of events -1 does all
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )  ## number of events -1 does all
 process.MessageLogger.cerr.FwkReport.reportEvery = 100
 
 # input files
@@ -23,10 +22,9 @@ process.source = cms.Source('PoolSource',
                             fileNames = cms.untracked.vstring(
 
 #'root://cmsxrootd.fnal.gov//store/data/Run2017F/SinglePhoton/AOD/17Nov2017-v1/50000/B86B5B18-0EDF-E711-BEE1-02163E019E8F.root'<--data
-#'root://cmsxrootd.fnal.gov//store/mc/RunIISummer17DRPremix/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/AODSIM/92X_upgrade2017_realistic_v10_ext1-v1/50003/BEF5C718-BA86-E711-8A89-C81F66B7ED98.root'
+'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11_ext1-v1/820001/4CBE96B5-A5A5-E811-8BEF-0090FAA573E0.root' #<---amc2017DY
 #'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v2/40000/E852C6B8-349F-E811-B40F-24BE05C63631.root'
 #'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_TuneCP5Down/AODSIM/PU2017_94X_mc2017_realistic_v11-v2/60000/D85856D2-1C72-E811-BB88-A0369FD1EF00.root'
-'file:/uscms/home/ddiaz/nobackup/ZH.root'
  ),
 )
 
@@ -64,19 +62,19 @@ process.GlobalTag.globaltag = '94X_mc2017_realistic_v17'
 #for idmod in my_id_modules:
 #    setupAllVIDIdsInModule(process,idmod,setupVIDElectronSelection)
 
-# for JEC
-# Load the corrections
-process.load('JetMETCorrections.Configuration.JetCorrectors_cff')
-
-
-# Produce corrected jets collection
-process.ak4CaloCorrectedJets   = cms.EDProducer('CorrectedCaloJetProducer',
-    src         = cms.InputTag('ak4CaloJets'),
-    #L1(PU), L2L3(MCTruth), L2L3Residuals
-    correctors  = cms.VInputTag('ak4CaloL1FastL2L3ResidualCorrector')
-    #correctors  = cms.VInputTag('ak4CaloL1FastjetCorrector', 'ak4CaloL2L3Corrector', 'ak4CaloL2L3ResidualCorrector')
-    #correctors  = cms.VInputTag('ak4CaloL2L3Corrector')
-    )
+## for JEC
+## Load the corrections
+#process.load('JetMETCorrections.Configuration.JetCorrectors_cff')
+#
+#
+## Produce corrected jets collection
+#process.ak4CaloCorrectedJets   = cms.EDProducer('CorrectedCaloJetProducer',
+#    src         = cms.InputTag('ak4CaloJets'),
+#    #L1(PU), L2L3(MCTruth), L2L3Residuals
+#    correctors  = cms.VInputTag('ak4CaloL1FastL2L3ResidualCorrector')
+#    #correctors  = cms.VInputTag('ak4CaloL1FastjetCorrector', 'ak4CaloL2L3Corrector', 'ak4CaloL2L3ResidualCorrector')
+#    #correctors  = cms.VInputTag('ak4CaloL2L3Corrector')
+#    )
 
 # pat for trigger
 process.load( 'PhysicsTools.PatAlgos.triggerLayer1.triggerProducer_cff' )
@@ -133,8 +131,8 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  beamspotLabel_            = cms.InputTag('offlineBeamSpot'),
 
  #ak4JetSrc                 = cms.InputTag('slimmedJets'),
- #AODak4CaloJetsSrc         = cms.InputTag('ak4CaloJets' , '', 'RECO'),
- AODak4CorrCaloJetsSrc     = cms.InputTag('ak4CaloCorrectedJets'),
+ AODak4CaloJetsSrc         = cms.InputTag('ak4CaloJets' , '', 'RECO'),
+ #AODak4CorrCaloJetsSrc     = cms.InputTag('ak4CaloCorrectedJets'),
  #AODak4PFJetsSrc           = cms.InputTag('ak4PFJets'   , '', 'RECO'),
  #AODak4PFJetsCHSSrc        = cms.InputTag('ak4PFJetsCHS', '', 'RECO'),
  #selectedPatJetsSrc        = cms.InputTag('selectedPatJets'),                                   
@@ -184,7 +182,7 @@ process.lldjNtuple = cms.EDAnalyzer('lldjNtuple',
  AOD_eleTightIdMap = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose"),
  conversions  = cms.InputTag('allConversions'),                                    
 
- #genParticleSrc    = cms.InputTag("genParticles"),
+ genParticleSrc    = cms.InputTag("genParticles"),
 
  bits = cms.InputTag("TriggerResults","","HLT"),
  prescales = cms.InputTag("patTrigger"),
@@ -202,8 +200,8 @@ process.selectedPatCandidatesTask.remove(process.selectedPatOOTPhotons)
 #builds Ntuple
 process.p = cms.Path(
     process.egammaPostRecoSeq *
-    process.ak4CaloCorrectedJets *
-    process.ak4CaloL1FastL2L3ResidualCorrectorChain *
+    #process.ak4CaloCorrectedJets *
+    #process.ak4CaloL1FastL2L3ResidualCorrectorChain *
     process.particleFlowPtrs *
     process.patCandidates *
     process.selectedPatCandidates *

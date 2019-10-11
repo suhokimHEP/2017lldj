@@ -80,7 +80,7 @@ class lldjNtuple : public edm::EDAnalyzer {
   void branchesAODJets     (TTree*);
   void branchesTrigger     (TTree*);
   void branchesAODTrigger  (TTree*);
-  //void branchesGenPart     (TTree*);
+  void branchesGenPart     (TTree*);
   void branchesAODEvent    (TTree*);
 
   void fillGlobalEvent (const edm::Event&, const edm::EventSetup&);
@@ -96,7 +96,7 @@ class lldjNtuple : public edm::EDAnalyzer {
   void fillAODJets     (const edm::Event&, const edm::EventSetup&);
   void fillTrigger     (const edm::Event&, const edm::EventSetup&);
   void fillAODTrigger  (const edm::Event&, const edm::EventSetup&);
-  //void fillGenPart     (const edm::Event&);
+  void fillGenPart     (const edm::Event&);
   void fillAODEvent    (const edm::Event&, const edm::EventSetup&);
 
   bool isMediumMuonBCDEF(const reco::Muon & recoMu);
@@ -168,7 +168,8 @@ class lldjNtuple : public edm::EDAnalyzer {
   void deltaVertex3D(GlobalPoint secVert, std::vector<reco::TransientTrack> tracks, double& dEta, double& dPhi, double& pt, double& m, double& energy);
   void deltaVertex2D(GlobalPoint secVert, std::vector<reco::TransientTrack> tracks, double& dPhi, double& pt, double& mediandPhi);
   vector<reco::TransientTrack> cleanTracks(vector<reco::TransientTrack> tracks, GlobalPoint vertPos);
-
+  //ctauWeight
+  Float_t calculatectauEventWeight(float dist);
   // met
   edm::EDGetTokenT<edm::TriggerResults>            patTrgResultsLabel_;
   // for MET filters
@@ -244,7 +245,7 @@ class lldjNtuple : public edm::EDAnalyzer {
 
 
   //gen
-  //edm::EDGetTokenT<vector<reco::GenParticle> >     genParticlesCollection_;
+  edm::EDGetTokenT<vector<reco::GenParticle> >     genParticlesCollection_;
   edm::EDGetTokenT<GenEventInfoProduct> AODGenEventInfoLabel_;
   
   TTree   *tree_;

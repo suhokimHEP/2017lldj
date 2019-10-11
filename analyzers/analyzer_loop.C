@@ -51,6 +51,9 @@ TFile *outfile_bkgest = 0;
  TFile *outfile_GEW = 0;
  outfile_GEW = TFile::Open(outfilename+"_AODGenEventWeight.root","RECREATE");
  TH1F* h_sum_AODGenEventWeight = new TH1F("h_sum_AODGenEventWeight","h_sum_AODGenEventWeight", 5,0.,5.);
+ TFile *outfile_nPU = 0;
+ outfile_nPU = TFile::Open(outfilename+"_AOD0thnPU.root","RECREATE");
+ TH1F* h_sum_AOD0thnPU = new TH1F("h_sum_AOD0thnPU","h_sum_AOD0thnPU", 80,0.00,80.00);
  // start looping over entries
  Long64_t nbytes = 0, nb = 0;
  for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -84,6 +87,7 @@ TFile *outfile_bkgest = 0;
   shiftCollections(uncbin);
   n_tot++;
   h_sum_AODGenEventWeight->Fill(2, AODGenEventWeight);
+  h_sum_AOD0thnPU->Fill(AOD0thnPU);
   // get lists of "good" electrons, photons, jets
   // idbit, pt, eta, sysbinname
   electron_list    = electron_passID  ( eleidbit,        ele_minPt1, ele_minPt2, ele_maxEta, "");
@@ -459,6 +463,11 @@ TFile *outfile_bkgest = 0;
   h_sum_AODGenEventWeight->Write();
   h_sum_AODGenEventWeight->Delete();
   outfile_GEW->Close();
+  
+  outfile_nPU->cd();
+  h_sum_AOD0thnPU->Write();
+  h_sum_AOD0thnPU->Delete();
+  outfile_nPU->Close();
 
  if(doBkgEst && uncbin.EqualTo("")){
    //Can choose more regions here

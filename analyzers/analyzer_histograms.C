@@ -471,6 +471,7 @@ Bool_t analyzer_histograms::initMETHTHistograms( TString uncbin ){
     TString hname_AODnGoodVtx                 = "h_"+selbinnames[i]+"_AODnGoodVtx"+uncbin ;
     TString hname_AODnVtx                     = "h_"+selbinnames[i]+"_AODnVtx"+uncbin ;
     TString hname_AODnTruePU                  = "h_"+selbinnames[i]+"_AODnTruePU"+uncbin ;
+    TString hname_AOD0thnPU                   = "h_"+selbinnames[i]+"_AOD0thnPU"+uncbin ;
     
 //    h_AOD_MET_phi    [i] = initSingleHistogramTH1F( hname_AOD_MET_phi   , "AOD_MET_phi  " , 30, -5, 5); 
 //    h_AOD_MET_pt     [i] = initSingleHistogramTH1F( hname_AOD_MET_pt    , "AOD_MET_pt   " , 50, 0, 500); 
@@ -479,6 +480,7 @@ Bool_t analyzer_histograms::initMETHTHistograms( TString uncbin ){
     h_AODnGoodVtx    [i] = initSingleHistogramTH1F( hname_AODnGoodVtx , "AODnGoodVtx" , 150,0,150) ; 
     h_AODnVtx        [i] = initSingleHistogramTH1F( hname_AODnVtx , "AODnVtx" , 150,0,150) ; 
     h_AODnTruePU     [i] = initSingleHistogramTH1F( hname_AODnTruePU , "AODnTruePU" , 150,0,150) ; 
+    h_AOD0thnPU      [i] = initSingleHistogramTH1F( hname_AOD0thnPU , "AOD0thnPU" , 150,0,150) ; 
     //h_nevents        [i] = initSingleHistogramTH1F( hname_htaodcalojets , "htaodcalojets" , 50,0,1000) ; 
   }
   
@@ -496,6 +498,7 @@ Bool_t analyzer_histograms::fillMETHTHistograms(Float_t weight, int selbin)
  h_AODnGoodVtx             [selbin]->Fill( AODnGoodVtx  , weight); 
  h_AODnVtx                 [selbin]->Fill( AODnVtx  , weight); 
  h_AODnTruePU              [selbin]->Fill( AODnTruePU  , weight); 
+ h_AOD0thnPU               [selbin]->Fill( AOD0thnPU  , weight); 
  return kTRUE;
 }
 
@@ -510,6 +513,7 @@ Bool_t analyzer_histograms::writeMETHTHistograms(int selbin)
   h_AODnGoodVtx             [selbin]->Write(); 
   h_AODnVtx                 [selbin]->Write(); 
   h_AODnTruePU              [selbin]->Write(); 
+  h_AOD0thnPU               [selbin]->Write(); 
   return kTRUE;
 }
 
@@ -525,6 +529,7 @@ Bool_t analyzer_histograms::deleteMETHTHistograms(int selbin)
   if(h_AODnGoodVtx[selbin]!=NULL)     h_AODnGoodVtx             [selbin]->Delete(); 
   if(h_AODnVtx[selbin]!=NULL)         h_AODnVtx                 [selbin]->Delete(); 
   if(h_AODnTruePU[selbin]!=NULL)      h_AODnTruePU              [selbin]->Delete(); 
+  if(h_AOD0thnPU[selbin]!=NULL)       h_AOD0thnPU               [selbin]->Delete(); 
   return kTRUE;
 }
 

@@ -11,42 +11,43 @@ nevents=-1
 maxfilesperjob=200   # 500=6h
 
 samples=(  \
- "Data_DoubleMuon_B"         \
- "Data_DoubleMuon_C"         \
- "Data_DoubleMuon_D"         \
- "Data_DoubleMuon_E"         \
- "Data_DoubleMuon_F"         \
- "Data_DoubleEG_B"         \
- "Data_DoubleEG_C"         \
- "Data_DoubleEG_D"         \
- "Data_DoubleEG_E"         \
- "Data_DoubleEG_F"         \
- "Data_MuonEG_B"         \
- "Data_MuonEG_C"         \
- "Data_MuonEG_D"         \
- "Data_MuonEG_E"         \
- "Data_MuonEG_F"         \
- "DYJetsToLL_M-50"            \
- "WJetsToLNu"     \
- "TTJets"          \
- "ST_s-channel_4f_leptonDecays"             \
- "ST_t-channel_antitop_4f_inclusiveDecays"  \
- "ST_t-channel_top_4f_inclusiveDecays"      \
- "ST_tW_antitop_5f_NoFullyHadronicDecays"   \
- "ST_tW_top_5f_NoFullyHadronicDecays"        \
- "WW"                 \
- "WZ"                 \
- "ZZ"                 \
- "WGToLNuG"              \
- "ZGTo2LG"               \
- "ZH_HToBB_ZToLL"        \
- "ggZH_HToBB_ZToLL"      \
- "QCD_HT100to200"        \
- "QCD_HT300to500"        \
- "QCD_HT500to700"        \
- "QCD_HT700to1000"       \
- "QCD_HT1500to2000"      \
- "QCD_HT2000toInf"       \
+ "DYJetsToLL_M-50_PU"            \
+ #"Data_DoubleMuon_B"         \
+ #"Data_DoubleMuon_C"         \
+ #"Data_DoubleMuon_D"         \
+ #"Data_DoubleMuon_E"         \
+ #"Data_DoubleMuon_F"         \
+ #"Data_DoubleEG_B"         \
+ #"Data_DoubleEG_C"         \
+ #"Data_DoubleEG_D"         \
+ #"Data_DoubleEG_E"         \
+ #"Data_DoubleEG_F"         \
+ #"Data_MuonEG_B"         \
+ #"Data_MuonEG_C"         \
+ #"Data_MuonEG_D"         \
+ #"Data_MuonEG_E"         \
+ #"Data_MuonEG_F"         \
+ #"DYJetsToLL_M-50"            \
+ #"WJetsToLNu"     \
+ #"TTJets"          \
+ #"ST_s-channel_4f_leptonDecays"             \
+ #"ST_t-channel_antitop_4f_inclusiveDecays"  \
+ #"ST_t-channel_top_4f_inclusiveDecays"      \
+ #"ST_tW_antitop_5f_NoFullyHadronicDecays"   \
+ #"ST_tW_top_5f_NoFullyHadronicDecays"        \
+ #"WW"                 \
+ #"WZ"                 \
+ #"ZZ"                 \
+ #"WGToLNuG"              \
+ #"ZGTo2LG"               \
+ #"ZH_HToBB_ZToLL"        \
+ #"ggZH_HToBB_ZToLL"      \
+ #"QCD_HT100to200"        \
+ #"QCD_HT300to500"        \
+ #"QCD_HT500to700"        \
+ #"QCD_HT700to1000"       \
+ #"QCD_HT1500to2000"      \
+ #"QCD_HT2000toInf"       \
 )
 # "Data_DoubleMuon_B"         \
 # "Data_DoubleMuon_C"         \
@@ -128,6 +129,7 @@ makeasubmitdir () {
  haddfile_NM1trees="./haddit_NM1trees.sh"
  haddfile_BkgEst="./haddit_BkgEst.sh"
  haddfile_AODGenEventWeight="./haddit_AODGenEventWeight.sh"
+ haddfile_AOD0thnPU="./haddit_AOD0thnPU.sh"
  #haddfile_OneEleSig_histograms="./haddit_OneEleSig_histograms.sh"                           
  haddfile_TwoEleSig_histograms="./haddit_TwoEleSig_histograms.sh"                           
  #haddfile_OneMuSig_histograms="./haddit_OneMuSig_histograms.sh"                           
@@ -178,6 +180,7 @@ makeasubmitdir () {
  printf "#!/bin/bash\n\n" > ${haddfile_NM1trees}          
  printf "#!/bin/bash\n\n" > ${haddfile_BkgEst}
  printf "#!/bin/bash\n\n" > ${haddfile_AODGenEventWeight}
+ printf "#!/bin/bash\n\n" > ${haddfile_AOD0thnPU}
 
  # make checker
  checkfile="./checker.sh"
@@ -210,6 +213,7 @@ makeasubmitdir () {
  printf "hadd ${hadddir}/$1_NM1tree.root"                  >>       ${haddfile_NM1trees}           
  printf "hadd ${hadddir}/$1_BkgEst.root"                   >>       ${haddfile_BkgEst}           
  printf "hadd ${hadddir}/$1_AODGenEventWeight.root"        >>       ${haddfile_AODGenEventWeight}           
+ printf "hadd ${hadddir}/$1_AOD0thnPU.root"                >>       ${haddfile_AOD0thnPU}           
 
  # breaking up input file list
  nfilesinlist=$( wc -l < "${CMSSW_BASE}/src/${FWVersion}/lists/$1.list" )
@@ -251,6 +255,7 @@ makeasubmitdir () {
   printf "\\"  >> ${haddfile_NM1trees}           
   printf "\\"  >> ${haddfile_BkgEst}           
   printf "\\"  >> ${haddfile_AODGenEventWeight}           
+  printf "\\"  >> ${haddfile_AOD0thnPU}           
 
   #printf "\n $(pwd)/$1_${jobfilenr}_OneEleSig_histograms.root"     >> ${haddfile_OneEleSig_histograms}    
   printf "\n $(pwd)/$1_${jobfilenr}_TwoEleSig_histograms.root"     >> ${haddfile_TwoEleSig_histograms}    
@@ -277,6 +282,7 @@ makeasubmitdir () {
   printf "\n $(pwd)/$1_${jobfilenr}_NM1tree.root"                  >> ${haddfile_NM1trees}           
   printf "\n $(pwd)/$1_${jobfilenr}_BkgEst.root"                   >> ${haddfile_BkgEst}
   printf "\n $(pwd)/$1_${jobfilenr}_AODGenEventWeight.root"        >> ${haddfile_AODGenEventWeight}
+  printf "\n $(pwd)/$1_${jobfilenr}_AOD0thnPU.root"                >> ${haddfile_AOD0thnPU}
 
   # add file to checker, all histos are made at the same time, so only check one
   printf "\n if [ ! -f $(pwd)/$1_${jobfilenr}_OPTtree.root ]; then printf \" $(pwd)/$1_${jobfilenr}_OPTtree.root \\n\"; fi " >> ${checkfile}
@@ -313,6 +319,7 @@ makeasubmitdir () {
  printf "\n\n" >> ${haddfile_NM1trees}           
  printf "\n\n" >> ${haddfile_BkgEst}
  printf "\n\n" >> ${haddfile_AODGenEventWeight}
+ printf "\n\n" >> ${haddfile_AOD0thnPU}
 
  if [ ${doSubmit} = true ]
  then

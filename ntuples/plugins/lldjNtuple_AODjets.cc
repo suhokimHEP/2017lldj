@@ -57,7 +57,7 @@ edm::Handle<edm::View<reco::Vertex>  >  AODVertexHandle;
 edm::Handle<edm::View<reco::Track>   >  AODTrackHandle;
 edm::Handle<reco::BeamSpot> beamspotHandle_;
 edm::ESHandle<MagneticField> magneticField;
-edm::ESHandle<JetCorrectorParametersCollection> JetCorParColl;//Daniel
+//edm::ESHandle<JetCorrectorParametersCollection> JetCorParColl;//Daniel
 // transient tracks
 map<reco::TransientTrack,reco::TrackBaseRef> refMap;
 vector<TrajectoryStateOnSurface> tsosList;
@@ -71,8 +71,8 @@ VertexCompatibleWithBeam* vertexBeam_ = new VertexCompatibleWithBeam(vertexDista
 // Calo Jets
 Int_t          AODnCaloJet_;
 vector<float>  AODCaloJetPt_;
-vector<float>  AODCaloJetPt_JECUp_;
-vector<float>  AODCaloJetPt_JECDown_;
+//vector<float>  AODCaloJetPt_JECUp_;
+//vector<float>  AODCaloJetPt_JECDown_;
 vector<float>  AODCaloJetEta_;
 vector<float>  AODCaloJetPhi_;
 
@@ -202,8 +202,8 @@ void lldjNtuple::branchesAODJets(TTree* tree) {
 
   tree->Branch("AODnCaloJet"                   , &AODnCaloJet_);
   tree->Branch("AODCaloJetPt"                  , &AODCaloJetPt_);
-  tree->Branch("AODCaloJetPt_JECUp"            , &AODCaloJetPt_JECUp_);
-  tree->Branch("AODCaloJetPt_JECDown"          , &AODCaloJetPt_JECDown_);
+  //tree->Branch("AODCaloJetPt_JECUp"            , &AODCaloJetPt_JECUp_);
+  //tree->Branch("AODCaloJetPt_JECDown"          , &AODCaloJetPt_JECDown_);
   tree->Branch("AODCaloJetEta"                 , &AODCaloJetEta_);
   tree->Branch("AODCaloJetPhi"                 , &AODCaloJetPhi_);
 
@@ -311,8 +311,8 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
 
  AODnCaloJet_=0;
  AODCaloJetPt_.clear();
- AODCaloJetPt_JECUp_.clear();
- AODCaloJetPt_JECDown_.clear();
+ //AODCaloJetPt_JECUp_.clear();
+ //AODCaloJetPt_JECDown_.clear();
  AODCaloJetEta_.clear();
  AODCaloJetPhi_.clear();
  //AODnTracksToCaloJet_.clear();
@@ -449,10 +449,10 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
  es.get<IdealMagneticFieldRecord>().get(magneticField);
  magneticField_ = &*magneticField;
 
- //JEC uncertainties Daniel
- es.get<JetCorrectionsRecord>().get("AK4Calo",JetCorParColl); 
- JetCorrectorParameters const & JetCorPar = (*JetCorParColl)["Uncertainty"];
- JetCorrectionUncertainty *jecUnc = new JetCorrectionUncertainty(JetCorPar);
+ ////JEC uncertainties Daniel
+ //es.get<JetCorrectionsRecord>().get("AK4Calo",JetCorParColl); 
+ //JetCorrectorParameters const & JetCorPar = (*JetCorParColl)["Uncertainty"];
+ //JetCorrectionUncertainty *jecUnc = new JetCorrectionUncertainty(JetCorPar);
  
  // beamspot
  e.getByToken(beamspotLabel_, beamspotHandle_);
@@ -614,11 +614,11 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   float jeteta = iJet->eta();
   float jetphi = iJet->phi();
   
-  jecUnc->setJetEta(iJet->eta());
-  jecUnc->setJetPt(iJet->pt()); // here you must use the CORRECTED jet pt
-  double unc = jecUnc->getUncertainty(true);
-  double ptCor_shiftedUP = jetpt*(1+(1)*unc) ; // shift = +1(up), or -1(down)
-  double ptCor_shiftedDN = jetpt*(1+(-1)*unc) ; // shift = +1(up), or -1(down)
+  //jecUnc->setJetEta(iJet->eta());
+  //jecUnc->setJetPt(iJet->pt()); // here you must use the CORRECTED jet pt
+  //double unc = jecUnc->getUncertainty(true);
+  //double ptCor_shiftedUP = jetpt*(1+(1)*unc) ; // shift = +1(up), or -1(down)
+  //double ptCor_shiftedDN = jetpt*(1+(-1)*unc) ; // shift = +1(up), or -1(down)
 
   // ID and jet selections
   bool passID = false;
@@ -687,8 +687,8 @@ void lldjNtuple::fillAODJets(const edm::Event& e, const edm::EventSetup& es) {
   
   //Pt, Eta, Phi
   AODCaloJetPt_.push_back(jetpt);
-  AODCaloJetPt_JECUp_.push_back(ptCor_shiftedUP);
-  AODCaloJetPt_JECDown_.push_back(ptCor_shiftedDN);
+  //AODCaloJetPt_JECUp_.push_back(ptCor_shiftedUP);
+  //AODCaloJetPt_JECDown_.push_back(ptCor_shiftedDN);
   AODCaloJetEta_.push_back(jeteta);
   AODCaloJetPhi_.push_back(jetphi);
   

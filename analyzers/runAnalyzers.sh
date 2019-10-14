@@ -1,14 +1,14 @@
 #!/bin/bash
 
 for sample in \
- "DYJetsToLL_M-50"  \
- "TTJets"  \
- "WZ"  \
- "ST_s-channel_4f_leptonDecays"  \
+ "DYJetsToLL_M-50_PU"  \
+# "TTJets"  \
+# "WZ"  \
+# "ST_s-channel_4f_leptonDecays"  \
 
 do
 #  ./runanalyzer.exe -s ${sample} -l "20000" -x "" -e "-1" -i "../lists" -o "junk" -n 999999999 -a 1 -d -m
-  ./runanalyzer.exe -s ${sample} -l "20000" -x "" -e "5000" -i "../lists" -o "junk" -n 10 -a 1 -d -m
+  ./runanalyzer.exe -s ${sample} -l "20000" -x "" -e "6229" -i "../lists" -o "junk" -n 99 -a 1 -d -m
 
 done #for sample in DY50..
 

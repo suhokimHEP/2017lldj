@@ -41,6 +41,7 @@ public :
    Int_t           lumis;
    Bool_t          isData;
    Int_t           AODnTruePU;
+   Int_t           AOD0thnPU;
    Int_t           AODnVtx;
    Int_t           AODnGoodVtx;
    Int_t           AODnTrksPV;
@@ -240,6 +241,7 @@ public :
    TBranch        *b_lumis;   //!
    TBranch        *b_isData;   //!
    TBranch        *b_AODnTruePU;   //!
+   TBranch        *b_AOD0thnPU;   //!
    TBranch        *b_AODnVtx;   //!
    TBranch        *b_AODnGoodVtx;   //!
    TBranch        *b_AODnTrksPV;   //!

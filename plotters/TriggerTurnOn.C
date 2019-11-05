@@ -20,7 +20,7 @@ void TriggerTurnOn( )
  TString outpath = TString("../plots/");
  std::vector<TString> sample;
 
- sample.push_back("DYJetsToLL_M-50");//_TwoMuZH_histograms.root 
+// sample.push_back("DYJetsToLL_M-50");//_TwoMuZH_histograms.root 
 // sample.push_back("DYJetsToLL_M-5to50_HT-100to200");
 // sample.push_back("DYJetsToLL_M-5to50_HT-200to400");
 // sample.push_back("DYJetsToLL_M-5to50_HT-400to600");
@@ -44,6 +44,7 @@ void TriggerTurnOn( )
 // sample.push_back("ST_t-channel_antitop_4f_inclusiveDecays");
 // sample.push_back("ST_tW_antitop_5f_NoFullyHadronicDecays");
 // sample.push_back("TTJets");
+ sample.push_back("TTtoLL");
 // sample.push_back("WGToLNuG");
 // sample.push_back("WJetsToLNu");
 // sample.push_back("ZGTo2LG");
@@ -81,9 +82,9 @@ void TriggerTurnOn( )
  //SampleName+"_"+Region+"_histograms.root"
  //run one at a time or make a run....sh script
  //TString region = "OnePho";
- //TString region = "EleMuOSOF"; 
+ TString region = "EleMuOSOF"; 
  //TString region = "TwoMuDY";
- TString region = "TwoEleDY"; 
+ //TString region = "TwoEleDY"; 
  //TString region = "TwoMuZH";
  //TString region = "TwoEleZH"; 
 
@@ -149,8 +150,8 @@ void TriggerTurnOn( )
   //Dname.push_back("TTOCMu2Eta");
   //Nname.push_back("TTOC_Ele23Ele12_DEle1Pt");
   //Dname.push_back("TTOCEle1Pt");
-  Nname.push_back("TTOC_Ele23Ele12_DEle2Pt");
-  Dname.push_back("TTOCEle2Pt");
+  //Nname.push_back("TTOC_Ele23Ele12_DEle2Pt");
+  //Dname.push_back("TTOCEle2Pt");
   //Nname.push_back("TTOC_Ele23Ele12_DEle1Eta");
   //Dname.push_back("TTOCEle1Eta");
   //Nname.push_back("TTOC_Ele23Ele12_DEle2Eta");
@@ -223,34 +224,34 @@ void TriggerTurnOn( )
    gr_TTOC->SetMarkerStyle(8);
    //gr_TTOC->SetMarkerColor(kAzure-2);
    //gr_TTOC->SetLineColor(kAzure-2);
-   gr_TTOC->SetTitle("2017_"+name);
+   gr_TTOC->SetTitle("2018_"+name);
    gr_TTOC->GetYaxis()->SetTitleOffset(1.95);
    gr_TTOC->GetYaxis()->SetRangeUser(0,1.0);
-   gr_TTOC->GetXaxis()->SetTitle(sample[j]+TTOCNum->GetTitle()+unit);
+   gr_TTOC->GetXaxis()->SetTitle(TTOCNum->GetTitle()+unit);
    gr_TTOC->GetYaxis()->SetTitle("Trigger Efficiency");
    gStyle->SetOptStat(0);
    title->DrawTextNDC(0.2,0.91,"CMS");
    extra->DrawTextNDC(0.3,0.91,"Preliminary");
-   extra2->DrawTextNDC(0.51,0.91,"Eras B-F");
-   lumi->DrawTextNDC(0.9,0.91,"41/fb (13 TeV)");
+   extra2->DrawTextNDC(0.51,0.91,"2018");
+   lumi->DrawTextNDC(0.9,0.91,"(13 TeV)");
    gPad->Update();
    gPad->RedrawAxis();
  
    // save canvas
-   canvas->SaveAs(Dname[j]+".png");
-   //canvas->SaveAs(outname+".pdf");
+   canvas->SaveAs(Nname[j]+Dname[j]+".png");
+   canvas->SaveAs(Nname[j]+Dname[j]+".pdf");
 }//1D end
 
   twoD_Nname.clear();
   twoD_Dname.clear();
-//  twoD_Nname.push_back("TTOCTriggerEMuPt");
-//  twoD_Dname.push_back("TTOCEMuPt");
-//  twoD_Nname.push_back("TTOCTriggerEMuEta");
-//  twoD_Dname.push_back("TTOCEMuEta");
-//  twoD_Nname.push_back("TTOCTriggerMuEPt");
-//  twoD_Dname.push_back("TTOCMuEPt");
-//  twoD_Nname.push_back("TTOCTriggerMuEEta");
-//  twoD_Dname.push_back("TTOCMuEEta");
+  twoD_Nname.push_back("TTOC_Ele23Mu12_EMuPt");
+  twoD_Dname.push_back("TTOCEMuPt");
+  twoD_Nname.push_back("TTOC_Ele23Mu12_EMuEta");
+  twoD_Dname.push_back("TTOCEMuEta");
+  twoD_Nname.push_back("TTOC_Ele12Mu23_MuEPt");
+  twoD_Dname.push_back("TTOCMuEPt");
+  twoD_Nname.push_back("TTOC_Ele12Mu23_MuEEta");
+  twoD_Dname.push_back("TTOCMuEEta");
 //
 //  twoD_Nname.push_back("TTOC_Mu17Mu8_DMuPt");
 //  twoD_Dname.push_back("TTOCMuPt");
@@ -267,7 +268,7 @@ void TriggerTurnOn( )
    if (twoD_Nname[j].Contains("Mu" )) {lep1 ="Mu1" ;   lep2 ="Mu2" ; trig="MuMu"; } 
    if (twoD_Nname[j].Contains("Ele")) {lep1 ="Ele1";   lep2 ="Ele2"; trig="EleEle";} 
    if (twoD_Nname[j].Contains("EMu")) {lep1 ="Ele" ;   lep2 ="Mu"  ; trig="EMu";}
-   //if (twoD_Nname[j].Contains("MuE")) {lep1 ="Mu"  ;   lep2 ="Ele" ; trig="MuE";}
+   if (twoD_Nname[j].Contains("MuE")) {lep1 ="Mu"  ;   lep2 ="Ele" ; trig="MuE";}
    twoD_name = trig+" Trigger efficiency "+lep2+" vs. "+lep1+"  "+var+": "+region+" Region ";
    cout << "Plotting: "<<twoD_name<<endl;
    if( twoD_Dname[j].Contains("Eta") )  {unit = "";         }
@@ -298,8 +299,8 @@ void TriggerTurnOn( )
   //h2_TTOC->SetLineColor(kAzure-2);
    twoD_TTOCNum->SetTitle("2017_"+twoD_name);
    twoD_TTOCNum->GetYaxis()->SetTitleOffset(1.25);
-   twoD_TTOCNum->GetYaxis()->SetTitle(sample[k]+": "+lep2+": "+var+unit);
-   twoD_TTOCNum->GetXaxis()->SetTitle(sample[k]+": "+lep1+": "+var+unit);
+   twoD_TTOCNum->GetYaxis()->SetTitle(lep2+": "+var+unit);
+   twoD_TTOCNum->GetXaxis()->SetTitle(lep1+": "+var+unit);
 // }
   //h2_TTOC->GetZaxis()->SetTitle("Trigger Efficiency");
    twoD_TTOCNum->SetMaximum(1.0);
@@ -307,15 +308,16 @@ void TriggerTurnOn( )
    twoD_TTOCNum->Draw("COLZ");
    title->DrawTextNDC(0.2,0.91,"CMS");
    extra->DrawTextNDC(0.3,0.91,"Preliminary");
-   extra2->DrawTextNDC(0.51,0.91,"Eras B-F");
-   lumi->DrawTextNDC(0.9,0.91,"41/fb (13 TeV)");
+   extra2->DrawTextNDC(0.51,0.91,"2017");
+   TString label = sample[k]+"_(13TeV)";
+   lumi->DrawTextNDC(0.93,0.91,label);
     gPad->Update();
     gPad->RedrawAxis();
 
 
     // save canvas
-    canvas2->SaveAs(twoD_Nname[j]+".png");
-    //canvas2->SaveAs(outname2+".pdf");
+   canvas2->SaveAs(twoD_Nname[j]+twoD_Dname[j]+".png");
+   canvas2->SaveAs(twoD_Nname[j]+twoD_Dname[j]+".pdf");
 }//2D end
 _file0->Close();
 }//end sample loop

@@ -351,6 +351,10 @@ public :
  TH1F*  h_AODCaloJetEta                            [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetPhi                            [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetAlphaMax                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_1                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_2                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_3                       [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetAlphaMax_4                       [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetAlphaMax2                      [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetAlphaMaxPrime                  [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetAlphaMaxPrime2                 [SELBINNAMESIZE][JETMULTNAMESIZE];
@@ -360,9 +364,17 @@ public :
  TH1F*  h_AODCaloJetSumIPSig                       [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetMedianIP                       [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetMedianLog10IPSig               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_1               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_2               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_3               [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10IPSig_4               [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetTrackAngle                     [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetLogTrackAngle                  [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetMedianLog10TrackAngle          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_1          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_2          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_3          [SELBINNAMESIZE][JETMULTNAMESIZE];
+ TH1F*  h_AODCaloJetMedianLog10TrackAngle_4          [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetTotalTrackAngle                [SELBINNAMESIZE][JETMULTNAMESIZE];
  TH1F*  h_AODCaloJetMinDR                          [SELBINNAMESIZE][JETMULTNAMESIZE];
 // TH1F*  h_AODCaloJetCSV                            [SELBINNAMESIZE][JETMULTNAMESIZE];

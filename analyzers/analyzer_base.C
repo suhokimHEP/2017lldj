@@ -247,6 +247,6 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    fChain->SetBranchAddress("AOD_eledz", &AOD_eledz, &b_AOD_eledz);
    fChain->SetBranchAddress("AOD_CaloMET_pt", &AOD_CaloMET_pt, &b_AOD_CaloMET_pt);
    fChain->SetBranchAddress("AOD_CaloMET_phi", &AOD_CaloMET_phi, &b_AOD_CaloMET_phi);
-   if(Tsample == "DYJetsToLL_M-50_PU" || Tsample == "DYJetsToLL_M-50" || Tsample == "ST_s-channel_4f_leptonDecays")fChain->SetBranchAddress("AODGenEventWeight", &AODGenEventWeight, &b_AODGenEventWeight);
+   if(Tsample == "ZGTo2LG" || Tsample == "DYJetsToLL_M-50" || Tsample == "TTJets" ||Tsample == "ST_s-channel_4f_leptonDecays")fChain->SetBranchAddress("AODGenEventWeight", &AODGenEventWeight, &b_AODGenEventWeight);
 
 }

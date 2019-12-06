@@ -922,7 +922,7 @@ void analyzer_createobjects::shiftCollections( TString uncbin )
 
 
   if(isMC){
-
+   /*
     float deltaAmax  = ( tag_maxAmax  / tag_shiftmaxAmax  ) - 1.    ;
     float deltaIPsig = ( tag_minIPsig / tag_shiftminIPsig ) - 1.  ;
     float deltaTA    = ( tag_minTA    / tag_shiftminTA    ) - 1.        ;
@@ -983,7 +983,7 @@ void analyzer_createobjects::shiftCollections( TString uncbin )
     //   std::cout<<" deltaAmax  "<< deltaAmax  <<std::endl; // = (tag_shiftmaxAmax/tag_maxAmax) - 1.    ;
     //   std::cout<<" deltaIPsig "<< deltaIPsig <<std::endl; // = (tag_shiftminIPsig/tag_minIPsig) - 1.  ;
     //   std::cout<<" deltaTA    "<< deltaTA    <<std::endl; // = (tag_shiftminTA/tag_minTA) - 1.        ;
-  }
+  */}
 
   return;
 

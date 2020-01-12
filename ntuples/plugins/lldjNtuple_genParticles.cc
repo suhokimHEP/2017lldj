@@ -4,7 +4,7 @@
 #include <TLorentzVector.h>
 
 using namespace std;
-bool ctauWeight = true; //Determine whether to weight or not weight the SigMC
+bool ctauWeight = false; //Determine whether to weight or not weight the SigMC
 float targetdist = 300; //To weight it, determine the target distance
 //Recommended targetdist range : 10mm sample->1mm<ct<10mm
 			//	 100mm sample->10mm<ct<100mm
@@ -24,6 +24,7 @@ vector<float> llpDaughterPt;
 vector<float> llpDaughterEta;
 vector<float> llpDaughterPhi;
 vector<float> llpDaughterMass;
+vector<float> GenJetPt;
 vector<float> toppts;
 vector<float> Decaydist;
 vector<float> Simweight;
@@ -50,6 +51,7 @@ void lldjNtuple::branchesGenPart(TTree* tree) {
   tree->Branch("llpDaughterEta",    &llpDaughterEta);
   tree->Branch("llpDaughterPhi",    &llpDaughterPhi);
   tree->Branch("llpDaughterMass",   &llpDaughterMass);
+  tree->Branch("GenJetPt",          &GenJetPt);
   tree->Branch("toppts",            &toppts);
   if (ctauWeight) {tree->Branch("Decaydist",         &Decaydist);
   tree->Branch("Simweight",         &Simweight);
@@ -78,6 +80,7 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
   llpDaughterEta.clear();
   llpDaughterPhi.clear();
   llpDaughterMass.clear();
+  GenJetPt.clear();
   toppts.clear();
   if (ctauWeight){Decaydist.clear();
   Simweight.clear();
@@ -92,8 +95,17 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
   //Gen particles handle
   edm::Handle<vector<reco::GenParticle> > genParticlesHandle;
   e.getByToken(genParticlesCollection_, genParticlesHandle);
+  //ak4GenJets handle
+  edm::Handle<vector<reco::GenJet> > ak4GenJetsHandle;
+  e.getByToken(ak4GenJetsCollection_, ak4GenJetsHandle);
   float totEventWeight =1.0;
+  //Loop over gen Jets
+  for (vector<reco::GenJet>::const_iterator jp = ak4GenJetsHandle->begin(); jp != ak4GenJetsHandle->end(); ++jp) {
+  //std::cout<<jp->pt()<<std::endl;
+  if(jp->pt()>25)
+  {GenJetPt.push_back(jp->pt());}
 
+  }//endGenJetsLoop
   //Loop over gen particles
   for (vector<reco::GenParticle>::const_iterator ip = genParticlesHandle->begin(); ip != genParticlesHandle->end(); ++ip) {
   
@@ -111,7 +123,7 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
     vector<int> Z_daughterPt_;
     vector<int> Z_daughterEta_;
     vector<int> Z_daughterPhi_;
-    if( ip->pdgId() == 23 && ip->isLastCopy() && ip->status()==62 ){
+    if( ip->pdgId() == 23 && ip->isLastCopy() /*&& ip->status()==62 */){
      Zpt.push_back  ( ip->pt() );
      Zmass.push_back( ip->mass() );
      for(size_t i=0; i<ip->numberOfDaughters(); ++i){

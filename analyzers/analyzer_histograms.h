@@ -281,6 +281,8 @@ public :
  TH1F*  h_AOD_dilepton_Mass           [SELBINNAMESIZE];
  TH1F*  h_AOD_dilepton_Pt             [SELBINNAMESIZE];
  TH1F*  h_AOD_dileptonNewB_Pt         [SELBINNAMESIZE];
+ TH1F*  h_AOD_GenZpt_Pt             [SELBINNAMESIZE];
+ TH1F*  h_AOD_GenJetPt_Pt             [SELBINNAMESIZE];
  TH1F*  h_AOD_OSOFdilepton_Mass       [SELBINNAMESIZE];
  TH1F*  h_AOD_OSOFdilepton_Pt         [SELBINNAMESIZE];
 

@@ -59,6 +59,8 @@ public :
 //   std::vector<float>   *llpDaughterPhi;
 //   std::vector<float>   *llpDaughterMass;
 //   std::vector<float>   *toppts;
+   std::vector<float>   *GenJetPt;
+   std::vector<float>   *Zpt;
    //ele ele
    ULong64_t       AOD_HLT_DoubleEle33;
    ULong64_t       AOD_HLT_Ele23Ele12;
@@ -259,6 +261,8 @@ public :
 //   TBranch        *b_llpDaughterPhi;   //!
 //   TBranch        *b_llpDaughterMass;   //!
 //   TBranch        *b_toppts;   //!
+   TBranch        *b_GenJetPt;   //!
+   TBranch        *b_Zpt;   //!
    //ele ele
    TBranch       *b_AOD_HLT_DoubleEle33;//!
    TBranch       *b_AOD_HLT_Ele23Ele12;//!

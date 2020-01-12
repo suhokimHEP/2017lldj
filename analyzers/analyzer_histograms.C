@@ -340,14 +340,19 @@ Bool_t analyzer_histograms::initLepHistograms( TString uncbin ){
   TString hname_AOD_dilepton_Mass = "h_"+selbinnames[i]+"_AOD_dilepton_Mass"+uncbin; 
   TString hname_AOD_dilepton_Pt   = "h_"+selbinnames[i]+"_AOD_dilepton_Pt"  +uncbin; 
   TString hname_AOD_dileptonNewB_Pt   = "h_"+selbinnames[i]+"_AOD_dileptonNewB_Pt"  +uncbin; 
+  TString hname_AOD_GenZpt_Pt   = "h_"+selbinnames[i]+"_AOD_GenZpt_Pt"  +uncbin; 
+  TString hname_AOD_GenJetPt_Pt   = "h_"+selbinnames[i]+"_AOD_GenJetPt_Pt"  +uncbin; 
   TString hname_AOD_OSOFdilepton_Mass = "h_"+selbinnames[i]+"_AOD_OSOFdilepton_Mass"+uncbin; 
   TString hname_AOD_OSOFdilepton_Pt   = "h_"+selbinnames[i]+"_AOD_OSOFdilepton_Pt"  +uncbin; 
 
-  h_AOD_dilepton_Mass[i] = initSingleHistogramTH1F( hname_AOD_dilepton_Mass, "AOD_dilepton_Mass", 30,  30, 150) ;  
-  h_AOD_dilepton_Pt  [i] = initSingleHistogramTH1F( hname_AOD_dilepton_Pt  , "AOD_dilepton_Pt  ", 50,   0, 500) ;  
+  h_AOD_dilepton_Mass[i] = initSingleHistogramTH1F( hname_AOD_dilepton_Mass, "AOD_dilepton_Mass", 30,  60, 120) ;  
   h_AOD_dileptonNewB_Pt  [i] = initSingleHistogramTH1F( hname_AOD_dileptonNewB_Pt  , "AOD_dileptonNewB_Pt  ", 50,   0, 500) ;  
-  h_AOD_OSOFdilepton_Mass[i] = initSingleHistogramTH1F( hname_AOD_OSOFdilepton_Mass, "AOD_OSOFdilepton_Mass", 30,  30, 150) ;  
-  h_AOD_OSOFdilepton_Pt  [i] = initSingleHistogramTH1F( hname_AOD_OSOFdilepton_Pt  , "AOD_OSOFdilepton_Pt  ", 50,   0, 500) ;  
+  h_AOD_GenZpt_Pt  [i] = initSingleHistogramTH1F( hname_AOD_GenZpt_Pt  , "AOD_GenZpt_Pt  ", 50,   0, 500) ;  
+  h_AOD_GenJetPt_Pt  [i] = initSingleHistogramTH1F( hname_AOD_GenJetPt_Pt  , "AOD_GenJetPt_Pt  ", 50,   0, 500) ;  
+  h_AOD_dilepton_Pt  [i] = initSingleHistogramTH1F( hname_AOD_dilepton_Pt  , "AOD_dilepton_Pt  ", 24, x_bins); //50,   0, 500) ;  
+  h_AOD_OSOFdilepton_Mass[i] = initSingleHistogramTH1F( hname_AOD_OSOFdilepton_Mass, "AOD_OSOFdilepton_Mass", 30,  60, 120) ;  
+  //h_AOD_OSOFdilepton_Pt  [i] = initSingleHistogramTH1F( hname_AOD_OSOFdilepton_Pt  , "AOD_OSOFdilepton_Pt  ", 50,   0, 500) ;  
+  h_AOD_OSOFdilepton_Pt  [i] = initSingleHistogramTH1F( hname_AOD_OSOFdilepton_Pt  , "AOD_OSOFdilepton_Pt  ", 24,x_bins);//50,   0, 500) ;  
  }
  return kTRUE;
 }
@@ -361,6 +366,12 @@ Bool_t analyzer_histograms::fillLepHistograms(Float_t weight, int selbin )
   h_AOD_dileptonNewB_Pt    [selbin]->Fill( dilep_pt, weight );
   h_AOD_OSOFdilepton_Mass  [selbin]->Fill( OSOF_mass, weight );
   h_AOD_OSOFdilepton_Pt    [selbin]->Fill( OSOF_pt, weight );
+  for(unsigned int i =0; i<Zpt->size(); i++){
+         h_AOD_GenZpt_Pt    [selbin]->Fill( Zpt->at(i), weight );
+  }
+  for(unsigned int i =0; i<GenJetPt->size(); i++){
+         h_AOD_GenJetPt_Pt    [selbin]->Fill( GenJetPt->at(i), weight );
+  }
   return kTRUE;
 }
 
@@ -371,6 +382,8 @@ Bool_t analyzer_histograms::writeLepHistograms(int selbin)
  h_AOD_dilepton_Mass           [selbin]->Write();
  h_AOD_dilepton_Pt             [selbin]->Write();
  h_AOD_dileptonNewB_Pt             [selbin]->Write();
+ h_AOD_GenZpt_Pt             [selbin]->Write();
+ h_AOD_GenJetPt_Pt             [selbin]->Write();
  h_AOD_OSOFdilepton_Mass       [selbin]->Write();
  h_AOD_OSOFdilepton_Pt         [selbin]->Write();
  return kTRUE;
@@ -384,6 +397,8 @@ Bool_t analyzer_histograms::deleteLepHistograms(int selbin)
   if(h_AOD_dilepton_Mass    [selbin]!=NULL)   h_AOD_dilepton_Mass           [selbin]->Delete();
   if(h_AOD_dilepton_Pt      [selbin]!=NULL)   h_AOD_dilepton_Pt             [selbin]->Delete();
   if(h_AOD_dileptonNewB_Pt      [selbin]!=NULL)   h_AOD_dilepton_Pt             [selbin]->Delete();
+  if(h_AOD_GenZpt_Pt      [selbin]!=NULL)   h_AOD_dilepton_Pt             [selbin]->Delete();
+  if(h_AOD_GenJetPt_Pt      [selbin]!=NULL)   h_AOD_dilepton_Pt             [selbin]->Delete();
   if(h_AOD_OSOFdilepton_Mass[selbin]!=NULL)   h_AOD_OSOFdilepton_Mass       [selbin]->Delete();
   if(h_AOD_OSOFdilepton_Pt  [selbin]!=NULL)   h_AOD_OSOFdilepton_Pt         [selbin]->Delete();  
   return kTRUE;

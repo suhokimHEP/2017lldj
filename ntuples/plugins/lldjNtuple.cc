@@ -119,6 +119,7 @@ lldjNtuple::lldjNtuple(const edm::ParameterSet& ps) :
 
   // gen
   genParticlesCollection_    = consumes<vector<reco::GenParticle> >    (ps.getParameter<InputTag>("genParticleSrc"));
+  ak4GenJetsCollection_    = consumes<vector<reco::GenJet> >    (ps.getParameter<InputTag>("ak4GenJetSrc"));
   AODGenEventInfoLabel_           = consumes <GenEventInfoProduct> (edm::InputTag(std::string("generator")));
 
   Service<TFileService> fs;

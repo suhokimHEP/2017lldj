@@ -34,6 +34,8 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    // MC and Data
    //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\//
    // set object pointers
+   GenJetPt = 0;
+   Zpt = 0;
    AODnGoodVtx = 0;
    AODnVtx = 0;
    AODnTruePU = 0;
@@ -133,6 +135,8 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    fChain->SetBranchAddress("AODnGoodVtx", &AODnGoodVtx, &b_AODnGoodVtx);
    fChain->SetBranchAddress("AODnTrksPV", &AODnTrksPV, &b_AODnTrksPV);
    fChain->SetBranchAddress("AODisPVGood", &AODisPVGood, &b_AODisPVGood);
+   fChain->SetBranchAddress("GenJetPt", &GenJetPt, &b_GenJetPt);
+   fChain->SetBranchAddress("Zpt", &Zpt, &b_Zpt);
    //ele ele
    fChain->SetBranchAddress("AOD_HLT_DoubleEle33", &AOD_HLT_DoubleEle33, &b_AOD_HLT_DoubleEle33);    
    fChain->SetBranchAddress("AOD_HLT_Ele23Ele12", &AOD_HLT_Ele23Ele12, &b_AOD_HLT_Ele23Ele12);

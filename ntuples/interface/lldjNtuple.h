@@ -246,6 +246,7 @@ class lldjNtuple : public edm::EDAnalyzer {
 
   //gen
   edm::EDGetTokenT<vector<reco::GenParticle> >     genParticlesCollection_;
+  edm::EDGetTokenT<vector<reco::GenJet> >     ak4GenJetsCollection_;
   edm::EDGetTokenT<GenEventInfoProduct> AODGenEventInfoLabel_;
   
   TTree   *tree_;

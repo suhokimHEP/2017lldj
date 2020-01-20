@@ -14,7 +14,7 @@ process.load("RecoTracker.TkNavigation.NavigationSchoolESProducer_cfi")
 
 # log output
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )  ## number of events -1 does all
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(301) )  ## number of events -1 does all
 process.MessageLogger.cerr.FwkReport.reportEvery = 100
 
 # input files
@@ -22,7 +22,7 @@ process.source = cms.Source('PoolSource',
                             fileNames = cms.untracked.vstring(
 
 #'root://cmsxrootd.fnal.gov//store/data/Run2017F/SinglePhoton/AOD/17Nov2017-v1/50000/B86B5B18-0EDF-E711-BEE1-02163E019E8F.root'<--data
-'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11_ext1-v1/820001/4CBE96B5-A5A5-E811-8BEF-0090FAA573E0.root' #<---amc2017DY
+'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/ggZH_HToSSTobbbb_ZToLL_MH-125_TuneCP5_13TeV-powheg-pythia8/AODSIM/PU2017_rp_94X_mc2017_realistic_v11-v1/710000/C89C7058-2511-EA11-9652-F01FAFE5F521.root' #<---Signal
 #'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/AODSIM/PU2017_94X_mc2017_realistic_v11-v2/40000/E852C6B8-349F-E811-B40F-24BE05C63631.root'
 #'root://cmsxrootd.fnal.gov//store/mc/RunIIFall17DRPremix/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8_TuneCP5Down/AODSIM/PU2017_94X_mc2017_realistic_v11-v2/60000/D85856D2-1C72-E811-BB88-A0369FD1EF00.root'
  ),

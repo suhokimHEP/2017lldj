@@ -19,7 +19,7 @@ makealist() {
 #### MC backgrounds
 ##
 ### DY
-#makealist "DYJetsToLL_M-50"            "/DYJetsToLL_M-50_"
+makealist "DYJetsToLL_M-50"            "/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DY50"
 ##
 ### WJets
 #makealist "WJetsToLNu"      "/WJetsToLNu_"

@@ -4,7 +4,7 @@
 #include <TLorentzVector.h>
 
 using namespace std;
-bool ctauWeight = true; //Determine whether to weight or not weight the SigMC
+bool ctauWeight = false; //Determine whether to weight or not weight the SigMC
 float targetdist = 300; //To weight it, determine the target distance
 //Recommended targetdist range : 10mm sample->1mm<ct<10mm
 			//	 100mm sample->10mm<ct<100mm

@@ -36,6 +36,12 @@ vector<vector<int>>   Z_daughterPt;
 vector<vector<int>>   Z_daughterEta;
 vector<vector<int>>   Z_daughterPhi;
 
+vector<float> llpvX;
+vector<float> llpvY;
+vector<float> llpvZ;
+vector<float> llpDaughtervX;
+vector<float> llpDaughtervY;
+vector<float> llpDaughtervZ;
 void lldjNtuple::branchesGenPart(TTree* tree) {
 
   tree->Branch("llpId",             &llpId);
@@ -61,6 +67,12 @@ void lldjNtuple::branchesGenPart(TTree* tree) {
   tree->Branch("Z_daughterPt",   &Z_daughterPt);
   tree->Branch("Z_daughterEta",  &Z_daughterEta);
   tree->Branch("Z_daughterPhi",  &Z_daughterPhi);
+  tree->Branch("llpvX",             &llpvX);
+  tree->Branch("llpvY",             &llpvY);
+  tree->Branch("llpvZ",             &llpvZ);
+  tree->Branch("llpDaughtervX",             &llpDaughtervX);
+  tree->Branch("llpDaughtervY",             &llpDaughtervY);
+  tree->Branch("llpDaughtervZ",             &llpDaughtervZ);
 }
 
 void lldjNtuple::fillGenPart(const edm::Event& e) {
@@ -89,6 +101,12 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
   Z_daughterPt.clear();
   Z_daughterEta.clear();
   Z_daughterPhi.clear();
+  llpvX.clear();
+  llpvY.clear();
+  llpvZ.clear();
+  llpDaughtervX.clear();
+  llpDaughtervY.clear();
+  llpDaughtervZ.clear();
   //Gen particles handle
   edm::Handle<vector<reco::GenParticle> > genParticlesHandle;
   e.getByToken(genParticlesCollection_, genParticlesHandle);
@@ -135,9 +153,15 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
       llpEta.push_back(     ip->eta()   );
       llpPhi.push_back(     ip->phi()   );
       llpMass.push_back(    ip->mass()  );
+      llpvX.push_back(    ip->vx()  );
+      llpvY.push_back(    ip->vy()  );
+      llpvZ.push_back(    ip->vz()  );
       TVector3 mother,daughter,diff;	
       for(size_t j=0; j<ip->numberOfDaughters(); ++j){
 	const reco::Candidate* d = ip->daughter(j);
+	  llpDaughtervX.push_back(d->vx());
+	  llpDaughtervY.push_back(d->vy());
+	  llpDaughtervZ.push_back(d->vz());
 	  mother.SetXYZ(ip->vx(),ip->vy(),ip->vz());
 	  daughter.SetXYZ(d->vx(),d->vy(),d->vz());
    	  diff.SetXYZ(mother.X()-daughter.X(),mother.Y()-daughter.Y(),mother.Z()-daughter.Z());	

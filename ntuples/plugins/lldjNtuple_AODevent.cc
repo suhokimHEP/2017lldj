@@ -1,6 +1,4 @@
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
-//#include "HLTrigger/HLTcore/interface/HLTConfigProvider.h"
-//#include "FWCore/Common/interface/TriggerNames.h"
 #include "2017lldj/ntuples/interface/lldjNtuple.h"
 #include <iomanip>
 #include <bitset>
@@ -18,6 +16,8 @@ Int_t       AODnGoodVtx_;
 Int_t       AODnTrksPV_;
 Bool_t      AODisPVGood_;
 Float_t     AODGenEventWeight_;
+
+TString     model_;
 
 vector<int>       AODBunchXing_;
 vector<int>       AODnPU_;
@@ -41,6 +41,9 @@ void lldjNtuple::branchesAODEvent(TTree* tree) {
   tree->Branch("AODnPU",             &AODnPU_);
   tree->Branch("AOD0thnPU",          &AOD0thnPU_);
   tree->Branch("AODnPUMean",         &AODnPUMean_);
+  
+  tree->Branch("model",       &model_);
+
 }
 
 void lldjNtuple::fillAODEvent(const edm::Event& e, const edm::EventSetup& es) {
@@ -55,14 +58,11 @@ void lldjNtuple::fillAODEvent(const edm::Event& e, const edm::EventSetup& es) {
   AODisData_ = e.isRealData();
 
   AODnTruePU_ = -1 ;
+  model_="NotSignal";
   if (!e.isRealData()) {
    edm::Handle<vector<PileupSummaryInfo> > AODpuInfoHandle;
    e.getByToken(AODpuCollection_, AODpuInfoHandle);
-   if ( AODpuInfoHandle->size() > 0 ){
-    AODnTruePU_ = AODpuInfoHandle->at(0).getTrueNumInteractions() ;
-   }
-  
-
+   if ( AODpuInfoHandle->size() > 0 ){ AODnTruePU_ = AODpuInfoHandle->at(0).getTrueNumInteractions() ;}
   int BunchXing  = -99999;
   int nPU        = -99999;
   int nPUMean    = -99999;
@@ -78,6 +78,10 @@ void lldjNtuple::fillAODEvent(const edm::Event& e, const edm::EventSetup& es) {
     //Save separately the 0th value
     if(BunchXing==0) AOD0thnPU_= nPU;
   }
+  // Signal Sample Splitting
+   edm::Handle<GenLumiInfoHeader> gen_header;  
+   e.getLuminosityBlock().getByToken(genLumiHeaderToken_,gen_header);
+   model_ = gen_header->configDescription();
   }//!e.isRealData()
 
 

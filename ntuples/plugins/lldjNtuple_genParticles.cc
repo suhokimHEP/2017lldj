@@ -135,7 +135,7 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
     vector<int> Z_daughterPt_;
     vector<int> Z_daughterEta_;
     vector<int> Z_daughterPhi_;
-    if( ip->pdgId() == 23 && ip->isLastCopy() && ip->status()==62 ){
+    if( ip->pdgId() == 23 && ip->isLastCopy() ){
      Zpt.push_back  ( ip->pt() );
      Zmass.push_back( ip->mass() );
      for(size_t i=0; i<ip->numberOfDaughters(); ++i){
@@ -184,7 +184,7 @@ void lldjNtuple::fillGenPart(const edm::Event& e) {
     else if ( particleHistory.hasRealParent() ) {
       reco::GenParticleRef momRef = particleHistory.parent();
       if ( momRef.isNonnull() && momRef.isAvailable() ) {
-	if( abs(momRef->pdgId()) == 9000006 ){
+	if( abs(momRef->pdgId()) == 9000006 ||  abs(momRef->pdgId()) == 1023  ){
 	  llpDaughterId.push_back(     ip->pdgId() );
 	  llpDaughterStatus.push_back( ip->status() );
 	  llpDaughterPt.push_back(     ip->pt()    );

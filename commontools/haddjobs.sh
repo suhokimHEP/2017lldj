@@ -7,12 +7,13 @@ mkdir -p "${plotdir}/${aversion}"
 mkdir -p "${plotdir}/${aversion}/logs"
 
 samples=( \
+ "DYJetsToLL_M-50_PU"            \
 # "Data_DoubleMuon_B"         \
 # "Data_DoubleMuon_C"         \
 # "Data_DoubleMuon_D"         \
 # "Data_DoubleMuon_E"         \
 # "Data_DoubleMuon_F"         \
- "Data_DoubleEG_B"         \
+# "Data_DoubleEG_B"         \
 # "Data_DoubleEG_C"         \
 # "Data_DoubleEG_D"         \
 # "Data_DoubleEG_E"         \
@@ -22,7 +23,8 @@ samples=( \
 # "Data_MuonEG_D"         \
 # "Data_MuonEG_E"         \
 # "Data_MuonEG_F"         \
- "DYJetsToLL_M-50"            \
+# "DYJetsToLL_M-50_PU"            \
+# "DYJetsToLL_M-50"            \
 # "WJetsToLNu"     \
 # "TTJets"          \
 # "ST_s-channel_4f_leptonDecays"             \
@@ -52,6 +54,7 @@ do
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_NM1trees.sh"
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_BkgEst.sh"
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_AODGenEventWeight.sh"
+ chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_AOD0thnPU.sh"
  #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneEleSig_histograms.sh"    
  chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoEleSig_histograms.sh"    
  #chmod +x "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneMuSig_histograms.sh"    
@@ -79,6 +82,7 @@ do
  bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_NM1trees.sh"
  bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_BkgEst.sh"
  bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_AODGenEventWeight.sh"
+ bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_AOD0thnPU.sh"
  #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneEleSig_histograms.sh"    
  bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_TwoEleSig_histograms.sh"    
  #bash "${basedir}/submitters/gitignore/${aversion}/${sample}/haddit_OneMuSig_histograms.sh"    

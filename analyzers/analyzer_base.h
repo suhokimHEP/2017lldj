@@ -46,6 +46,8 @@ public :
    Int_t           AODnGoodVtx;
    Int_t           AODnTrksPV;
    Bool_t          AODisPVGood;
+   std::vector<int>           *AODnPUMean;
+   std::vector<int>           *AODBunchXing;
 //   std::vector<int>     *llpId;
 //   std::vector<int>     *llpStatus;
 //   std::vector<float>   *llpPt;
@@ -59,6 +61,7 @@ public :
 //   std::vector<float>   *llpDaughterPhi;
 //   std::vector<float>   *llpDaughterMass;
 //   std::vector<float>   *toppts;
+   Float_t   ctauEventWeight;
    //ele ele
    ULong64_t       AOD_HLT_DoubleEle33;
    ULong64_t       AOD_HLT_Ele23Ele12;
@@ -246,6 +249,8 @@ public :
    TBranch        *b_AODnGoodVtx;   //!
    TBranch        *b_AODnTrksPV;   //!
    TBranch        *b_AODisPVGood;   //!
+   TBranch        *b_AODnPUMean;   //!
+   TBranch        *b_AODBunchXing;   //!
 //   TBranch        *b_llpId;   //!
 //   TBranch        *b_llpStatus;   //!
 //   TBranch        *b_llpPt;   //!
@@ -259,6 +264,7 @@ public :
 //   TBranch        *b_llpDaughterPhi;   //!
 //   TBranch        *b_llpDaughterMass;   //!
 //   TBranch        *b_toppts;   //!
+   TBranch        *b_ctauEventWeight;   //!
    //ele ele
    TBranch       *b_AOD_HLT_DoubleEle33;//!
    TBranch       *b_AOD_HLT_Ele23Ele12;//!

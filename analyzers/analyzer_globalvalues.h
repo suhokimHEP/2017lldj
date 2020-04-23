@@ -86,6 +86,11 @@ public :
    float jetmatchdRcut ;
    float objcleandRcut ;
    float sum_AODGenEventWeight;
+   
+   float base_weight;
+   float ele_weight;
+   float mu_weight;
+   float PU_weight;
 
    // ID bits for collections
    TString phoid;
@@ -147,6 +152,9 @@ public :
 
    // selection counters (how many events pass)
    Int_t n_tot;
+   Float_t n_bare;
+   Float_t totEW;
+   Float_t gew;
 
    Int_t n_passOneEleSig   ;
    Int_t n_passTwoEleSig   ;

@@ -15,6 +15,9 @@ void analyzer_globalvalues::clearglobalcounters()
 {
 
  n_tot   = 0;
+ n_bare = 0;
+ totEW  = 1.0;
+ gew    = 0.0;
 
  n_passOneEleSig    = 0;
  n_passTwoEleSig    = 0;

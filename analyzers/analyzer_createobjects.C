@@ -123,9 +123,10 @@ std::vector<int> analyzer_createobjects::jet_passTagger( ) {
 
   for(int i=0; i<aodcalojet_list.size(); ++i){
    int aodcalojetindex = aodcalojet_list[i];
-   if( Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)      >  tag_minIPsig  &&
-       Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex) >  tag_minTA     &&
-       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              <  tag_maxAmax  )
+   if( Shifted_CaloJetMedianLog10IPSig.at(aodcalojetindex)      >=  tag_minIPsig  &&
+       Shifted_CaloJetMedianLog10TrackAngle.at(aodcalojetindex) >=  tag_minTA     &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              <=  tag_maxAmax   &&
+       Shifted_CaloJetAlphaMax.at(aodcalojetindex)              >=  0.0  )
     {
      taglist.push_back(aodcalojetindex);
     }
@@ -523,10 +524,9 @@ std::vector<int> analyzer_createobjects::jet_passID( int bitnr, TString jettype,
 //  if(jettype.EqualTo("pfchs")){
 //   njets = AODnPFchsJet;
 //  }
-
-  for(int i = 0; i < njets; i++)
+  
+  for(int i = 0; i <  njets; i++)
   {
-
    float jetpt;
    float jeteta;
    float jetphi;

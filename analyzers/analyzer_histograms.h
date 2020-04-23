@@ -283,6 +283,7 @@ public :
  TH1F*  h_AOD_dileptonNewB_Pt         [SELBINNAMESIZE];
  TH1F*  h_AOD_OSOFdilepton_Mass       [SELBINNAMESIZE];
  TH1F*  h_AOD_OSOFdilepton_Pt         [SELBINNAMESIZE];
+ TH1F*  h_AOD_OSOFdileptonNewB_Pt      [SELBINNAMESIZE];
 
  // Photon
  TH1F*  h_AOD_nPho                     [SELBINNAMESIZE];
@@ -307,6 +308,7 @@ public :
  TH1F*  h_nSelectedAODCaloJet_L1PFTag    [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJet            [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTag         [SELBINNAMESIZE];
+ TH1F*  h_nSelectedAODCaloJetTag_orig    [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTagSB1      [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTagSB2      [SELBINNAMESIZE];
  TH1F*  h_nSelectedAODCaloJetTagSB3      [SELBINNAMESIZE];

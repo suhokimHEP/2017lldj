@@ -36,8 +36,11 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    // set object pointers
    AODnGoodVtx = 0;
    AODnVtx = 0;
-   AODnTruePU = 0;
-   AOD0thnPU = 0;
+   AODBunchXing = 0;
+   AODnPUMean = 0;
+   //AODnTruePU = 0;
+   //AOD0thnPU = 0;
+   ctauEventWeight = 1.;
    AODCaloJetPt = 0;
    AODCaloJetEta = 0;
    AODCaloJetPhi = 0;
@@ -116,7 +119,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    AOD_elePassConversionVeto = 0;
    AOD_eled0 = 0;
    AOD_eledz = 0;
-   AODGenEventWeight = 1;
+   AODGenEventWeight = 1.;
    // Set branch addresses and branch pointers
    if (!tree) return;
    fChain = tree;
@@ -133,6 +136,9 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    fChain->SetBranchAddress("AODnGoodVtx", &AODnGoodVtx, &b_AODnGoodVtx);
    fChain->SetBranchAddress("AODnTrksPV", &AODnTrksPV, &b_AODnTrksPV);
    fChain->SetBranchAddress("AODisPVGood", &AODisPVGood, &b_AODisPVGood);
+   fChain->SetBranchAddress("AODnPUMean", &AODnPUMean, &b_AODnPUMean);
+   fChain->SetBranchAddress("AODBunchXing", &AODBunchXing, &b_AODBunchXing);
+   fChain->SetBranchAddress("ctau_eventweight", &ctauEventWeight, &b_ctauEventWeight);
    //ele ele
    fChain->SetBranchAddress("AOD_HLT_DoubleEle33", &AOD_HLT_DoubleEle33, &b_AOD_HLT_DoubleEle33);    
    fChain->SetBranchAddress("AOD_HLT_Ele23Ele12", &AOD_HLT_Ele23Ele12, &b_AOD_HLT_Ele23Ele12);
@@ -247,6 +253,5 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    fChain->SetBranchAddress("AOD_eledz", &AOD_eledz, &b_AOD_eledz);
    fChain->SetBranchAddress("AOD_CaloMET_pt", &AOD_CaloMET_pt, &b_AOD_CaloMET_pt);
    fChain->SetBranchAddress("AOD_CaloMET_phi", &AOD_CaloMET_phi, &b_AOD_CaloMET_phi);
-   if(Tsample == "DYJetsToLL_M-50_PU" || Tsample == "DYJetsToLL_M-50" || Tsample == "ST_s-channel_4f_leptonDecays")fChain->SetBranchAddress("AODGenEventWeight", &AODGenEventWeight, &b_AODGenEventWeight);
-
+   fChain->SetBranchAddress("AODGenEventWeight", &AODGenEventWeight, &b_AODGenEventWeight);
 }

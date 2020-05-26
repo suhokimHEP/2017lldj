@@ -20,6 +20,8 @@ cp ../../2017_puWeights_MuonEG_69200.root            .
 cp ../../2017_ElectronTight.root     .
 cp ../../2017_ElectronMedium.root    .
 cp ../../2017_ElectronLoose.root     .
+cp ../../RunBCDEF_SF_ID.root     .
+cp ../../RunBCDEF_SF_ISO.root     .
 cp ../../feff_ZH.root                           .
 
 

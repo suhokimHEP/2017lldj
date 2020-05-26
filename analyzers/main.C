@@ -236,13 +236,14 @@ int main(int argc, char **argv){
 
  std::vector<TString> unccategories;
  unccategories.push_back("");
-// if( isMC ){
-//   unccategories.push_back("_EGSUp");
-//   unccategories.push_back("_EGSDown");
-//   unccategories.push_back("_MESUp");
-//   unccategories.push_back("_MESDown");
-//   //unccategories.push_back("_JESUp");
-//   //unccategories.push_back("_JESDown");
+
+ if( isMC ){
+   unccategories.push_back("_EGSUp");
+   unccategories.push_back("_EGSDown");
+   unccategories.push_back("_MESUp");
+   unccategories.push_back("_MESDown");
+//////   //unccategories.push_back("_JESUp");
+//////   //unccategories.push_back("_JESDown");
 //   unccategories.push_back("_AMaxUp");
 //   unccategories.push_back("_AMaxDown");
 //   unccategories.push_back("_IPSigUp");
@@ -251,7 +252,9 @@ int main(int argc, char **argv){
 //   unccategories.push_back("_TADown");
 //   unccategories.push_back("_TagVarsUp");
 //   unccategories.push_back("_TagVarsDown");
-//  }
+   unccategories.push_back("_LeptonSFUp");
+   unccategories.push_back("_LeptonSFDown");
+  }
  
  // make the analyzer, init some stuff
  analyzer_loop analyzer;
@@ -279,6 +282,7 @@ int main(int argc, char **argv){
   analyzer.initLepHistograms( unccategory );
   analyzer.initPhoHistograms( unccategory );
   analyzer.initMETHTHistograms( unccategory );
+  analyzer.initWeightHistograms( unccategory );
   //analyzer.initExtraHistograms( unccategory );
   analyzer.initAODCaloJetBasicHistograms( unccategory );
   analyzer.initAODCaloJet_L1PFHistograms( unccategory );

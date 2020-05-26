@@ -666,14 +666,22 @@ double analyzer_createobjects::DeltaPhi(double phi1, double phi2)
 //-------------------------getMuonPt
 Float_t analyzer_createobjects::getMuonPt(int i, TString sysbinname){
 
-  if(!isMC){ return AOD_muPt->at(i); }
+  if(!isMC){ return AOD_muPt->at(i); }  
   else{
-    //Muon passes pt cut
+    //Muon passes pt cut 
     Float_t muonPt = AOD_muPt->at(i);
     Float_t muonEnergy = muonPt*TMath::CosH( AOD_muEta->at(i) );
-    if(sysbinname=="_MESUp"  ){ muonEnergy*=(1.0 + 0.020); }
-    if(sysbinname=="_MESDown"){ muonEnergy*=(1.0 - 0.020); }
-
+    if(sysbinname=="_MESUp" )
+	{
+	if(fabs(AOD_muEta->at(i)<2.1)) {muonEnergy*=(1.0 + 0.003); }
+	else	{ muonEnergy*=(1.0 + 0.010); }
+	}
+    if(sysbinname=="_MESDown")
+	{
+	if(fabs(AOD_muEta->at(i)<2.1))	{ muonEnergy*=(1.0 - 0.003); }
+	else	{ muonEnergy*=(1.0 - 0.010); }
+	}
+    
     muonPt = muonEnergy/TMath::CosH( AOD_muEta->at(i) );
     return muonPt;
   }
@@ -817,51 +825,51 @@ void analyzer_createobjects::makeDilep(TLorentzVector *fv_1, TLorentzVector *fv_
 
    // electrons
    double best_ee_mass = 9e9;
-   if( electron_list.size()>1 ){
-     for(int i=0; i<electron_list.size(); ++i)
-       {
+   if( electron_list.size()>1 ){                                           
+     for(int i=0; i<electron_list.size(); ++i)                              
+       {                                                                
          for(int j=i+1; j<electron_list.size(); ++j)
            {
-             if( AOD_eleCharge->at(electron_list[i])*AOD_eleCharge->at(electron_list[j])==-1 )
-       	{
+             if( AOD_eleCharge->at(electron_list[i])*AOD_eleCharge->at(electron_list[j])==-1 )                     
+       	{                                                               
        	  TLorentzVector temp1, temp2, temp12;
-       	  temp1.SetPtEtaPhiE( Shifted_elePt.at(electron_list[i]), AOD_eleEta->at(electron_list[i]), AOD_elePhi->at(electron_list[i]), AOD_eleEn->at(electron_list[i]) );
-       	  temp2.SetPtEtaPhiE( Shifted_elePt.at(electron_list[j]), AOD_eleEta->at(electron_list[j]), AOD_elePhi->at(electron_list[j]), AOD_eleEn->at(electron_list[j]) );
+       	  temp1.SetPtEtaPhiE( Shifted_elePt.at(electron_list[i]), AOD_eleEta->at(electron_list[i]), AOD_elePhi->at(electron_list[i]), Shifted_eleEn.at(electron_list[i]) );
+       	  temp2.SetPtEtaPhiE( Shifted_elePt.at(electron_list[j]), AOD_eleEta->at(electron_list[j]), AOD_elePhi->at(electron_list[j]), Shifted_eleEn.at(electron_list[j]) );  
        	  temp12 = temp1+temp2;
        	  if( fabs(91.1876-temp12.M()) < fabs(91.1876 - best_ee_mass) ){
        	    best_ee_mass = temp12.M();
-            e1.SetPtEtaPhiE( Shifted_elePt.at(electron_list[i]), AOD_eleEta->at(electron_list[i]), AOD_elePhi->at(electron_list[i]), AOD_eleEn->at(electron_list[i]) );
-            e2.SetPtEtaPhiE( Shifted_elePt.at(electron_list[j]), AOD_eleEta->at(electron_list[j]), AOD_elePhi->at(electron_list[j]), AOD_eleEn->at(electron_list[j]) );
+            e1.SetPtEtaPhiE( Shifted_elePt.at(electron_list[i]), AOD_eleEta->at(electron_list[i]), AOD_elePhi->at(electron_list[i]), Shifted_eleEn.at(electron_list[i]) );
+            e2.SetPtEtaPhiE( Shifted_elePt.at(electron_list[j]), AOD_eleEta->at(electron_list[j]), AOD_elePhi->at(electron_list[j]), Shifted_eleEn.at(electron_list[j]) );  
        	  }
-       	}
-           }
-       }
+       	}         
+           }          
+       }           
      ee = e1 + e2;
    }//electron size > 1
 
-   // muons
+   // muons                                
    double best_mm_mass = 9e9;
    int best_mm_i=-1, best_mm_j=-1;
-   if( muon_list.size()>1 ){
-     for(int i=0; i<muon_list.size(); ++i)
-       {
+   if( muon_list.size()>1 ){                  
+     for(int i=0; i<muon_list.size(); ++i)     
+       {                                           
          for(int j=i+1; j<muon_list.size(); ++j)
            {
-             if( AOD_muCharge->at(muon_list[i])*AOD_muCharge->at(muon_list[j])==-1 )
-       	{
+             if( AOD_muCharge->at(muon_list[i])*AOD_muCharge->at(muon_list[j])==-1 ) 
+       	{            
        	  TLorentzVector temp1, temp2, temp12;
-       	  temp1.SetPtEtaPhiE( Shifted_muPt.at(muon_list[i]), AOD_muEta->at(muon_list[i]), AOD_muPhi->at(muon_list[i]), AOD_muEn->at(muon_list[i]) );
-       	  temp2.SetPtEtaPhiE( Shifted_muPt.at(muon_list[j]), AOD_muEta->at(muon_list[j]), AOD_muPhi->at(muon_list[j]), AOD_muEn->at(muon_list[j]) );
+       	  temp1.SetPtEtaPhiE( Shifted_muPt.at(muon_list[i]), AOD_muEta->at(muon_list[i]), AOD_muPhi->at(muon_list[i]), Shifted_muEn.at(muon_list[i]) );
+       	  temp2.SetPtEtaPhiE( Shifted_muPt.at(muon_list[j]), AOD_muEta->at(muon_list[j]), AOD_muPhi->at(muon_list[j]), Shifted_muEn.at(muon_list[j]) );  
        	  temp12 = temp1+temp2;
        	  if( fabs(91.1876-temp12.M()) < fabs(91.1876 - best_mm_mass) ){
        	    best_mm_mass = temp12.M();
-            m1.SetPtEtaPhiE( Shifted_muPt.at(muon_list[i]), AOD_muEta->at(muon_list[i]), AOD_muPhi->at(muon_list[i]), AOD_muEn->at(muon_list[i]) );
-            m2.SetPtEtaPhiE( Shifted_muPt.at(muon_list[j]), AOD_muEta->at(muon_list[j]), AOD_muPhi->at(muon_list[j]), AOD_muEn->at(muon_list[j]) );
-       	  }
-       	}
-           }
+            m1.SetPtEtaPhiE( Shifted_muPt.at(muon_list[i]), AOD_muEta->at(muon_list[i]), AOD_muPhi->at(muon_list[i]), Shifted_muEn.at(muon_list[i]) );
+            m2.SetPtEtaPhiE( Shifted_muPt.at(muon_list[j]), AOD_muEta->at(muon_list[j]), AOD_muPhi->at(muon_list[j]), Shifted_muEn.at(muon_list[j]) );  
+       	  } 
+       	}   
+           }    
        }
-     mm = m1 + m2;
+     mm = m1 + m2;      
    }//muon size > 1
 
    *fv_ee = ee;
@@ -887,6 +895,9 @@ void analyzer_createobjects::shiftCollections( TString uncbin )
   Shifted_elePt                       .clear();
   Shifted_phoPt                       .clear();
   Shifted_muPt                        .clear();
+  Shifted_eleEn                       .clear();  
+  Shifted_phoEn                       .clear();  
+  Shifted_muEn                        .clear();  
   Shifted_CaloJetPt                   .clear();
   Shifted_CaloJetAlphaMax             .clear();
   Shifted_CaloJetMedianLog10IPSig     .clear();
@@ -895,12 +906,15 @@ void analyzer_createobjects::shiftCollections( TString uncbin )
   //Objects: do shift inside get function
   for(unsigned int i=0; i<AOD_elePt->size(); ++i){
     Shifted_elePt.push_back( getElectronPt(i,uncbin) );
+    Shifted_eleEn.push_back( getElectronPt(i,uncbin)*TMath::CosH(AOD_eleEta->at(i)));
   }
   for(unsigned int i=0; i<AOD_phoPt->size(); ++i){
     Shifted_phoPt.push_back( getPhotonPt(i,uncbin) );
+    Shifted_phoEn.push_back( getPhotonPt(i,uncbin)*TMath::CosH(AOD_phoEta->at(i)) );
   }
   for(unsigned int i=0; i<AOD_muPt->size(); ++i){
     Shifted_muPt.push_back( getMuonPt(i,uncbin) );
+    Shifted_muEn.push_back( getMuonPt(i,uncbin)*TMath::CosH(AOD_muEta->at(i)) );
   }
   for(unsigned int i=0; i<AODCaloJetPt->size(); ++i){
     Shifted_CaloJetPt.push_back( AODCaloJetPt->at(i));//no correction yet
@@ -934,42 +948,68 @@ void analyzer_createobjects::shiftCollections( TString uncbin )
 	   uncbin.Contains("TagVars") ||
 	   uncbin.Contains("AMax")    ||
 	   uncbin.Contains("IPSig")   ||
-	   uncbin.Contains("TA")
-	   )  ){
+	   uncbin.Contains("TA")        
+	   )  ){ 
       for(unsigned int i=0; i<Shifted_CaloJetAlphaMax.size(); ++i){
 	Shifted_CaloJetAlphaMax.at(i) = Shifted_CaloJetAlphaMax.at(i) * (1+deltaAmax) ;
 	Shifted_CaloJetMedianLog10IPSig.at(i) = Shifted_CaloJetMedianLog10IPSig.at(i) * (1+deltaIPsig) ;
 	Shifted_CaloJetMedianLog10TrackAngle.at(i) = Shifted_CaloJetMedianLog10TrackAngle.at(i) * (1+deltaTA) ;
       }
     }
-
+    
     // AlphaMax
     for(unsigned int i=0; i<Shifted_CaloJetAlphaMax.size(); ++i){
-      if(uncbin.Contains("AMaxUp")||uncbin.Contains("TagVarsUp")){
+      if(uncbin.Contains("AMaxUp")||uncbin.Contains("TagVarsUp")){  
 	Shifted_CaloJetAlphaMax.at(i) = Shifted_CaloJetAlphaMax.at(i) * (1+2*deltaAmax) ;
       }
-      if(uncbin.Contains("TA")||uncbin.Contains("IPSig")){
+      if(uncbin.Contains("TA")||uncbin.Contains("IPSig")){  
 	Shifted_CaloJetAlphaMax.at(i) = Shifted_CaloJetAlphaMax.at(i) * (1+deltaAmax) ;
       }
     }
     // IPSig
     for(unsigned int i=0; i<Shifted_CaloJetMedianLog10IPSig.size(); ++i){
-      if(uncbin.Contains("IPSigUp")||uncbin.Contains("TagVarsUp")){
+      if(uncbin.Contains("IPSigUp")||uncbin.Contains("TagVarsUp")){  
 	Shifted_CaloJetMedianLog10IPSig.at(i) = Shifted_CaloJetMedianLog10IPSig.at(i) * (1+2*deltaIPsig) ;
       }
-      if(uncbin.Contains("TA")||uncbin.Contains("AMax")){
+      if(uncbin.Contains("TA")||uncbin.Contains("AMax")){  
 	Shifted_CaloJetMedianLog10IPSig.at(i) = Shifted_CaloJetMedianLog10IPSig.at(i) * (1+deltaIPsig) ;
       }
     }
     // TA
     for(unsigned int i=0; i<Shifted_CaloJetMedianLog10TrackAngle.size(); ++i){
-      if(uncbin.Contains("TAUp")||uncbin.Contains("TagVarsUp")){
+      if(uncbin.Contains("TAUp")||uncbin.Contains("TagVarsUp")){  
 	Shifted_CaloJetMedianLog10TrackAngle.at(i) = Shifted_CaloJetMedianLog10TrackAngle.at(i) * (1+2*deltaTA) ;
       }
-      if(uncbin.Contains("AMax")||uncbin.Contains("IPSig")){
+      if(uncbin.Contains("AMax")||uncbin.Contains("IPSig")){  
 	Shifted_CaloJetMedianLog10TrackAngle.at(i) = Shifted_CaloJetMedianLog10TrackAngle.at(i) * (1+deltaTA) ;
       }
     }
+ //     for(unsigned int i=0; i<Shifted_CaloJetAlphaMax.size(); ++i){
+ //       Shifted_CaloJetAlphaMax.at(i) = Shifted_CaloJetAlphaMax.at(i) * (1+deltaAmax) ;
+ //       Shifted_CaloJetMedianLog10IPSig.at(i) = Shifted_CaloJetMedianLog10IPSig.at(i) * (1+deltaIPsig) ;
+ //       Shifted_CaloJetMedianLog10TrackAngle.at(i) = Shifted_CaloJetMedianLog10TrackAngle.at(i) * (1+deltaTA) ;
+ //     }
+ //   
+ //   for(unsigned int i=0; i<Shifted_CaloJetAlphaMax.size(); ++i){
+ //     if(uncbin.Contains("AMaxUp")||uncbin.Contains("TagVarsUp")){  
+ //       Shifted_CaloJetAlphaMax.at(i) = Shifted_CaloJetAlphaMax.at(i) * (1+2*deltaAmax) ;
+ //     }
+ //     if(uncbin.Contains("IPSigUp")||uncbin.Contains("TagVarsUp")){  
+ //       Shifted_CaloJetMedianLog10IPSig.at(i) = Shifted_CaloJetMedianLog10IPSig.at(i) * (1+2*deltaIPsig) ;
+ //     }
+ //     if(uncbin.Contains("TAUp")||uncbin.Contains("TagVarsUp")){  
+ //       Shifted_CaloJetMedianLog10TrackAngle.at(i) = Shifted_CaloJetMedianLog10TrackAngle.at(i) * (1+2*deltaTA) ;
+ //     }
+ //     if(uncbin.Contains("AMaxDown")||uncbin.Contains("TagVarsDown")){  
+ //       Shifted_CaloJetAlphaMax.at(i) = Shifted_CaloJetAlphaMax.at(i) * 1/(1+deltaAmax) ;
+ //     }
+ //     if(uncbin.Contains("IPSigDown")||uncbin.Contains("TagVarsDown")){  
+ //       Shifted_CaloJetMedianLog10IPSig.at(i) = Shifted_CaloJetMedianLog10IPSig.at(i) * 1/(1+deltaIPsig) ;
+ //     }
+ //     if(uncbin.Contains("TADown")||uncbin.Contains("TagVarsDown")){  
+ //       Shifted_CaloJetMedianLog10TrackAngle.at(i) = Shifted_CaloJetMedianLog10TrackAngle.at(i) * 1/(1+deltaTA) ;
+ //     }
+ //     } 
  //std::cout<<"AMAX Shift:  "<<deltaAmax<<std::endl;
  //std::cout<<"  IP Shift:  "<<deltaIPsig<<std::endl;
  //std::cout<<"  TA Shift:  "<<deltaTA<<std::endl;

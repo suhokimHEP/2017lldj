@@ -141,7 +141,8 @@ bool analyzer_createobjects::AL_SG(int i){
 }
 
 bool analyzer_createobjects::AL_SB(int i){
-  if(Shifted_CaloJetAlphaMax.at(i) < 0.95 && Shifted_CaloJetAlphaMax.at(i)>tag_maxAmax) return true;
+  //if(Shifted_CaloJetAlphaMax.at(i) < 0.95 && Shifted_CaloJetAlphaMax.at(i)>tag_maxAmax) return true;
+  if(Shifted_CaloJetAlphaMax.at(i)>tag_maxAmax) return true;
   else return false;
 }
 
@@ -524,7 +525,7 @@ std::vector<int> analyzer_createobjects::jet_passID( int bitnr, TString jettype,
 //  if(jettype.EqualTo("pfchs")){
 //   njets = AODnPFchsJet;
 //  }
-  
+
   for(int i = 0; i <  njets; i++)
   {
    float jetpt;

@@ -53,7 +53,7 @@ TFile *outfile_bkgest = 0;
  TH1F* h_sum_AODGenEventWeight = new TH1F("h_sum_AODGenEventWeight","h_sum_AODGenEventWeight", 5,0.,5.);
  TFile *outfile_nPU = 0;
  outfile_nPU = TFile::Open(outfilename+"_AOD0thnPU.root","RECREATE");
- TH1F* h_sum_AOD0thnPU = new TH1F("h_sum_AOD0thnPU","h_sum_AOD0thnPU", 80,0.00,80.00);
+ TH1F* h_sum_AOD0thnPU = new TH1F("h_sum_AOD0thnPU","h_sum_AOD0thnPU", 120,0.00,120.00);
  // start looping over entries
  Long64_t nbytes = 0, nb = 0;
  for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -87,7 +87,6 @@ TFile *outfile_bkgest = 0;
   shiftCollections(uncbin);
   n_tot++;
   h_sum_AODGenEventWeight->Fill(2, AODGenEventWeight);
-  h_sum_AOD0thnPU->Fill(AOD0thnPU);
   // get lists of "good" electrons, photons, jets
   // idbit, pt, eta, sysbinname
   electron_list    = electron_passID  ( eleidbit,        ele_minPt1, ele_minPt2, ele_maxEta, "");
@@ -151,19 +150,44 @@ TFile *outfile_bkgest = 0;
 
 //  nBPartonFlavour = coutNBPartonFlavour();
 
+int nMeanPU = -1;
+
+//std::cout<<"before Loop"<<std::endl;
+  for(int lmno = 0; lmno<AODBunchXing->size(); lmno++){
+  if(AODBunchXing->at(lmno)==0) nMeanPU = AODnPUMean->at(lmno);
+  //std::cout<< AODnPUMean->at(lmno)<<"   BnchXing: "<<AODBunchXing->at(lmno)<<std::endl; 
+  }
+//std::cout<<"after Loop"<<std::endl;
+
+
+  h_sum_AOD0thnPU->Fill(nMeanPU);
   // colisions happen @LHC at a given rate, use event_weight
   // to make the simulation match the rate seen in data
   // = lum * cross-section / nrEvents generated
   event_weight = makeEventWeight(crossSec,lumi,nrEvents);
+  n_bare+=1.0;
+  gew+=AODGenEventWeight;
+  totEW+=event_weight;
   // for MC, simulated pileup is different from observed
   // in commontools/pileup we make a ratio for scaling MC
   if(isMC) PUweight_DoubleEG     = makePUWeight("DoubleEG"    ) ;
   if(isMC) PUweight_DoubleMu     = makePUWeight("DoubleMu"    ) ;
   if(isMC) PUweight_MuonEG       = makePUWeight("MuonEG"      ) ;
   // electrons also have an associated scale factor for MC 
-  if(isMC) event_weight *= makeElectronWeight( electron_list );
   //if(isMC) event_weight *= makeTTWeight( avgTTSF );
 
+  //if (isMC) cout << "Event: " <<event<<"   PUweight_DoubleEG: " <<PUweight_DoubleEG <<"   PUweight_DoubleMu: " <<PUweight_DoubleMu <<"    nPU(MC):" << AOD0thnPU << "  eventWeight: "<< event_weight<<endl;
+ 
+  base_weight = event_weight;
+  ele_weight  = 1.0;
+  if(isMC)  ele_weight  = makeElectronWeight( electron_list );
+  mu_weight   = 1.0;//makeMuonWeight( muon_list );
+
+  if(isMC) event_weight *= makeElectronWeight( electron_list );
+  if(isMC) event_weight *= ctauEventWeight;
+
+  //if(passDoubleMu) cout <<"AODnGoodVtx: "<<AODnGoodVtx<<endl;
+  
 //  getMET();
 
   calculateHT();
@@ -177,8 +201,11 @@ TFile *outfile_bkgest = 0;
   passPTOSOFL = (OSOF_pt>10. && OSOF_pt<100.);
   passZWindow = (dilep_mass>70. && dilep_mass<110.);
   passZWinOSOF= (OSOF_mass>70. && OSOF_mass<110.);
-  passPTOSSF  = (dilep_pt>100.);
-  passPTOSSFL  = (dilep_pt>10. && dilep_pt<100.);
+
+  passPTOSSF     = (dilep_pt>=100.);
+  passPTOSSFL    = (dilep_pt>=10. && dilep_pt<100.);
+  passPTOSSFL_2  = (dilep_pt>=10.);
+
   passGoodVtx = AODnGoodVtx>0; 
   passOneJet  = false; if (aodcalojet_list.size()>0) passOneJet=true;  
   passOneTag  = false; if (taggedjet_list.size()>0) passOneTag=true;  
@@ -309,6 +336,9 @@ TFile *outfile_bkgest = 0;
   dofillselbin[18] = ( ( bitsPassEleMuOSOF    >> 0) &1) ; 
   dofillselbin[19] = ( ( bitsPassOnePho       >> 0) &1) ; 
   dofillselbin[20] = ( ( bitsPassEleMuOSOFL   >> 0) &1) ; 
+  
+  if ( (( bitsPassTwoMuOffZ      >> 0) &1) ){PU_weight = PUweight_DoubleMu; } 
+  if ( (( bitsPassTwoEleOffZ     >> 0) &1) ){PU_weight = PUweight_DoubleEG; }
 
   // fake rate code
   if(doBkgEst && uncbin.EqualTo("")){
@@ -317,7 +347,7 @@ TFile *outfile_bkgest = 0;
    }
   }
   // tagging variable optimization tree
-  if( ( (( bitsPassTwoMuZH      >> 0) &1) || (( bitsPassTwoEleZH      >> 0) &1))  && uncbin.EqualTo("") ){// TwoMuZH or TwoEleZH 
+  if( ( (( bitsPassTwoMuOffZ      >> 0) &1) || (( bitsPassTwoEleOffZ      >> 0) &1))  && uncbin.EqualTo("") ){// TwoMuZH or TwoEleZH 
    optfile->cd();
    setOPTtree(); 
    OPTtree->Fill();
@@ -456,6 +486,9 @@ TFile *outfile_bkgest = 0;
 // std::cout<<"  n_matchedPFchsCalo "<< n_matchedPFchsCalo <<std::endl;
 // std::cout<<"   Percent calo matched to PF: "<<(float)n_matchedPFCalo/(float)n_totalCalo<<std::endl;
 // std::cout<<"   Percent calo matched to PFchs: "<<(float)n_matchedPFchsCalo/(float)n_totalCalo<<std::endl;
+ std::cout<<"n_bare: "<<n_bare<<std::endl;
+ std::cout<<"totEW: " <<totEW<<std::endl;
+ std::cout<<"gew: "   <<gew<<std::endl;
  std::cout<<std::endl<<std::endl;
   
 

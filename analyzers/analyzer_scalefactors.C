@@ -20,7 +20,9 @@ Float_t analyzer_scalefactors::makeEventWeight(Float_t crossSec,
   event_weight=1.0;
   Float_t crossSecScl = crossSec;
   //if(isMC){ event_weight=lumi*crossSecScl/nrEvents; }
-  if(isMC){ event_weight=lumi*crossSecScl*AODGenEventWeight*0.780398/nrEvents; }
+  //if(isMC){ event_weight=lumi*crossSecScl*AODGenEventWeight*0.780398/nrEvents; }
+  if(isMC){ event_weight=lumi*crossSecScl*AODGenEventWeight/nrEvents; }
+  //std::cout<<AODGenEventWeight<<std::endl;
   //printf("isMC: %i lumi: %0.9f crossSec: %0.9f nrEvents: %0.9f",isMC,lumi,crossSecScl,nrEvents);
   //printf("  event_weight: %0.9f\n",event_weight);
 
@@ -30,6 +32,18 @@ Float_t analyzer_scalefactors::makeEventWeight(Float_t crossSec,
 Float_t analyzer_scalefactors::makePUWeight( TString dataset ){
  Int_t tmpbin;
  Float_t tmpweight;
+
+//int nMeanPU = -1;
+//
+////std::cout<<"before Loop"<<std::endl;
+//  for(int lmno = 0; lmno<AODBunchXing->size(); lmno++){
+//  if(AODBunchXing->at(lmno)==0) nMeanPU = AODnPUMean->at(lmno);
+//  //std::cout<< AODnPUMean->at(lmno)<<"   BnchXing: "<<AODBunchXing->at(lmno)<<std::endl; 
+//  }
+//std::cout<<"after Loop"<<std::endl;
+
+// tmpbin = nMeanPU;
+
  if( dataset.EqualTo("DoubleEG") ){
   tmpbin    = PUWeights_DoubleEG->GetBin(AODnTruePU);
   //tmpbin    = PUWeights_DoubleEG->GetBin(AOD0thnPU);

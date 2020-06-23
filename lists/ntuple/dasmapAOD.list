@@ -54,9 +54,13 @@
 #---------------------SM    Higgs    
  ZH_Hbb    /ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/RunIIFall17DRPremix-94X_mc2017_realistic_v10-v1/AODSIM
  ggZH_Hbb    /ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8/RunIIFall17DRPremix-94X_mc2017_realistic_v10-v1/AODSIM
-#---------------------SM    Higgs    
+#---------------------Signal
  ZH_Sig    /ZH_HToSSTobbbb_ZToLL_MH-125_TuneCP5_13TeV-powheg-pythia8/RunIIFall17DRPremix-PU2017_rp_94X_mc2017_realistic_v11-v1/AODSIM
  ggZH_Sig    /ggZH_HToSSTobbbb_ZToLL_MH-125_TuneCP5_13TeV-powheg-pythia8/RunIIFall17DRPremix-PU2017_rp_94X_mc2017_realistic_v11-v1/AODSIM
+ ZH_4d_Sig    /ZH_HToSSTodddd_ZToLL_MH-125_TuneCP5_13TeV-powheg-pythia8/RunIIFall17DRPremix-PU2017_rp_94X_mc2017_realistic_v11-v1/AODSIM
+ ggZH_4d_Sig    /ggZH_HToSSTodddd_ZToLL_MH-125_TuneCP5_13TeV-powheg-pythia8/RunIIFall17DRPremix-PU2017_rp_94X_mc2017_realistic_v11-v1/AODSIM
+ ZH_4Tau_Sig    /ZH_HToSSTo4Tau_ZToLL_MH-125_TuneCP5_13TeV-powheg-pythia8/RunIIFall17DRPremix-PU2017_rp_94X_mc2017_realistic_v11-v1/AODSIM
+ ggZH_4Tau_Sig    /ggZH_HToSSTo4Tau_ZToLL_MH-125_TuneCP5_13TeV-powheg-pythia8/RunIIFall17DRPremix-PU2017_rp_94X_mc2017_realistic_v11-v1/AODSIM
 #---------------------Data        
  #    DoubleEG    
  Data_DoubleEG_B    /DoubleEG/Run2017B-17Nov2017-v1/AOD

@@ -109,7 +109,7 @@ void analyzer_selections::setSelections()
 
  selvecBaseOffZ    .push_back( passGoodVtx );  //.push_back( passGoodVtx  );
  selvecBaseOffZ    .push_back( passZWindow );  //.push_back( !passZWindow );
- selvecBaseOffZ    .push_back( true );         //.push_back( passOSSF     );
+ selvecBaseOffZ    .push_back( true);         //.push_back( passOSSF     );
  selvecBaseOffZ    .push_back( passOneJet  );  //.push_back( passOneJet   );
 
  selvecBaseNoPair  .push_back( passGoodVtx  );

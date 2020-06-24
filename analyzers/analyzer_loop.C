@@ -38,6 +38,8 @@ void analyzer_loop::Loop(TString outfilename,
 
  if(isMC) loadPUWeight();
  if(isMC) loadElectronWeight( eleid );
+ if(isMC) loadMuonWeight( muoid );
+ if(isMC) loadMuonIso( muoid );
 
  std::cout<<"uncbin: "<<uncbin<<std::endl;
 
@@ -179,12 +181,15 @@ int nMeanPU = -1;
   //if (isMC) cout << "Event: " <<event<<"   PUweight_DoubleEG: " <<PUweight_DoubleEG <<"   PUweight_DoubleMu: " <<PUweight_DoubleMu <<"    nPU(MC):" << AOD0thnPU << "  eventWeight: "<< event_weight<<endl;
  
   base_weight = event_weight;
-  ele_weight  = 1.0;
-  if(isMC)  ele_weight  = makeElectronWeight( electron_list );
-  mu_weight   = 1.0;//makeMuonWeight( muon_list );
-
-  if(isMC) event_weight *= makeElectronWeight( electron_list );
+  ele_weight = 1.0;
+  if(isMC) ele_weight  = makeElectronWeight( electron_list, eleID_Unc, eleID_ind);
+  if(isMC) mu_weight   = makeMuonWeight(muon_list, muonID_Unc, muonID_ind);//makeMuonWeight( muon_list );
   if(isMC) event_weight *= ctauEventWeight;
+  if(isMC){ 
+  w_eleID   = ele_weight;
+  w_muonID  = mu_weight;
+  w_muonISO = makeMuonIso(muon_list, muonISO_Unc, muonISO_ind);
+	}
 
   //if(passDoubleMu) cout <<"AODnGoodVtx: "<<AODnGoodVtx<<endl;
   
@@ -400,24 +405,39 @@ int nMeanPU = -1;
   //std::cout<<"PU MuonEG Weight: "<<PUweight_MuonEG<<std::endl;
   // fill the histograms
   for(unsigned int i=0; i<selbinnames.size(); ++i){
-   
-
+  //if(!isMC && run>=319077){/*std::cout<<"HEM Failure, run: "<<run<<std::endl;*/ continue;} // skips HEM Failure, saves prior to problem
+//  if(!isMC && run<319077 && run>0){/*std::cout<<"Before HEM Failure, run: "<<run<<std::endl;*/ continue;} //skips Before HEM Failure, saves HEM Failure
+	w_LeptonSF=1.;
    if(isMC){
-     // ok I'm sorry, this is terrible
-     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13)          fullweight = event_weight * PUweight_DoubleEG;
-     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight * PUweight_DoubleMu;
-     //if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13)   fullweight = event_weight * PUweight_DoubleEG;
-     //if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) fullweight = event_weight * PUweight_DoubleMu;
-     if(i==18) fullweight = event_weight * PUweight_MuonEG;
-     if(i==20) fullweight = event_weight * PUweight_MuonEG;
      if(i==19) fullweight = event_weight;
+     if(i==0||i==1||i==4||i==5||i==8||i==9||i==12||i==13)  
+	{
+	fullweight = event_weight*PUweight_DoubleEG;  	
+	w_LeptonSF = w_eleID;
+	LeptonSF_Unc = eleID_Unc;
+	}
+     if(i==2||i==3||i==6||i==7||i==10||i==11||i==14||i==15||i==17) 
+	{
+	fullweight = event_weight*PUweight_DoubleMu;    
+	w_LeptonSF=w_muonID;
+	w_LeptonSF*=w_muonISO; 
+	LeptonSF_Unc = TMath::Sqrt(muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);	
+	}
+     if(i==18||i==20) 
+	{
+	fullweight = event_weight * PUweight_MuonEG; 
+	w_LeptonSF=w_eleID*w_muonID*w_muonISO; 
+	LeptonSF_Unc = TMath::Sqrt(eleID_Unc*eleID_Unc+muonID_Unc*muonID_Unc+muonISO_Unc*muonISO_Unc);
+	}
+     if(uncbin.Contains("LeptonSFUp")){w_LeptonSF += LeptonSF_Unc; fullweight*=w_LeptonSF;}
+     else if(uncbin.Contains("LeptonSFDown")){w_LeptonSF -= LeptonSF_Unc; fullweight*=w_LeptonSF;}
+     else {fullweight*=w_LeptonSF;}
    }
    else{
      fullweight = event_weight;
    }
-
    /// quick hack to only write phase spaces we care about
-   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==18 || i==19 || i==20 || i==13 || i==15 ){
+   if(i==1 || i==3 || i==5 || i==7 || i==9 || i==11 || i==13 || i==15 || i==18 || i==19 || i==20 ){
     fillCutflowHistograms( fullweight, i, selvec[i], selkey[i] );
     if( dofillselbin[i] ){
      fillSelectedHistograms( fullweight, i );
@@ -428,16 +448,17 @@ int nMeanPU = -1;
       fillSelectedJetHistograms( fullweight, i, k );
      }  }
      else{
-      fillSelectedJetHistograms( fullweight, i, (jetmultnames.size()-1) );
+     fillSelectedJetHistograms( fullweight, i, (jetmultnames.size()-1) );
      }
 
      //tagged jets
      for( unsigned int k=0; k<tagmultnames.size(); ++k){
       fillSelectedTagHistograms( fullweight, i, k );
      }  
-    } // if( dofillselbin[i] ){  
+    } // if( dofillselbin[i] ){
    } // if i== one of the phase spaces we want to write
-  } // for(unsigned int i=0; i<selbinnames.size(); ++i)
+  } // for(unsigned int i=0; i<selbinnames.size(); ++i){
+
 
   //debug_printobjects();   // helpful printout (turn off when submitting!!!)
 

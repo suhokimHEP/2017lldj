@@ -251,10 +251,10 @@ int main(int argc, char **argv){
 //   unccategories.push_back("_TADown");
 //   unccategories.push_back("_TagVarsUp");
 //   unccategories.push_back("_TagVarsDown");
-   unccategories.push_back("_ESFUp");
-   unccategories.push_back("_ESFDown");
-   unccategories.push_back("_MSFUp");
-   unccategories.push_back("_MSFDown");
+//   unccategories.push_back("_ESFUp");
+//   unccategories.push_back("_ESFDown");
+//   unccategories.push_back("_MSFUp");
+//   unccategories.push_back("_MSFDown");
   }
  
  // make the analyzer, init some stuff

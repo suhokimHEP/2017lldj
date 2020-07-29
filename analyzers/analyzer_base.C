@@ -136,7 +136,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    fChain->SetBranchAddress("AODnGoodVtx", &AODnGoodVtx, &b_AODnGoodVtx);
    fChain->SetBranchAddress("AODnTrksPV", &AODnTrksPV, &b_AODnTrksPV);
    fChain->SetBranchAddress("AODisPVGood", &AODisPVGood, &b_AODisPVGood);
-   fChain->SetBranchAddress("AODnPUMean", &AODnPUMean, &b_AODnPUMean);
+   fChain->SetBranchAddress("AODnPUmean", &AODnPUMean, &b_AODnPUMean);
    fChain->SetBranchAddress("AODBunchXing", &AODBunchXing, &b_AODBunchXing);
    fChain->SetBranchAddress("ctau_eventweight", &ctauEventWeight, &b_ctauEventWeight);
    //ele ele

@@ -236,13 +236,13 @@ int main(int argc, char **argv){
 
  std::vector<TString> unccategories;
  unccategories.push_back("");
-// if( isMC ){
+ if( isMC ){
 //   unccategories.push_back("_EGSUp");
 //   unccategories.push_back("_EGSDown");
 //   unccategories.push_back("_MESUp");
 //   unccategories.push_back("_MESDown");
-//   //unccategories.push_back("_JESUp");
-//   //unccategories.push_back("_JESDown");
+//  //   unccategories.push_back("_JESUp");
+//  //   unccategories.push_back("_JESDown");
 //   unccategories.push_back("_AMaxUp");
 //   unccategories.push_back("_AMaxDown");
 //   unccategories.push_back("_IPSigUp");
@@ -251,11 +251,14 @@ int main(int argc, char **argv){
 //   unccategories.push_back("_TADown");
 //   unccategories.push_back("_TagVarsUp");
 //   unccategories.push_back("_TagVarsDown");
-//  }
+   unccategories.push_back("_ESFUp");
+   unccategories.push_back("_ESFDown");
+   unccategories.push_back("_MSFUp");
+   unccategories.push_back("_MSFDown");
+  }
  
  // make the analyzer, init some stuff
  analyzer_loop analyzer;
- analyzer.Init(theChain, isMC, makelog, Tsample);
  analyzer.setConfiguration();
 
  // file to be filled with slimmed tree
@@ -267,6 +270,7 @@ int main(int argc, char **argv){
  for(unsigned int i=0; i<unccategories.size(); ++i){
   TString unccategory = unccategories.at(i);
   //outfilename = outfilenamebase + unccategory;
+ analyzer.Init(theChain, isMC, makelog, Tsample, unccategory);
 
   analyzer.initSelectionCategories( );
   if(i==0){
@@ -279,6 +283,7 @@ int main(int argc, char **argv){
   analyzer.initLepHistograms( unccategory );
   analyzer.initPhoHistograms( unccategory );
   analyzer.initMETHTHistograms( unccategory );
+  analyzer.initWeightHistograms( unccategory );
   //analyzer.initExtraHistograms( unccategory );
   analyzer.initAODCaloJetBasicHistograms( unccategory );
   analyzer.initAODCaloJet_L1PFHistograms( unccategory );

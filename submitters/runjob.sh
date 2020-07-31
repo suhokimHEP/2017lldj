@@ -23,6 +23,7 @@ cp ../../2017_ElectronLoose.root     .
 cp ../../RunBCDEF_SF_ID.root     .
 cp ../../RunBCDEF_SF_ISO.root     .
 cp ../../feff_ZH.root                           .
+cp ../../egammaEffi.txt_EGM2D_runBCDEF_passingRECO.root                           .
 
 
 scramv1 build -j 10

@@ -101,6 +101,7 @@ public :
 //   std::vector<float>   *AODPATJetCSV;
 //   std::vector<float>   *AODPATJetMVA;
    Int_t           AODnCaloJet;
+   std::vector<bool>   *AODCaloJetID;
    std::vector<float>   *AODCaloJetPt;
    std::vector<float>   *AODCaloJetEta;
    std::vector<float>   *AODCaloJetPhi;
@@ -305,6 +306,7 @@ public :
 //   TBranch        *b_AODPATJetMVA;   //!
    //
    TBranch        *b_AODnCaloJet;   //!
+   TBranch        *b_AODCaloJetID;   //!
    TBranch        *b_AODCaloJetPt;   //!
    TBranch        *b_AODCaloJetEta;   //!
    TBranch        *b_AODCaloJetPhi;   //!

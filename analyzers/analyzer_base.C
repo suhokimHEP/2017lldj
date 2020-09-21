@@ -41,6 +41,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    //AODnTruePU = 0;
    //AOD0thnPU = 0;
    ctauEventWeight = 1.;
+   AODCaloJetID = 0;
    AODCaloJetPt = 0;
    AODCaloJetEta = 0;
    AODCaloJetPhi = 0;
@@ -170,6 +171,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    fChain->SetBranchAddress("AOD_HLT_Mu12Ele23_noDZ_isPS", &AOD_HLT_Mu12Ele23_noDZ_isPS, &b_AOD_HLT_Mu12Ele23_noDZ_isPS);
    //Object variables
    fChain->SetBranchAddress("AODnCaloJet", &AODnCaloJet, &b_AODnCaloJet);
+   fChain->SetBranchAddress("AODCaloJetID", &AODCaloJetID, &b_AODCaloJetID);
    if (uncbin.Contains("_JESUp")){fChain->SetBranchAddress("AODCaloJetPt_JECUp", &AODCaloJetPt, &b_AODCaloJetPt);}
    else if (uncbin.Contains("_JESDown")){fChain->SetBranchAddress("AODCaloJetPt_JECDown", &AODCaloJetPt, &b_AODCaloJetPt);}
    else {fChain->SetBranchAddress("AODCaloJetPt", &AODCaloJetPt, &b_AODCaloJetPt);}

@@ -36,7 +36,7 @@ void analyzer_config::setConfiguration()
   mu_minPt1  = 25.;   // loggit
   mu_minPt2  = 12.;   // loggit
   mu_maxEta  = 2.4;   // loggit
-  jet_minPt  = 25.;   // loggit
+  jet_minPt  = 35.;   // loggit
   jet_maxEta = 2.4;   // loggit    
  }                    // loggit
 

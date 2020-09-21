@@ -586,8 +586,9 @@ std::vector<int> analyzer_createobjects::jet_passID( int bitnr, TString jettype,
 
    // WHAT ABOUT JET ID?
    bool pass_kin = jetpt > jetPtCut && ( fabs(jeteta) < jetEtaCut ) ;
+   bool pass_jetid = AODCaloJetID->at(i);
 
-   if( pass_kin && pass_overlap )
+   if( pass_kin && pass_overlap /*&& pass_jetid*/)
    {
     jetlist.push_back(i);
    } // if pass_bit && pass_kin

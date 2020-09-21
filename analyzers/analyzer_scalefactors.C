@@ -44,21 +44,24 @@ Float_t analyzer_scalefactors::makePUWeight( TString dataset ){
 //std::cout<<"after Loop"<<std::endl;
 
 // tmpbin = nMeanPU;
-
+ float intime_PUmean = 0;
+ for(int i =0; i < AODBunchXing->size(); i++)
+   {
+     if( AODBunchXing->at(i) == 0 ) intime_PUmean = AODnPUmean->at(i);
+   }
+ 
  if( dataset.EqualTo("DoubleEG") ){
-  tmpbin    = PUWeights_DoubleEG->GetBin(AODnTruePU);
-  //tmpbin    = PUWeights_DoubleEG->GetBin(AOD0thnPU);
-  tmpweight = PUWeights_DoubleEG->GetBinContent(tmpbin);
+   tmpbin    = PUWeights_DoubleEG->GetXaxis()->FindFixBin(intime_PUmean);;
+   tmpweight = PUWeights_DoubleEG->GetBinContent(tmpbin);
  }
  else if( dataset.EqualTo("DoubleMu") ){
-  tmpbin    = PUWeights_DoubleMu->GetBin(AODnTruePU);
-  //tmpbin    = PUWeights_DoubleMu->GetBin(AOD0thnPU);
+   tmpbin    = PUWeights_DoubleMu->GetXaxis()->FindFixBin(intime_PUmean);
   tmpweight = PUWeights_DoubleMu->GetBinContent(tmpbin);
+  //std::cout << "pu-mean: " << intime_PUmean << " bin: " << tmpbin << " weight: " << tmpweight <<  std::endl;
  }
  else if( dataset.EqualTo("MuonEG") ){
-  tmpbin    = PUWeights_MuonEG->GetBin(AODnTruePU);
-  //tmpbin    = PUWeights_MuonEG->GetBin(AOD0thnPU);
-  tmpweight = PUWeights_MuonEG->GetBinContent(tmpbin);
+   tmpbin    = PUWeights_MuonEG->GetXaxis()->FindFixBin(intime_PUmean);;
+   tmpweight = PUWeights_MuonEG->GetBinContent(tmpbin);
  }
 // else if( dataset.EqualTo("SinglePhoton") ){
 //  tmpbin    = PUWeights_SinglePhoton->GetBin(AODnTruePU);
@@ -211,16 +214,16 @@ Float_t analyzer_scalefactors::makeMuonIso( std::vector<int> &muon_list, float &
 //----------------------------loadPUWeight
 void analyzer_scalefactors::loadPUWeight(){
  std::cout << "loading PU weight" << std::endl;
- TString filename_DoubleEG     = "2017_puWeights_DoubleEG_69200.root" ;
- TString filename_DoubleMu     = "2017_puWeights_DoubleMuon_69200.root" ;
- TString filename_MuonEG       = "2017_puWeights_MuonEG_69200.root" ;
+ TString filename_DoubleEG     = "pu_histo_weight_DoubleEGamma_2017.root";
+  TString filename_DoubleMu    = "pu_histo_weight_DoubleMuon_2017.root";
+ TString filename_MuonEG       = "pu_histo_weight_MuonEGamma_2017.root" ;
  TFile* file_puweights_DoubleEG     = new TFile( filename_DoubleEG     ) ;
  TFile* file_puweights_DoubleMu     = new TFile( filename_DoubleMu     ) ;
  TFile* file_puweights_MuonEG       = new TFile( filename_MuonEG       ) ;
  //std::cout <<" filename: " << filename << std::endl;
- PUWeights_DoubleEG     = (TH1F*)file_puweights_DoubleEG    ->Get("h_PUweight")->Clone("PUWeights_DoubleEG"    );
- PUWeights_DoubleMu     = (TH1F*)file_puweights_DoubleMu    ->Get("h_PUweight")->Clone("PUWeights_DoubleMu"    );
- PUWeights_MuonEG       = (TH1F*)file_puweights_MuonEG      ->Get("h_PUweight")->Clone("PUWeights_MuonEG"      );
+ PUWeights_DoubleEG     = (TH1F*)file_puweights_DoubleEG    ->Get("h_pu_weight")->Clone("PUWeights_DoubleEG"    );
+ PUWeights_DoubleMu     = (TH1F*)file_puweights_DoubleMu    ->Get("h_pu_weight")->Clone("PUWeights_DoubleMu"    );
+ PUWeights_MuonEG       = (TH1F*)file_puweights_MuonEG      ->Get("h_pu_weight")->Clone("PUWeights_MuonEG"      );
  return ;
 }
 //----------------------------loadElectronReco

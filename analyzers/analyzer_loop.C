@@ -157,7 +157,7 @@ int nMeanPU = -1;
 
 //std::cout<<"before Loop"<<std::endl;
   for(int lmno = 0; lmno<AODBunchXing->size(); lmno++){
-  if(AODBunchXing->at(lmno)==0) nMeanPU = AODnPUMean->at(lmno);
+  if(AODBunchXing->at(lmno)==0) nMeanPU = AODnPUmean->at(lmno);
   //std::cout<< AODnPUMean->at(lmno)<<"   BnchXing: "<<AODBunchXing->at(lmno)<<std::endl; 
   }
 //std::cout<<"after Loop"<<std::endl;

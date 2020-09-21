@@ -37,7 +37,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    AODnGoodVtx = 0;
    AODnVtx = 0;
    AODBunchXing = 0;
-   AODnPUMean = 0;
+   AODnPUmean = 0;
    //AODnTruePU = 0;
    //AOD0thnPU = 0;
    ctauEventWeight = 1.;
@@ -137,7 +137,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isitMC, Bool_t domakelog, TString 
    fChain->SetBranchAddress("AODnGoodVtx", &AODnGoodVtx, &b_AODnGoodVtx);
    fChain->SetBranchAddress("AODnTrksPV", &AODnTrksPV, &b_AODnTrksPV);
    fChain->SetBranchAddress("AODisPVGood", &AODisPVGood, &b_AODisPVGood);
-   fChain->SetBranchAddress("AODnPUmean", &AODnPUMean, &b_AODnPUMean);
+   fChain->SetBranchAddress("AODnPUmean", &AODnPUmean, &b_AODnPUmean);
    fChain->SetBranchAddress("AODBunchXing", &AODBunchXing, &b_AODBunchXing);
    fChain->SetBranchAddress("ctau_eventweight", &ctauEventWeight, &b_ctauEventWeight);
    //ele ele

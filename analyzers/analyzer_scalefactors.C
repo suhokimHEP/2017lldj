@@ -214,9 +214,12 @@ Float_t analyzer_scalefactors::makeMuonIso( std::vector<int> &muon_list, float &
 //----------------------------loadPUWeight
 void analyzer_scalefactors::loadPUWeight(){
  std::cout << "loading PU weight" << std::endl;
- TString filename_DoubleEG     = "pu_histo_weight_DoubleEGamma_2017.root";
-  TString filename_DoubleMu    = "pu_histo_weight_DoubleMuon_2017.root";
- TString filename_MuonEG       = "pu_histo_weight_MuonEGamma_2017.root" ;
+ //TString filename_DoubleEG     = "pu_histo_weight_DoubleEGamma_2017.root";
+ //TString filename_DoubleMu    = "pu_histo_weight_DoubleMuon_2017.root";
+ //TString filename_MuonEG       = "pu_histo_weight_MuonEGamma_2017.root" ;
+ TString filename_DoubleEG     = "pu_histo_weight_2017_fromSi.root";
+ TString filename_DoubleMu     = "pu_histo_weight_2017_fromSi.root";
+ TString filename_MuonEG       = "pu_histo_weight_2017_fromSi.root" ;
  TFile* file_puweights_DoubleEG     = new TFile( filename_DoubleEG     ) ;
  TFile* file_puweights_DoubleMu     = new TFile( filename_DoubleMu     ) ;
  TFile* file_puweights_MuonEG       = new TFile( filename_MuonEG       ) ;

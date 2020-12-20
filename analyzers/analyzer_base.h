@@ -47,8 +47,9 @@ public :
    Int_t           AODnGoodVtx;
    Int_t           AODnTrksPV;
    Bool_t          AODisPVGood;
-   std::vector<int>           *AODnPUMean;
+   //std::vector<int>           *AODnPUMean;
    std::vector<int>           *AODBunchXing;
+   std::vector<float>         *AODnPUmean;
 //   std::vector<int>     *llpId;
 //   std::vector<int>     *llpStatus;
 //   std::vector<float>   *llpPt;
@@ -101,6 +102,7 @@ public :
 //   std::vector<float>   *AODPATJetCSV;
 //   std::vector<float>   *AODPATJetMVA;
    Int_t           AODnCaloJet;
+   std::vector<bool>   *AODCaloJetID;
    std::vector<float>   *AODCaloJetPt;
    std::vector<float>   *AODCaloJetEta;
    std::vector<float>   *AODCaloJetPhi;
@@ -250,8 +252,9 @@ public :
    TBranch        *b_AODnGoodVtx;   //!
    TBranch        *b_AODnTrksPV;   //!
    TBranch        *b_AODisPVGood;   //!
-   TBranch        *b_AODnPUMean;   //!
+   //TBranch        *b_AODnPUMean;   //!
    TBranch        *b_AODBunchXing;   //!
+   TBranch        *b_AODnPUmean;   //!
 //   TBranch        *b_llpId;   //!
 //   TBranch        *b_llpStatus;   //!
 //   TBranch        *b_llpPt;   //!
@@ -305,6 +308,7 @@ public :
 //   TBranch        *b_AODPATJetMVA;   //!
    //
    TBranch        *b_AODnCaloJet;   //!
+   TBranch        *b_AODCaloJetID;   //!
    TBranch        *b_AODCaloJetPt;   //!
    TBranch        *b_AODCaloJetEta;   //!
    TBranch        *b_AODCaloJetPhi;   //!
